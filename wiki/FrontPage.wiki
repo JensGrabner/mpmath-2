@@ -62,7 +62,7 @@ Unfortunately, in the current version, the above number cannot be printed to a d
 1.00000000000000E+100
 }}}
 
-The following functions are implemented, and work for both real and complex numbers: `sqrt`, `exp`, `cos`, `sin`. More functions will be supported soon!
+The following functions are implemented, and work for both real and complex numbers: `sqrt`, `exp`, `cos`, `sin`. In addition, `hypot` and `log` work for real numbers. More functions will be supported soon!
 
 =Performance=
 
