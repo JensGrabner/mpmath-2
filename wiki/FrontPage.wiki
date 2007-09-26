@@ -1,0 +1,75 @@
+#summary Front page
+
+mpmath is a replacement for Python's float/complex classes and math/cmath modules with unlimited precision and exponent sizes. It is written entirely in Python without any external dependencies and hence runs almost everywhere, without the need for compilation.
+
+The first version of mpmath has not yet been released. Development code is available in the SVN repository.
+
+=Tutorial=
+
+mpmath provides two classes `mpf` and `mpc` which respectively correspond to Python's built-in `float` and `complex`. They interact nicely with other numbers:
+
+{{{
+>>> mpf(3) + 2*mpf('2.5') + 1.0
+mpf('9')
+>>> mpc(1j)**0.5
+mpc('0.70710678118654757', '0.70710678118654746')
+}}}
+
+The `print` statement displays numbers more prettily:
+{{{
+>>> print mpc(1j)**0.5
+0.707106781186548 + 0.707106781186547j
+}}}
+
+As seen above, mpfs have a default precision of roughly 15 decimal digits (more precisely 53 bits), the same as standard floats. To change the precision, use the `prec` or `dps` properties of the `mpf` class. `prec` is the precision in bits and `dps` is the precision in decimals; if you change one, the `mpf` class automatically changes the other to match. For example, this sets the precision to 100 digits:
+
+{{{
+>>> mpf.dps = 100
+>>> mpf.dps
+100
+>>> mpf.prec
+336
+}}}
+
+This temporarily increases the precision by two bits and then restores it:
+{{{
+>>> mpf.prec += 2
+>>> mpf.prec -= 2
+}}}
+
+When you've set the precision level, all mpf and mpc operations are carried out at that precision:
+
+{{{
+>>> mpf.dps = 50
+>>> mpf(1) / 7
+mpf('0.1428571428571428571428571428571428571428571428571428')
+>>> mpf.dps = 100
+>>> mpf(2) ** 0.5
+mpf('1.4142135623730950488016887242096980785696718753769480731766797379907324784
+6210703885038753432764157274')
+}}}
+
+There is no practical magnitude limitation on numbers. For example, an mpf can represent an approximation of 1 googolplex:
+
+{{{
+>>> a = mpf(10) ** (10**100)
+}}}
+
+Unfortunately, in the current version, the above number cannot be printed to a decimal (this will be fixed). You can take its logarithm, however:
+
+{{{
+>>> print log(a, 10)
+1.00000000000000E+100
+}}}
+
+The following functions are implemented, and work for both real and complex numbers: `sqrt`, `exp`, `cos`, `sin`. More functions will be supported soon!
+
+=Performance=
+
+Compared to Python's built-in decimal module (as of Python 2.5), mpmath is over 10x faster at standard precision levels, and hundreds or thousands times faster for most operations at hundreds of digits and beyond.
+
+mpmath uses tuples of Python integers to represent floating-point numbers with arbitrary precision. It is relatively slow compared to C/C++ libraries at low precision levels, where Python's interpreter overhead dominates over the time spent on actual arithmetic, and also relatively slow at extremely high precision levels since Python does not use the asymptotically fastest algorithms for large-integer multiplication and division. In between, however, the performance is quite acceptable for many applications. For example, mpmath is used for numerical evaluation of expressions in [http://sympy.googlecode.com SymPy].
+
+Depending on the rounding mode and the particular operands, mpmath manages 50,000-100,000 arithmetic operations per second with 15-digit precision on a modern PC (Athlon 3700+). [http://psyco.sourceforge.net/ Psyco] roughly doubles that number. The performance scales well with slightly increased precision: the speed is roughly the same at 15 and 150 digits, and multiplication is only 10 times slower at 1000 digits than at 15 digits.
+
+Just for entertainment, mpmath includes a demo script pidigits.py that computes digits of pi in any base 2-36. Roughly timed, it can compute 10,000 decimals in half a second, 100,000 decimals in 30 seconds and 1,000,000 decimals in 30 minutes. The large differences between these timings give an indication of the precision range where mpmath ceases to be useful.
