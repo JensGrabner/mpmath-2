@@ -8,7 +8,7 @@ mpmath is a replacement for Python's float/complex classes and math/cmath module
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
 
-=Usage=
+=Basic usage=
 
 To install mpmath, download the latest version and run `setup.py install`. Alternatively, copy the `mpmath` directory into `(pythondir)/lib/site-packages/`. To import it in an interactive Python session, type
 
@@ -30,6 +30,8 @@ The `print` statement displays numbers more prettily:
 >>> print mpc(1j)**0.5
 0.707106781186548 + 0.707106781186547j
 }}}
+
+=Managing precision=
 
 As seen above, mpfs have a default precision of roughly 15 decimal digits (more precisely 53 bits), the same as standard floats. To change the precision, use the `prec` or `dps` properties of the `mpf` class. `prec` is the precision in bits and `dps` is the precision in decimals; if you change one, the `mpf` class automatically changes the other to match. For example, this sets the precision to 100 digits:
 
