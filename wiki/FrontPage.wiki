@@ -2,13 +2,13 @@
 
 mpmath is a replacement for Python's float/complex classes and math/cmath modules with unlimited precision and exponent sizes. It is written entirely in Python without any external dependencies and hence runs almost everywhere, without the need for compilation.
 
-=Status / news=
+==Status / news==
 [http://mpmath.googlecode.com/files/mpmath-0.1.zip Version 0.1 is available] for playing with. Note that this is just a preliminary test release and many features are missing or have not been tested fully. The current development code is available in the SVN repository.
 
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
 
-=Basic usage=
+==Basic usage==
 
 To install mpmath, download the latest version and run `setup.py install`. Alternatively, copy the `mpmath` directory into `(pythondir)/lib/site-packages/`. To import it in an interactive Python session, type
 
@@ -31,7 +31,7 @@ The `print` statement displays numbers more prettily:
 0.707106781186548 + 0.707106781186547j
 }}}
 
-=Managing precision=
+==Managing precision==
 
 As seen above, mpfs have a default precision of roughly 15 decimal digits (more precisely 53 bits), the same as standard floats. To change the precision, use the `prec` or `dps` properties of the `mpf` class. `prec` is the precision in bits and `dps` is the precision in decimals; if you change one, the `mpf` class automatically changes the other to match. For example, this sets the precision to 100 digits:
 
@@ -76,7 +76,7 @@ Unfortunately, in the current version, the above number cannot be printed to a d
 
 The following functions are implemented, and work for both real and complex numbers: `sqrt`, `exp`, `cos`, `sin`. In addition, `hypot` and `log` work for real numbers. More functions will be supported soon!
 
-=Performance=
+==Performance==
 
 Compared to Python's built-in decimal module (as of Python 2.5), mpmath is over 10x faster at standard precision levels, and hundreds or thousands times faster for most operations at hundreds of digits and beyond.
 
