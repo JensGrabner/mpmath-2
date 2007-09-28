@@ -43,7 +43,7 @@ As seen above, mpfs have a default precision of roughly 15 decimal digits (more 
 336
 }}}
 
-This temporarily increases the precision by two bits and then restores it:
+This increases the precision by two bits and then restores it:
 {{{
 >>> mpf.prec += 2
 >>> mpf.prec -= 2
@@ -78,7 +78,7 @@ The following functions are implemented, and work for both real and complex numb
 
 ==Performance==
 
-Compared to Python's built-in decimal module (as of Python 2.5), mpmath is over 10x faster at standard precision levels, and hundreds or thousands times faster for most operations at hundreds of digits and beyond.
+mpmath is roughly 10 times faster than Python's built-in decimal module at standard precision, and increasingly faster at higher precision levels (for example, calculating the 100th harmonic number 1 + 1/2 + ... + 1/100 with 1000-digit precision is 300 times faster in mpmath).
 
 mpmath uses tuples of Python integers to represent floating-point numbers with arbitrary precision. It is relatively slow compared to C/C++ libraries at low precision levels, where Python's interpreter overhead dominates over the time spent on actual arithmetic, and also relatively slow at extremely high precision levels since Python does not use the asymptotically fastest algorithms for large-integer multiplication and division. In between, however, the performance is quite acceptable for many applications. The speed is roughly the same at 15 and 150 digits, and multiplication is only 10 times slower at 1000 digits than at 15 digits.
 
