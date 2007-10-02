@@ -10,7 +10,7 @@ mpmath is a replacement for Python's float/complex classes and math/cmath module
 For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file. Planned future features include:
 
   * All standard elementary functions (hyperbolic and inverse trigonometric/hyperbolic functions remain)
-  * Full IEEE 754 emulation (support for NaNs and infinities; optional support for denormalized numbers)
+  * Emulation of all features defined in the IEEE 754 floating-point standard (support for !NaNs and infinities; optional support for denormalized numbers)
   * Some more nonelementary special functions (gamma, incomplete gamma, erf)
   * Correct directed rounding for all functions (directed rounding is implemented for addition and multiplication and partially implemented (probabilistically) for more advanced operations)
 
