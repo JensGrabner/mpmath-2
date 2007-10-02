@@ -87,6 +87,34 @@ Unfortunately, in the current version, the above number cannot be printed to a d
 1.00000000000000E+100
 }}}
 
+The constants pi, e, and cgamma (Euler's constant) are available as special objects that behave like mpfs but whose values automatically adjust to the precision.
+
+{{{
+>>> mpf.dps = 15
+>>> print pi
+3.14159265358979
+>>> mpf.dps = 50
+>>> print pi
+3.1415926535897932384626433832795028841971693993751
+}}}
+
+==Rounding==
+
+Directed rounding is partially implemented. For example, this computes and verifies a 15-digit approximation interval for pi:
+
+{{{
+>>> mpf.dps = 15
+>>> mpf.round_down(); pi1 = +pi
+>>> mpf.round_up(); pi2 = +pi
+>>> pi1
+mpf('3.1415926535897931')
+>>> pi2
+mpf('3.1415926535897936')
+>>> mpf.dps = 30
+>>> pi1 < pi < pi2
+True
+}}}
+
 ==Performance==
 
 mpmath is roughly 10 times faster than Python's built-in decimal module at standard precision, and increasingly faster at higher precision levels (for example, calculating the 100th harmonic number 1 + 1/2 + ... + 1/100 with 1000-digit precision is 300 times faster in mpmath).
