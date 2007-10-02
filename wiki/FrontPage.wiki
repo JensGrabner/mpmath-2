@@ -10,7 +10,7 @@ mpmath is a replacement for Python's `float`/`complex` types and `math`/`cmath` 
 For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file. The following features are implemented in the current version:
   * Arbitrary-precision real and complex floating-point arithmetic
   * The main elementary functions (`sqrt`, `exp`, `cos`, `sin`, `tan`, and a few others), which work for both real and complex numbers and with arbitrary precision)
-  * Directed rounding, in all directions supported by Python's `Decimal` class. (Directed rounding is implemented fully for addition and multiplication and heuristically for more advanced operations.)
+  * Directed rounding for real numbers, in all directions supported by Python's `Decimal` class. (Directed rounding is implemented fully for addition and multiplication and heuristically for more advanced operations.)
 
 Planned future additions include:
   * All standard elementary functions (hyperbolic and inverse trigonometric/hyperbolic functions remain)
