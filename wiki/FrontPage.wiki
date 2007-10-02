@@ -3,7 +3,7 @@
 mpmath is a replacement for Python's float/complex classes and math/cmath modules with unlimited precision and exponent sizes. It is written entirely in Python without any external dependencies and hence runs almost everywhere, without the need for compilation.
 
 ==Status / news==
-[http://mpmath.googlecode.com/files/mpmath-0.1.zip Version 0.1 is available] for playing with. Note that this is just a preliminary test release and many features are missing or have not been tested fully. The current development code is available in the SVN repository.
+[http://mpmath.googlecode.com/files/mpmath-0.1.zip Version 0.1 is available] for playing with. Note that this is just a preliminary test release and many features are missing or have not been tested fully. The current development code is available in the [http://mpmath.googlecode.com/svn/ SVN repository].
 
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
@@ -84,4 +84,4 @@ mpmath uses tuples of Python integers to represent floating-point numbers with a
 
 In the default (most accurate) rounding mode, mpmath manages 50,000-100,000 arithmetic operations per second with 15-digit precision on a modern PC (Athlon 3700+). [http://psyco.sourceforge.net/ Psyco] roughly doubles that number. Using Psyco and the fastest rounding mode, and using the internal functional interface instead of number objects, some 300,000-800,000 arithmetic operations can be performed per second at 15-digit precision.
 
-Just for entertainment, mpmath includes a demo script pidigits.py that computes digits of pi in any base 2-36. Roughly timed, it can compute 10,000 decimals in half a second, 100,000 decimals in 30 seconds and 1,000,000 decimals in 30 minutes. The large differences between these timings give an indication of the precision range where mpmath ceases to be useful.
+Just for entertainment, mpmath includes a demo script pidigits.py (currently in SVN) that computes digits of pi in any base 2-36. Roughly timed, it can compute 10,000 decimals in half a second, 100,000 decimals in 30 seconds and 1,000,000 decimals in 30 minutes. The large differences between these timings give an indication of the precision range where mpmath ceases to be useful.
