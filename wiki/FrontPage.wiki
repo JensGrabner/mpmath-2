@@ -7,13 +7,18 @@ mpmath is a replacement for Python's float/complex classes and math/cmath module
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
 
-For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file.
+For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file. Planned future features include:
+
+  * All standard elementary functions (hyperbolic and inverse trigonometric/hyperbolic functions remain)
+  * Full IEEE 754 emulation (support for NaNs and infinities; optional support for denormalized numbers)
+  * Some more nonelementary special functions (gamma, incomplete gamma, erf)
+  * Correct directed rounding for all functions (directed rounding is implemented for addition and multiplication and partially implemented (probabilistically) for more advanced operations)
 
 The current development code is available in the [http://mpmath.googlecode.com/svn/ SVN repository].
 
 ==Basic usage==
 
-To install mpmath, download the latest version and run `setup.py install`. Alternatively, copy the `mpmath` directory into `(pythondir)/lib/site-packages/`. To import it in an interactive Python session, type
+To install mpmath, either execute the binary installer (Windows only) or unpackage the source distribution and run `python setup.py install`. To import it in an interactive Python session, type
 
 {{{
 >>> from mpmath import *
