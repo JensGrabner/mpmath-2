@@ -3,10 +3,13 @@
 mpmath is a replacement for Python's float/complex classes and math/cmath modules with unlimited precision and exponent sizes. It is written entirely in Python without any external dependencies and hence runs almost everywhere, without the need for compilation.
 
 ==Status / news==
-[http://mpmath.googlecode.com/files/mpmath-0.1.zip Version 0.1 is available] for playing with. Note that this is just a preliminary test release and many features are missing or have not been tested fully. The current development code is available in the [http://mpmath.googlecode.com/svn/ SVN repository].
+[http://mpmath.googlecode.com/files/mpmath-0.2.zip Version 0.2 is available]. The current development code is available in the [http://mpmath.googlecode.com/svn/ SVN repository].
 
+  * *October 2, 2007.* Released version 0.2.
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
+
+For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file.
 
 ==Basic usage==
 
