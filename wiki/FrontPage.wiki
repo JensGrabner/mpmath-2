@@ -1,18 +1,23 @@
 #summary Front page
 
-mpmath is a replacement for Python's float/complex classes and math/cmath modules with unlimited precision and exponent sizes. It is written entirely in Python without any external dependencies and hence runs almost everywhere, without the need for compilation.
+mpmath is a replacement for Python's `float`/`complex` types and `math`/`cmath` modules with unlimited precision and exponent sizes. It is written entirely in Python without any external dependencies and hence runs almost everywhere, without the need for compilation.
 
 ==Status / news==
   * *October 2, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.2.zip version 0.2]. This version fixes several bugs and adds improved support for complex numbers (complex logarithms and powers are now supported).
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
 
-For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file. Planned future features include:
+For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file. The following features are implemented in the current version:
+  * Arbitrary-precision real and complex floating-point arithmetic
+  * The main standard transcendental functions (`sqrt`, `exp`, `cos`, `sin`, `tan`, and a few others), which work for both real and complex numbers and with arbitrary precision)
+  * Directed rounding, in all directions supported by Python's `Decimal` class. (Directed rounding is implemented fully for addition and multiplication and heuristically for more advanced operations.)
 
+Planned future additions include:
   * All standard elementary functions (hyperbolic and inverse trigonometric/hyperbolic functions remain)
   * Emulation of all features defined in the IEEE 754 floating-point standard (support for !NaNs and infinities; optional support for denormalized numbers)
+  * Rigorous directed rounding for all functions
   * Some more nonelementary special functions (gamma, incomplete gamma, erf)
-  * Correct directed rounding for all functions (directed rounding is implemented for addition and multiplication and partially implemented (probabilistically) for more advanced operations)
+  * Fast radix conversion
 
 The current development code is available in the [http://mpmath.googlecode.com/svn/ SVN repository].
 
@@ -81,8 +86,6 @@ Unfortunately, in the current version, the above number cannot be printed to a d
 >>> print log(a, 10)
 1.00000000000000E+100
 }}}
-
-The following functions are implemented, and work for both real and complex numbers: `sqrt`, `exp`, `cos`, `sin`. In addition, `hypot` and `log` work for real numbers. More functions will be supported soon!
 
 ==Performance==
 
