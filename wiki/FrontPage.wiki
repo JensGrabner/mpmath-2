@@ -23,7 +23,7 @@ The current development code is available in the [http://mpmath.googlecode.com/s
 
 ==Basic usage==
 
-To install mpmath, either execute the binary installer (Windows only) or unpackage the source distribution and run `python setup.py install`. To import it in an interactive Python session, type
+To install mpmath, either run the binary installer (Windows only) or unpack the source distribution and run `python setup.py install`. To import it in an interactive Python session, type
 
 {{{
 >>> from mpmath import *
