@@ -2,6 +2,8 @@
 
 mpmath is a replacement for Python's `float`/`complex` types and `math`/`cmath` modules with unlimited precision and exponent sizes. It is written entirely in Python without any external dependencies and hence runs almost everywhere, without the need for compilation.
 
+http://mpmath.googlecode.com/svn/doc/mpmath-web.png
+
 ==Status / news==
   * *October 2, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.2.zip version 0.2]. This version fixes several bugs and adds improved support for complex numbers (complex logarithms and powers are now supported).
   * *September 27, 2007.* Released version 0.1.
