@@ -1,0 +1,67 @@
+#summary Benchmarks of performance
+
+The mpmath `benchmark.py` script generated the following timings on an Athlon 3700+ for the version of mpmath in the SVN repository on October 4, 2007. The script measures the number of operations that could be carried out per second at the given precision with x and y being random full-precision numbers between -32 and 32.
+
+{{{
+mpf timings (operations / second)
+
+    op / dps :      15      30     100     500    1000
+---------------------------------------------------------
+      int(x) :  293232  287194  287744  288208  267529
+    float(x) :  322944  322411  308581  106724  103935
+      str(x) :     976     729     321      68      27
+          +x :  135453  119678  109667  115767  109466
+          -x :  148367  129006  131407  124984  109533
+      x * 10 :   70278   65825   65703   54816   44655
+      x + 10 :   56951   55075   54334   50063   40630
+      x / 10 :   52241   51589   48688   40084   32005
+       x + y :   70749   65599   66633   52702   41078
+       x - y :   67363   62726   64357   53014   38781
+       x * y :   67596   61601   54186   18360    7272
+       x / y :   63158   55213   42301    7970    2367
+      x == y :  642235  626797  658004  630201  627990
+       x < y :  203064  199196  174782  151290  164350
+      abs(x) :  147761  131635  129881  127658  123093
+sqrt(abs(x)) :   29723   25291   20407    7000    2804
+ abs(x)**0.5 :   17001   15623   12845    6017    2617
+      exp(x) :   27587   21888    9416     548     122
+ log(abs(x)) :   14516    9913    4804     415     102
+       x**42 :   10827   10069    9265    3506    1591
+        x**y :    3073    2610    1659     163      37
+      sin(x) :   17277   13607    6490     374      69
+      tan(x) :   14755   11414    5795     355      67
+     atan(x) :   11277    7451    1965      65      10
+     cosh(x) :   13508   11516    6633     514     117
+     asin(x) :    1446    1292     856      75      15
+    gamma(x) :    1667    1296     354       8       1
+      erf(x) :     339     289     181      15       3
+     zeta(x) :     210     118      29       0
+}}}
+
+String conversion is clearly a bottleneck (this is due to the `Decimal` class currently being used for binary-to-decimal conversion). psyco consistently speeds things up by about 50-100%.
+
+The timings for `Decimal` (for supported operations) are:
+
+{{{
+Decimal timings (operations / second)
+
+    op / dps :      15      30     100     500    1000
+----------------------------------------------------------
+      int(x) :   80439   49034   18078    3644    1964
+    float(x) :   50063   34090   14204    3138    1641
+      str(x) :   67158   43706   17334    3714    1702
+          +x :  110821  103754   75517   29388   15323
+          -x :   39861   29461   13059    3139    1541
+      x * 10 :    9711    7604    3120     594     226
+      x + 10 :    8948    7026    3517     656     258
+      x / 10 :    4862    2588     759     113      37
+       x + y :   11130    7714    3020     502     148
+       x - y :    9140    6376    2731     485     146
+       x * y :    7879    1044    1908     297      95
+       x / y :    4125    2301     671     100      36
+      x == y :  154958  136104   92975   31677   17444
+       x < y :  170454  155632   75998   31733   17029
+      abs(x) :   65082   38655   29755    8194    4010
+abs(x).sqrt():     404     279      91      13       5
+       x**42 :     551     589     229      36      13
+}}}
