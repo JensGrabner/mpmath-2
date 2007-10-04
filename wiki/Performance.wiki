@@ -1,6 +1,6 @@
 #summary Benchmarks of performance
 
-The mpmath `benchmark.py` script generated the following timings on an Athlon 3700+ for the version of mpmath in the SVN repository on October 4, 2007. The script measures the number of operations that could be carried out per second at the given precision with x and y being random full-precision numbers between -32 and 32.
+The mpmath `benchmark.py` script generated the following timings on an Athlon 3700+ for the version of mpmath in the SVN repository on October 4, 2007. The script measures the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between -32 and 32.
 
 {{{
 mpf timings (operations / second)
