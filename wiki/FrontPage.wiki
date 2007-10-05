@@ -12,9 +12,8 @@ http://mpmath.googlecode.com/svn/doc/mpmath-web.png
 
 For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file. The following features are implemented in the current version:
   * Arbitrary-precision real and complex floating-point arithmetic
-  * The common elementary functions: `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, which all work for both real and complex numbers and with arbitrary precision.
+  * Lots of functions: `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, `atan2`, `hypot`, `arg`, `gamma`, `factorial`, `erf`, `upper_gamma`/`lower_gamma` (incomplete gamma functions), `zeta`.
   * Common mathematical constants: `e`, `pi`, `cgamma` (Euler's constant)
-  * Some non-elementary functions: `gamma`, `factorial`, `erf`, `upper_gamma`/`lower_gamma` (incomplete gamma functions), `zeta`.
   * Directed rounding for real numbers, in all directions supported by Python's `Decimal` class. (Directed rounding is implemented rigorously for addition and multiplication and heuristically for more advanced operations.)
 
 Planned future additions include:
