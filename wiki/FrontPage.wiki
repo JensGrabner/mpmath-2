@@ -5,15 +5,16 @@ mpmath is a replacement for Python's `float`/`complex` types and `math`/`cmath` 
 http://mpmath.googlecode.com/svn/doc/mpmath-web.png
 
 ==Status / news==
-  * *October 5, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.3.zip version 0.3]. All the hyperbolic, inverse trigonometric and inverse hyperbolic functions are now available. A few nonelementary functions like `gamma`, `erf`, `zeta` have also been added. In addition, numerous bugs have been fixed, more tests have been added, and parts of the code have been cleaned up.
+  * *October 5, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.3.zip version 0.3]. All the 12 standard trigonometric, hyperbolic, inverse trigonometric and inverse hyperbolic functions are now available in mpmath and work for both real and complex numbers with arbitrary precision. A few useful nonelementary functions like `gamma`, `erf` and `zeta` have been added as well. In addition, numerous bugs have been fixed, more tests have been added, and parts of the code have been cleaned up.
   * *October 2, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.2.zip version  0.2]. This version fixes several bugs and adds improved support for complex numbers (complex logarithms and powers are now supported).
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
 
 For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file. The following features are implemented in the current version:
   * Arbitrary-precision real and complex floating-point arithmetic
-  * The common elementary functions: `sqrt`, `exp`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, which all work for both real and complex numbers and with arbitrary precision.
-  * A few non-elementary functions are also available: `gamma`, `factorial`, `erf`, `upper_gamma`/`lower_gamma` (incomplete gamma functions), `zeta`.
+  * The common elementary functions: `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, which all work for both real and complex numbers and with arbitrary precision.
+  * Common mathematical constants: `e`, `pi`, `cgamma` (Euler's constant)
+  * Some non-elementary functions: `gamma`, `factorial`, `erf`, `upper_gamma`/`lower_gamma` (incomplete gamma functions), `zeta`.
   * Directed rounding for real numbers, in all directions supported by Python's `Decimal` class. (Directed rounding is implemented rigorously for addition and multiplication and heuristically for more advanced operations.)
 
 Planned future additions include:
@@ -89,7 +90,7 @@ Unfortunately, in the current version, the above number cannot be printed to a d
 1.00000000000000E+100
 }}}
 
-The constants pi, e, and cgamma (Euler's constant) are available as special objects that behave like mpfs but whose values automatically adjust to the precision.
+The objects `pi`, `e`, and `cgamma` (Euler's constant) are special objects that behave like mpfs but whose values automatically adjust to the precision.
 
 {{{
 >>> mpf.dps = 15
