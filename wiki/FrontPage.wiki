@@ -5,7 +5,7 @@ mpmath is a replacement for Python's `float`/`complex` types and `math`/`cmath` 
 http://mpmath.googlecode.com/svn/doc/mpmath-web.png
 
 ==Status / news==
-  * *October 5, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.3.zip version 0.3]. All the 12 standard trigonometric, hyperbolic, inverse trigonometric and inverse hyperbolic functions are now available in mpmath and work for both real and complex numbers with arbitrary precision. A few useful nonelementary functions like `gamma`, `erf` and `zeta` have been added as well. In addition, numerous bugs have been fixed, more tests have been added, and parts of the code have been cleaned up.
+  * *October 5, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.3.zip version 0.3]. All the 12 standard trigonometric, hyperbolic, inverse trigonometric and inverse hyperbolic functions are now available in mpmath and work for both real and complex numbers with arbitrary precision. A few useful nonelementary functions like `gamma`, `erf` and `zeta` have been implemented as well. In addition, numerous bugs have been fixed, more tests have been added, and parts of the code have been cleaned up.
   * *October 2, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.2.zip version  0.2]. This version fixes several bugs and adds improved support for complex numbers (complex logarithms and powers are now supported).
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
