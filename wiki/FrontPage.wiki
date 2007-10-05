@@ -6,8 +6,7 @@ http://mpmath.googlecode.com/svn/doc/mpmath-web.png
 
 ==Status / news==
   * *October 5, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.3.zip version 0.3]. All common elementary functions are now implemented. In addition, numerous bugs have been fixed and the code has been cleaned up.
-  * *October 2, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.2.zip version 
-0.2]. This version fixes several bugs and adds improved support for complex numbers (complex logarithms and powers are now supported).
+  * *October 2, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.2.zip version  0.2]. This version fixes several bugs and adds improved support for complex numbers (complex logarithms and powers are now supported).
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
 
