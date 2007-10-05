@@ -10,7 +10,7 @@ http://mpmath.googlecode.com/svn/doc/mpmath-web.png
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
 
-For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file. The following features are implemented in the current version:
+For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file. To summarize, the following features are implemented in the current version:
   * Arbitrary-precision real and complex floating-point arithmetic
   * Lots of functions: `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, `atan2`, `hypot`, `arg`, `gamma`, `factorial`, `erf`, `upper_gamma`/`lower_gamma` (incomplete gamma functions), `zeta`.
   * Common mathematical constants: `e`, `pi`, `cgamma` (Euler's constant)
