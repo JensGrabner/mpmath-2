@@ -37,13 +37,13 @@ mpmath provides two classes `mpf` and `mpc` which respectively correspond to Pyt
 >>> mpf(3) + 2*mpf('2.5') + 1.0
 mpf('9')
 >>> mpc(1j)**0.5
-mpc('0.70710678118654757', '0.70710678118654746')
+mpc(real='0.70710678118654757', imag='0.70710678118654757')
 }}}
 
 The `print` statement displays numbers more prettily:
 {{{
 >>> print mpc(1j)**0.5
-0.707106781186548 + 0.707106781186547j
+(0.707106781186548 + 0.707106781186548j)
 }}}
 
 ==Managing precision==
