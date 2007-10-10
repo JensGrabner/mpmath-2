@@ -40,6 +40,8 @@ mpf timings (operations / second)
 
 String conversion is clearly a bottleneck (this is due to the `Decimal` class currently being used for binary-to-decimal conversion). psyco consistently speeds things up by about 50-100%.
 
+==Comparison to Decimal==
+
 The timings for `Decimal` (for supported operations) are:
 
 {{{
@@ -65,3 +67,19 @@ Decimal timings (operations / second)
     x.sqrt() :     440     290     100      18       6
        x**42 :     860     600     240      39      14
 }}}
+
+The Python Package Index contains at least three libraries that implement transcendental functions for the `Decimal` class: [http://pypi.python.org/pypi/dmath/0.9 dmath], [http://pypi.python.org/pypi/AJDecimalMathAdditions/0.1.0 AJDecimalMathAdditions], and  [http://pypi.python.org/pypi/decimalfuncs/1.4 decimalfuncs]. Some timings are presented in the following table.
+
+{{{
+                   decimalfuncs            AJDecimalMathAdditions          dmath
+
+    op / dps :      15      30     100       15      30     100       15      30     100
+----------------------------------------------------------------------------------------
+      exp(x) :      94      38       5   |  100      41       6   |   94      38       5
+      log(x) :      13       9       2   |   25       8       0   |   32      21       1
+      sin(x) :     130      58       9   |  190      81      12   |  130      58       9
+     atan(x) :      10       6       1   |  140      58       1   |   30      11       1
+
+}}}
+
+dmath is about 100-10000 times faster than all of them up to 100 digits, and should be much faster still at higher precision.
