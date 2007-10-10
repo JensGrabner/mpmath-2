@@ -82,4 +82,4 @@ The Python Package Index contains at least three libraries that implement transc
 
 }}}
 
-dmath is about 100-10000 times faster than all of them up to 100 digits, and should be much faster still at higher precision.
+mpmath is about 100-10000 times faster than each one of them up to 100 digits, and should be much faster still at higher precision.
