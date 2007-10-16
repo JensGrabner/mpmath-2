@@ -119,12 +119,12 @@ True
 
 ==Performance==
 
-mpmath is roughly 10 times faster than Python's built-in decimal module at standard precision, and increasingly faster at higher precision levels (for example, calculating the 100th harmonic number 1 + 1/2 + ... + 1/100 with 1000-digit precision is 300 times faster in mpmath).
+In the default (most accurate) rounding mode, mpmath manages 50,000-100,000 arithmetic operations per second with 15-digit precision on a modern PC (Athlon 3700+). This makes it roughly 20x slower than [http://code.google.com/p/gmpy/ gmpy] (a Python wrapper for the GNU MP library written in C) but 10x faster than decimal.py.
 
-mpmath uses tuples of Python integers to represent floating-point numbers with arbitrary precision. It is relatively slow compared to C/C++ libraries at low precision levels, where Python's interpreter overhead dominates over the time spent on actual arithmetic, and also relatively slow at extremely high precision levels since Python does not use the asymptotically fastest algorithms for large-integer multiplication and division. In between, however, the performance is quite acceptable for many applications. The speed is roughly the same at 15 and 150 digits, and multiplication is only 10 times slower at 1000 digits than at 15 digits.
+The performance scales fairly well with increased precision: the speed is roughly the same at 15 and 150 digits, and multiplication is only 10 times slower at 1000 digits than at 15 digits. mpmath is increasingly faster than decimal.py at high precision; for example, calculating the 100th harmonic number 1 + 1/2 + ... + 1/100 with 1000-digit precision is 300 times faster in mpmath.
 
-In the default (most accurate) rounding mode, mpmath manages 50,000-100,000 arithmetic operations per second with 15-digit precision on a modern PC (Athlon 3700+). [http://psyco.sourceforge.net/ Psyco] roughly doubles that number. (Using Psyco and the fastest rounding mode, and using the internal functional interface instead of number objects, some 300,000-800,000 arithmetic operations can be performed per second at 15-digit precision.)
+By using functions (`fadd`, `fsub`, `fmul`, etc) instead of working with mpf objects, mpmath becomes quite a bit faster. With the fastest rounding mode and with [http://psyco.sourceforge.net/ Psyco] enabled, 300,000-800,000 arithmetic operations can be performed per second at 15-digit precision, putting mpmath within a factor 3-10 of the speed of gmpy.
 
-See the [Performance] page for a more detailed benchmark.
+The [performance] page contains a few more detailed benchmarks.
 
 Just for entertainment, mpmath includes a demo script pidigits.py (in the source distribution) that computes digits of pi in any base 2-36. Roughly timed, it can compute 10,000 decimals in half a second, 100,000 decimals in 30 seconds and 1,000,000 decimals in 30 minutes. The large differences between these timings give an indication of the precision range where mpmath ceases to be useful.
