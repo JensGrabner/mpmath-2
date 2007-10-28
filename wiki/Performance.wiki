@@ -43,7 +43,7 @@ mpf timings (operations / second)
 [http://psyco.sourceforge.net/ psyco] improves the performance significantly (usually 50-100%)
 
 ==Using mpmath.lib==
-For improved performance, one can switch to a faster rounding mode than the default and also use the direct functions in `mpmath.lib` instead of creating `mpf` objects. The following table lists performance of these functions with psyco enabled.
+For improved performance, one can switch to a faster rounding mode than the default and also use the direct functions in `mpmath.lib` instead of creating `mpf` objects. The following table lists performance of these functions with floor rounding and with psyco enabled.
 
 {{{
     op / dps :      15      30     100     500    1000
