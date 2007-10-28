@@ -38,7 +38,26 @@ mpf timings (operations / second)
      zeta(x) :     260     140      33       0
 }}}
 
-String conversion is clearly a bottleneck (this is due to the `Decimal` class currently being used for binary-to-decimal conversion). psyco consistently speeds things up by about 50-100%.
+*Note*: the slow string conversion has been fixed in the current development version  (see the SVN repository).
+
+[http://psyco.sourceforge.net/ psyco] improves the performance significantly (usually 50-100%)
+
+==Using mpmath.lib==
+For improved performance, one can switch to a faster rounding mode than the default and also use the direct functions in `mpmath.lib` instead of creating `mpf` objects. The following table lists performance of these functions with psyco enabled.
+
+{{{
+    op / dps :      15      30     100     500    1000
+---------------------------------------------------------
+        fcmp : 1180000 1200000 1190000  810000  770000
+        fadd :  370000  270000  240000  170000  130000
+        fsub :  300000  220000  200000  150000  100000
+        fmul :  370000  270000  170000   25000    8300
+        fdiv :  280000  180000   95000    8800    2400
+       fsqrt :  130000   90000   59000    9600    3100
+        fexp :   73000   49000   13000     570     120
+}}}
+
+Addition, for example, is over 5x faster than when working with regular `mpf` objects without psyco.
 
 ==Comparison to Decimal==
 
