@@ -57,7 +57,7 @@ For improved performance, one can switch to a faster rounding mode than the defa
         fexp :   73000   49000   13000     570     120
 }}}
 
-Addition, for example, is over 5x faster than when working with regular `mpf` objects without psyco.
+Addition at 15-digit precision, for example, is over 5x faster than when working with regular `mpf` objects without psyco.
 
 ==Comparison to Decimal==
 
