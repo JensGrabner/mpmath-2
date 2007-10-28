@@ -80,14 +80,14 @@ There is no practical magnitude limitation on numbers. For example, an mpf can r
 
 {{{
 >>> a = mpf(10) ** (10**100)
-}}}
-
-Unfortunately, in the current version, the above number cannot be printed to a decimal (this will be fixed). You can take its logarithm, however:
-
-{{{
+>>> print a
+1.0e+100000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000
 >>> print log(a, 10)
-1.00000000000000E+100
+1.0e+100
 }}}
+
+(Note: you need to download the current development version from the SVN repository for the above to work.)
 
 The objects `pi`, `e`, and `cgamma` (Euler's constant) are special objects that behave like mpfs but whose values automatically adjust to the precision.
 
