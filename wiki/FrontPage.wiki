@@ -34,10 +34,10 @@ mpf('1.0e+500')
 mpc(real='0.5403023058681397174013', imag='0.8414709848078965066527')
 }}}
 
-The `mpmath.lib` implements direct functions for operations on numbers. Although verbose, these functions are quite a bit faster than working with `mpf` objects, and can be more convenient if one wants detailed control over precision and rounding.
+Internally, `mpmath` represents floating-point numbers as tuples of integers. The `mpmath.lib` subpackage implements functions for operating directly on such tuples. Although verbose, these functions are faster than working with `mpf` objects, and can be more convenient if one wants detailed control over precision and rounding.
 
 {{{
-from mpmath.lib import *
+>>> from mpmath.lib import *
 >>> a = from_int_exact(1)
 >>> b = from_int_exact(3)
 >>> to_str(fdiv(a, b, prec=20, rounding=ROUND_DOWN), 10)
