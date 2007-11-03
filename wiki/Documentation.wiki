@@ -1,6 +1,8 @@
 #summary Documentation for using mpmath
 #labels Featured
 
+This page contains an introduction to mpmath. It does not cover all features. Most mpmath modules contain a fair amount of comments and docstrings, however, so it should be fairly easy to figure out how to use something by looking at the source code, or by looking at the [http://mpmath.googlecode.com/svn/trunk/tests/ unit tests].
+
 ==Basic usage==
 
 To import mpmath in an interactive Python session, type
