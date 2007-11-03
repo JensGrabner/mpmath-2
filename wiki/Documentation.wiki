@@ -3,6 +3,12 @@
 
 This page contains an introduction to mpmath. It does not cover all features. Most mpmath modules contain a fair amount of comments and docstrings, however, so it should be fairly easy to figure out how to use something by looking at the source code, or by looking at the [http://mpmath.googlecode.com/svn/trunk/tests/ unit tests].
 
+==Installation==
+
+The latest version can be download from the [http://code.google.com/p/mpmath/downloads/list download page] or the links on the front page. To install mpmath, either run the binary installer (Windows only) or unzip the source package and run `python setup.py install`.
+
+If you download the source package, some extra test files are included. You can test that mpmath works as it should by running `python runtests.py` in the tests directory (requires [http://codespeak.net/py/dist/test.html py.test]). There is also an interactive demo script `pidigits.py` for computing (lots of) digits of pi.
+
 ==Basic usage==
 
 To import mpmath in an interactive Python session, type
