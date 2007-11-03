@@ -8,4 +8,4 @@ For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGE
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
 
-mpmath is based on code originally developed for [http://code.google.com/p/sympy/ SymPy] in mid-2007. That code, in turn, was based on pieces of Python code written between 2005 and 2007 (the oldest being a script for computing digits of pi and e, written in the summer of 2005).
+mpmath is based on code originally developed for [http://code.google.com/p/sympy/ SymPy] in mid-2007. That code, in turn, was based on pieces of Python code written between 2005 and 2007 (the oldest being a script for computing digits of pi and e, written in early 2005).
