@@ -91,3 +91,35 @@ mpf('3.1415926535897936')
 >>> pi1 < pi < pi2
 True
 }}}
+
+==Internal number representation==
+A binary floating-point number is an exact rational number of the form `x` = `man` × 2^exp^ where `man` and `exp` are integers (called the _mantissa_ and _exponent_). In `mpmath`, a floating-point number is represented as a three-element tuple
+
+    `(man, exp, bc)`
+
+where `bc` is the number of bits in the mantissa. (The `bc` element is strictly speaking redundant since one can re-count the number of bits in the mantissa at any time, but the bitcounts are frequently needed for internal computations and storing them significantly improves performance.) There is one additional requirement for the representation: `man` must have no trailing zero bits (i.e., all powers of two must be factored out and stored in `exp`). This normalization ensures that two floating-point numbers are mathematically equal if and only if their tuple representations are equal, meaning that one can check the equality of two numbers by a simple tuple comparison.
+
+Some examples of floating-point numbers in this format are:
+
+    `1   = (1, 0, 1)`
+
+    `2   = (1, 1, 1)`
+
+    `10  = (5, 1, 3)`
+
+    `0.5 = (1, -1, 1)`
+
+By convention, 0 is taken to have the representation `(0, 0, 0)`.
+
+The modules in the `mpmath.lib` directory contain functions for working directly with tuples. In general, these functions accept as input one or two operands, followed by an option `prec` that specifies the precision and `rounding` that specifies the direction of rounding. For example, to add the numbers 2 and 10, we can use the `fadd` function:
+
+{{{
+>>> from mpmath.lib import *
+>>> two = (1, 1, 1)
+>>> ten = (5, 1, 3)
+>>> twelve = fadd(two, ten, 10, ROUND_FLOOR)
+>>> twelve
+(3, 2, 2)
+}}}
+
+Of course, since this sum can be represented exactly with only 10 bits in the mantissa, no rounding was performed.
