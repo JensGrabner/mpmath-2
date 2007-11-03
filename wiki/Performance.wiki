@@ -1,104 +1,148 @@
 #summary Performance benchmarks
 
-The mpmath `benchmark.py` script generated the following timings on an Athlon 3700+ for mpmath 3.0. The script measures the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between 0 and 32.
+mpmath is written with the goal of providing the fastest possible implementation of arbitrary-precision arithmetic in pure Python. This page compares the performance of mpmath with that of the `decimal` module in Python's standard library. The following tables were generated using the `benchmark.py` script in the mpmath `tests` directory, running on an Athlon 3700+. The script measures the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between 0 and 32.
 
-{{{
-mpf timings (operations / second)
+"Decimal" means that the `decimal.Decimal` class is used, "mpf" means that the `mpmath.mpf` class is used, and "raw mpf" means that the operations are performed using the raw arithmetic functions in `mpmath.lib` (this avoids the overhead of creating object instances). Numbers in parentheses indicate the speedup compared to Decimals.
 
-    op / dps :      15      30     100     500    1000
-----------------------------------------------------------
-      int(x) :  280000  280000  280000  290000  280000
-    float(x) :  300000  300000  300000  110000  110000
-      str(x) :    1000     730     320      69      27
-          +x :  130000  120000  120000  120000  120000
-          -x :  140000  120000  120000  110000  100000
-      x * 10 :   77000   69000   72000   68000   58000
-      x + 10 :   53000   58000   55000   44000   37000
-      x / 10 :   59000   50000   49000   42000   38000
-       x + y :   71000   65000   64000   60000   45000
-       x - y :   67000   60000   60000   52000   37000
-       x * y :   71000   68000   59000   19000    7500
-       x / y :   60000   56000   46000    8300    2400
-      x == y :  600000  590000  590000  600000  580000
-       x < y :  260000  260000  260000  260000  260000
-      abs(x) :  150000  130000  130000  130000  130000
-     sqrt(x) :   35000   32000   25000    7700    2900
-      x**0.5 :   18000   17000   15000    6400    2700
-      exp(x) :   29000   23000    9700     570     120
-      log(x) :   15000   10000    4900     420     100
-       x**42 :   11000   10000    9200    3400    1600
-        x**y :    7200    5600    2800     230      56
-      sin(x) :   17000   13000    6800     380      80
-      tan(x) :   15000   12000    5900     360      77
-     atan(x) :   12000    8200    2400      80      13
-     cosh(x) :   14000   12000    6700     520     110
-  asin(x/32) :    1600    1500    1100     180      33
-      erf(x) :     670     570     300      20       4
-  gamma(x+1) :    2200    1700     470       9       1
-     zeta(x) :     260     140      33       0
-}}}
+The decimal library does not implement transcendental functions, but there are user-made libraries that can be used for comparison. The Python Package Index contains at least three libraries that implement transcendental functions for the `Decimal` class: [http://pypi.python.org/pypi/dmath/0.9 dmath], [http://pypi.python.org/pypi/AJDecimalMathAdditions/0.1.0 AJDecimalMathAdditions], and  [http://pypi.python.org/pypi/decimalfuncs/1.4 decimalfuncs]. They all have roughly similar performance, but dmath seems to be slightly faster overall and was therefore used for this benchmark.
 
-*Note*: the slow string conversion has been fixed in the current development version  (see the SVN repository).
+The three rightmost columns list the same benchmark but with  [http://psyco.sourceforge.net/ psyco] enabled (with `psyco.full()`).
 
-[http://psyco.sourceforge.net/ psyco] improves the performance significantly (usually 50-100%)
+In summary:
+  * mpmath is roughly 10x faster than the `decimal` module at 10-100 digit precision and 100x faster at 100-1000 digit precision.
+  * The functional interface in mpmath.lib further improves performance by as much as 2x for some operations.
+  * Transcendental functions are an additional order of magnitude faster. The greatest particular speedup over Decimal in the entire benchmark occurs for computing natural logarithms, which is 8000x faster at 300-digit precision (the test was not run at 1000-digit precision as finishing a single logarithm would take too long in dmath)
+  * psyco speeds up both decimal and mpmath by about 50-100%
+  * The only operation that is slower in mpmath is (not surprisingly) string conversion
 
-==Using mpmath.lib==
-For improved performance, one can switch to a faster rounding mode than the default and also use the direct functions in `mpmath.lib` instead of creating `mpf` objects. The following table lists performance of these functions with floor rounding and with psyco enabled.
+==The results==
 
-{{{
-    op / dps :      15      30     100     500    1000
----------------------------------------------------------
-        fcmp : 1180000 1200000 1190000  810000  770000
-        fadd :  370000  270000  240000  170000  130000
-        fsub :  300000  220000  200000  150000  100000
-        fmul :  370000  270000  170000   25000    8300
-        fdiv :  280000  180000   95000    8800    2400
-       fsqrt :  130000   90000   59000    9600    3100
-        fexp :   73000   49000   13000     570     120
-}}}
+*Convert to integer (int(x))*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 81000 || 290000 (3.6x) || 470000 (5.8x) || 80000 || 440000 (5.5x) || 1700000 (21.0x) ||
+|| 30 || 51000 || 290000 (5.7x) || 480000 (9.3x) || 54000 || 490000 (9.0x) || 1980000 (36.6x) ||
+|| 100 || 18000 || 290000 (15.6x) || 470000 (24.9x) || 18000 || 490000 (26.0x) || 1980000 (105.4x) ||
+|| 300 || 6700 || 290000 (44.0x) || 470000 (71.0x) || 6500 || 470000 (73.4x) || 1980000 (305.8x) ||
+|| 1000 || 2000 || 290000 (147.2x) || 470000 (237.6x) || 1900 || 490000 (249.0x) || 1880000 (943.6x) ||
 
-Addition at 15-digit precision, for example, is over 5x faster than when working with regular `mpf` objects without psyco.
+*Convert to string (str(x))*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 70000 || 33000 (0.5x) || 34000 (0.5x) || 84000 || 52000 (0.6x) || 55000 (0.7x) ||
+|| 30 || 46000 || 30000 (0.6x) || 29000 (0.6x) || 51000 || 44000 (0.9x) || 45000 (0.9x) ||
+|| 100 || 18000 || 13000 (0.7x) || 13000 (0.7x) || 18000 || 15000 (0.9x) || 15000 (0.9x) ||
+|| 300 || 6500 || 1900 (0.3x) || 1900 (0.3x) || 6400 || 2300 (0.4x) || 2400 (0.4x) ||
+|| 1000 || 1700 || 340 (0.2x) || 350 (0.2x) || 2000 || 360 (0.2x) || 360 (0.2x) ||
 
-==Comparison to Decimal==
+*Convert to float (float(x))*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 53000 || 300000 (5.6x) || 550000 (10.2x) || 56000 || 320000 (5.9x) || 910000 (16.4x) ||
+|| 30 || 37000 || 300000 (8.3x) || 510000 (13.9x) || 39000 || 350000 (8.8x) || 890000 (22.4x) ||
+|| 100 || 16000 || 300000 (18.8x) || 510000 (31.7x) || 16000 || 350000 (21.8x) || 910000 (56.5x) ||
+|| 300 || 6100 || 300000 (49.5x) || 510000 (82.7x) || 5300 || 350000 (65.5x) || 910000 (171.2x) ||
+|| 1000 || 1800 || 100000 (57.9x) || 130000 (71.1x) || 1800 || 120000 (65.4x) || 170000 (92.9x) ||
 
-The timings for `Decimal` (for supported operations) are:
+*Equality (x==y)*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 36000 || 620000 (17.0x) || 1370000 (37.3x) || 65000 || 610000 (9.4x) || 3970000 (60.3x) ||
+|| 30 || 29000 || 620000 (21.1x) || 1430000 (48.0x) || 49000 || 620000 (12.7x) || 3570000 (72.3x) ||
+|| 100 || 14000 || 610000 (42.8x) || 1370000 (95.6x) || 20000 || 630000 (31.1x) || 3970000 (193.6x) ||
+|| 300 || 4900 || 620000 (125.7x) || 1430000 (286.6x) || 6200 || 620000 (100.1x) || 3570000 (570.8x) ||
+|| 1000 || 960 || 610000 (639.5x) || 1370000 (1426.7x) || 1000 || 620000 (585.2x) || 3570000 (3335.6x) ||
 
-{{{
-Decimal timings (operations / second)
+*Comparison (x<y)*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 38000 || 260000 (7.0x) || 450000 (11.9x) || 66000 || 400000 (6.0x) || 1230000 (18.6x) ||
+|| 30 || 30000 || 270000 (8.9x) || 450000 (15.1x) || 49000 || 430000 (8.7x) || 1320000 (26.6x) ||
+|| 100 || 14000 || 260000 (18.4x) || 450000 (30.9x) || 20000 || 420000 (20.7x) || 1320000 (64.3x) ||
+|| 300 || 5000 || 270000 (54.0x) || 450000 (90.2x) || 6200 || 430000 (68.7x) || 1320000 (211.2x) ||
+|| 1000 || 960 || 260000 (277.9x) || 450000 (467.8x) || 1000 || 420000 (393.0x) || 1270000 (1193.2x) ||
 
-    op / dps :      15      30     100     500    1000
-----------------------------------------------------------
-      int(x) :   75000   46000   17000    4100    2100
-    float(x) :   50000   35000   14000    3500    1500
-      str(x) :   66000   42000   17000    3800    1700
-          +x :  110000  100000   75000   29000   16000
-          -x :   39000   29000   12000    2800    1500
-      x * 10 :   10000    7600    3100     590     230
-      x + 10 :    9400    7300    3300     640     260
-      x / 10 :    4900    2600     760     110      41
-       x + y :    9700    7200    2900     480     180
-       x - y :    9700    6900    2800     480     170
-       x * y :    8100    5100    1800     280     100
-       x / y :    4000    2300     730     110      40
-      x == y :  120000  110000   85000   31000   17000
-       x < y :  140000  130000   89000   30000   16000
-      abs(x) :   97000   90000   69000   28000   16000
-    x.sqrt() :     440     290     100      18       6
-       x**42 :     860     600     240      39      14
-}}}
+*Addition (x+y)*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 10000 || 81000 (7.6x) || 110000 (10.3x) || 19000 || 150000 (8.1x) || 310000 (16.0x) ||
+|| 30 || 8100 || 71000 (8.8x) || 93000 (11.5x) || 13000 || 120000 (9.0x) || 230000 (16.6x) ||
+|| 100 || 3100 || 72000 (23.2x) || 95000 (30.6x) || 5000 || 120000 (24.6x) || 230000 (46.7x) ||
+|| 300 || 1000 || 66000 (65.3x) || 85000 (83.7x) || 1400 || 100000 (75.3x) || 180000 (129.6x) ||
+|| 1000 || 180 || 52000 (278.1x) || 63000 (340.6x) || 220 || 74000 (327.7x) || 100000 (463.0x) ||
 
-The Python Package Index contains at least three libraries that implement transcendental functions for the `Decimal` class: [http://pypi.python.org/pypi/dmath/0.9 dmath], [http://pypi.python.org/pypi/AJDecimalMathAdditions/0.1.0 AJDecimalMathAdditions], and  [http://pypi.python.org/pypi/decimalfuncs/1.4 decimalfuncs]. Some timings are presented in the following table.
+*Subtraction (x-y)*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 10000 || 81000 (7.5x) || 87000 (8.1x) || 20000 || 150000 (7.7x) || 240000 (11.8x) ||
+|| 30 || 8100 || 71000 (8.8x) || 81000 (10.0x) || 14000 || 120000 (8.8x) || 200000 (13.9x) ||
+|| 100 || 3100 || 71000 (23.1x) || 76000 (24.6x) || 5100 || 120000 (25.2x) || 180000 (35.6x) ||
+|| 300 || 1000 || 66000 (65.1x) || 72000 (71.2x) || 1400 || 110000 (77.0x) || 150000 (108.0x) ||
+|| 1000 || 180 || 52000 (277.5x) || 57000 (305.0x) || 220 || 75000 (330.0x) || 95000 (416.9x) ||
 
-{{{
-                   decimalfuncs            AJDecimalMathAdditions          dmath
+*Multiplication (x*y)*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 8200 || 81000 (10.0x) || 110000 (13.4x) || 15000 || 140000 (9.5x) || 260000 (16.9x) ||
+|| 30 || 5300 || 78000 (14.7x) || 100000 (20.0x) || 10000 || 130000 (12.9x) || 230000 (22.9x) ||
+|| 100 || 1800 || 65000 (35.0x) || 84000 (44.9x) || 3300 || 100000 (31.0x) || 150000 (46.8x) ||
+|| 300 || 550 || 34000 (62.6x) || 39000 (71.7x) || 890 || 43000 (48.6x) || 50000 (56.8x) ||
+|| 1000 || 100 || 7700 (71.8x) || 7900 (73.9x) || 140 || 8000 (57.0x) || 8200 (58.6x) ||
 
-    op / dps :      15      30     100       15      30     100       15      30     100
-----------------------------------------------------------------------------------------
-      exp(x) :      94      38       5   |  100      41       6   |   94      38       5
-      log(x) :      13       9       2   |   25       8       0   |   32      21       1
-      sin(x) :     130      58       9   |  190      81      12   |  130      58       9
-     atan(x) :      10       6       1   |  140      58       1   |   30      11       1
+*Division (x/y)*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 4200 || 67000 (15.9x) || 86000 (20.6x) || 10000 || 120000 (12.3x) || 200000 (20.2x) ||
+|| 30 || 2300 || 58000 (25.1x) || 73000 (31.6x) || 5900 || 99000 (16.8x) || 150000 (25.8x) ||
+|| 100 || 760 || 46000 (60.5x) || 55000 (72.1x) || 1800 || 66000 (35.8x) || 87000 (47.1x) ||
+|| 300 || 210 || 17000 (79.6x) || 18000 (85.0x) || 460 || 19000 (42.1x) || 20000 (45.6x) ||
+|| 1000 || 40 || 2400 (60.6x) || 2400 (61.2x) || 60 || 2400 (40.8x) || 2400 (41.3x) ||
 
-}}}
+*Square root (x^0.5)*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 440 || 40000 (92.9x) || 49000 (112.0x) || 880 || 99000 (112.2x) || 110000 (134.2x) ||
+|| 30 || 290 || 33000 (116.6x) || 39000 (135.7x) || 590 || 79000 (135.1x) || 89000 (152.0x) ||
+|| 100 || 100 || 26000 (250.7x) || 29000 (283.1x) || 200 || 52000 (250.3x) || 56000 (270.4x) ||
+|| 300 || 30 || 13000 (429.9x) || 13000 (456.7x) || 53 || 18000 (347.9x) || 19000 (359.0x) ||
+|| 1000 || 6 || 2800 (430.8x) || 2900 (443.1x) || 9 || 3100 (338.3x) || 3100 (340.3x) ||
 
-mpmath is about 100-10000 times faster than each one of them up to 100 digits, and should be much faster still at higher precision.
+*Integer power (x^42)*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 860 || 12000 (14.7x) || 13000 (15.4x) || 1600 || 32000 (19.4x) || 39000 (23.2x) ||
+|| 30 || 600 || 11000 (18.9x) || 11000 (19.7x) || 1100 || 25000 (21.9x) || 29000 (25.2x) ||
+|| 100 || 230 || 10000 (42.6x) || 10000 (44.2x) || 430 || 20000 (47.0x) || 22000 (52.4x) ||
+|| 300 || 74 || 6000 (80.1x) || 6100 (82.1x) || 120 || 8500 (70.7x) || 8900 (73.9x) ||
+|| 1000 || 14 || 1500 (106.1x) || 1500 (107.1x) || 19 || 1700 (87.8x) || 1700 (88.6x) ||
+
+*Exponential function (exp(x))*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 95 || 29000 (313.3x) || 33000 (354.7x) || 190 || 43000 (225.9x) || 60000 (314.0x) ||
+|| 30 || 38 || 24000 (629.2x) || 26000 (675.1x) || 78 || 36000 (472.0x) || 47000 (602.4x) ||
+|| 100 || 5 || 9700 (1696.8x) || 10000 (1774.4x) || 11 || 12000 (1095.2x) || 13000 (1188.5x) ||
+|| 300 || 0 || 1600 (2279.0x) || 1600 (2290.7x) || 1 || 1700 (1336.6x) || 1700 (1353.1x) ||
+
+*Natural logarithm (log(x))*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 81 || 13000 (160.1x) || 14000 (176.8x) || 160 || 21000 (127.7x) || 24000 (147.1x) ||
+|| 30 || 19 || 9200 (484.9x) || 9800 (519.8x) || 40 || 16000 (399.3x) || 17000 (441.0x) ||
+|| 100 || 1 || 4500 (3104.1x) || 4700 (3210.9x) || 2 || 6600 (2219.2x) || 6800 (2313.2x) ||
+|| 300 || 0 || 1000 (8165.9x) || 1000 (8230.8x) || 0 || 1100 (5138.3x) || 1100 (5186.3x) ||
+
+*Sine (sin(x))*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 130 || 16000 (121.5x) || 17000 (128.8x) || 280 || 26000 (92.5x) || 32000 (114.6x) ||
+|| 30 || 58 || 13000 (231.8x) || 14000 (243.8x) || 120 || 22000 (181.2x) || 25000 (209.6x) ||
+|| 100 || 9 || 5800 (637.3x) || 5900 (654.3x) || 18 || 7900 (437.7x) || 8400 (463.4x) ||
+|| 300 || 1 || 970 (818.9x) || 980 (821.2x) || 2 || 1000 (508.0x) || 1000 (513.8x) ||
+
+*Tangent (tan(x))*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 69 || 14000 (213.2x) || 15000 (222.4x) || 130 || 27000 (197.3x) || 29000 (208.5x) ||
+|| 30 || 29 || 11000 (380.2x) || 11000 (393.8x) || 61 || 20000 (333.2x) || 21000 (345.0x) ||
+|| 100 || 4 || 5200 (1154.1x) || 5300 (1171.3x) || 9 || 7500 (827.6x) || 7500 (836.4x) ||
+|| 300 || 0 || 920 (1563.4x) || 920 (1565.0x) || 1 || 1000 (965.8x) || 1000 (971.0x) ||
+
+*Inverse tangent(atan(x))*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 30 || 10000 (336.3x) || 10000 (351.4x) || 62 || 18000 (290.6x) || 19000 (306.1x) ||
+|| 30 || 11 || 6100 (549.0x) || 6200 (556.6x) || 23 || 10000 (439.5x) || 10000 (447.2x) ||
+|| 100 || 1 || 1400 (1034.2x) || 1400 (1033.8x) || 2 || 1800 (667.6x) || 1800 (678.0x) ||
+|| 300 || 0 || 150 (1012.1x) || 150 (1016.3x) || 0 || 160 (622.5x) || 160 (623.6x) ||
+
+*Hyperbolic cosine (cosh(x))*
+|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
+|| 15 || 140 || 14000 (98.7x) || 15000 (105.2x) || 290 || 27000 (91.5x) || 32000 (110.0x) ||
+|| 30 || 63 || 12000 (199.6x) || 13000 (210.0x) || 120 || 23000 (178.1x) || 27000 (212.4x) ||
+|| 100 || 9 || 7000 (744.2x) || 7200 (766.9x) || 18 || 9800 (526.5x) || 10000 (567.1x) ||
+|| 300 || 1 || 1400 (1200.0x) || 1400 (1206.4x) || 2 || 1500 (738.9x) || 1500 (748.0x) ||
