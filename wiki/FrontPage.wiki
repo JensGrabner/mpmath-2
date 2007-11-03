@@ -4,125 +4,28 @@ mpmath is a replacement for Python's `float`/`complex` types and `math`/`cmath` 
 
 http://mpmath.googlecode.com/svn/doc/mpmath-web.png
 
-==Status / news==
-  * *October 5, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.3.zip version 0.3]. All the 12 standard trigonometric, hyperbolic, inverse trigonometric and inverse hyperbolic functions are now available in mpmath and work for both real and complex numbers with arbitrary precision. A few useful nonelementary functions like `gamma`, `erf` and `zeta` have been implemented as well. In addition, numerous bugs have been fixed, more tests have been added, and parts of the code have been cleaned up.
-  * *October 2, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.2.zip version  0.2]. This version fixes several bugs and adds improved support for complex numbers (complex logarithms and powers are now supported).
-  * *September 27, 2007.* Released version 0.1.
-  * *September 25, 2007.* Started the Google Code project.
-
-For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file. To summarize, the following features are implemented in the current version:
+==Features==
   * Arbitrary-precision real and complex floating-point arithmetic
   * Lots of functions: `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, `atan2`, `hypot`, `arg`, `gamma`, `factorial`, `erf`, `upper_gamma`/`lower_gamma` (incomplete gamma functions), `zeta`.
   * Common mathematical constants: `e`, `pi`, `cgamma` (Euler's constant)
-  * Directed rounding for real numbers, in all directions supported by Python's `Decimal` class. (Directed rounding is implemented rigorously for addition and multiplication and heuristically for more advanced operations.)
-
-Planned future additions include:
-  * Emulation of all features defined in the IEEE 754 floating-point standard (support for !NaNs and infinities; optional support for denormalized numbers)
-  * Rigorous directed rounding for all functions
-  * Fast radix conversion
+  * Directed rounding for all arithmetic operations on real numbers, in all directions supported by Python's `decimal` library (floor, ceiling, down, up, half-down, half-up, half-even).
 
 The current development code is available in the [http://mpmath.googlecode.com/svn/ SVN repository].
 
-==Basic usage==
+==Usage==
 
-To install mpmath, either run the binary installer (Windows only) or unpack the source distribution and run `python setup.py install`. To import it in an interactive Python session, type
-
-{{{
->>> from mpmath import *
-}}}
-
-mpmath provides two classes `mpf` and `mpc` which respectively correspond to Python's built-in `float` and `complex`. They interact nicely with other numbers:
-
-{{{
->>> mpf(3) + 2*mpf('2.5') + 1.0
-mpf('9')
->>> mpc(1j)**0.5
-mpc(real='0.70710678118654757', imag='0.70710678118654757')
-}}}
-
-The `print` statement displays numbers more prettily:
-{{{
->>> print mpc(1j)**0.5
-(0.707106781186548 + 0.707106781186548j)
-}}}
-
-==Managing precision==
-
-As seen above, mpfs have a default precision of roughly 15 decimal digits (more precisely 53 bits), the same as standard floats. To change the precision, use the `prec` or `dps` properties of the `mpf` class. `prec` is the precision in bits and `dps` is the precision in decimals; if you change one, the `mpf` class automatically changes the other to match. For example, this sets the precision to 100 digits:
-
-{{{
->>> mpf.dps = 100
->>> mpf.dps
-100
->>> mpf.prec
-336
-}}}
-
-This increases the precision by two bits and then restores it:
-{{{
->>> mpf.prec += 2
->>> mpf.prec -= 2
-}}}
-
-When you've set the precision level, all mpf and mpc operations are carried out at that precision:
-
-{{{
->>> mpf.dps = 50
->>> mpf(1) / 7
-mpf('0.1428571428571428571428571428571428571428571428571428')
->>> mpf.dps = 100
->>> mpf(2) ** 0.5
-mpf('1.4142135623730950488016887242096980785696718753769480731766797379907324784
-6210703885038753432764157274')
-}}}
-
-There is no practical magnitude limitation on numbers. For example, an mpf can represent an approximation of 1 googolplex (note: you need to use the latest development version from the SVN repository for the printing to work):
-
-{{{
->>> a = mpf(10) ** (10**100)
->>> print a
-1.0e+100000000000000000000000000000000000000000000000000000000000000000000000000
-00000000000000000000000000
->>> print log(a, 10)
-1.0e+100
-}}}
-
-The objects `pi`, `e`, and `cgamma` (Euler's constant) are special objects that behave like mpfs but whose values automatically adjust to the precision.
-
-{{{
->>> mpf.dps = 15
->>> print pi
-3.14159265358979
->>> mpf.dps = 50
->>> print pi
-3.1415926535897932384626433832795028841971693993751
-}}}
-
-==Rounding==
-
-Directed rounding is partially implemented. For example, this computes and verifies a 15-digit approximation interval for pi:
-
-{{{
->>> mpf.dps = 15
->>> mpf.round_down(); pi1 = +pi
->>> mpf.round_up(); pi2 = +pi
->>> pi1
-mpf('3.1415926535897931')
->>> pi2
-mpf('3.1415926535897936')
->>> mpf.dps = 30
->>> pi1 < pi < pi2
-True
-}}}
 
 ==Performance==
 
-In the default (most accurate) rounding mode, mpmath manages 50,000-100,000 arithmetic operations per second with 15-digit precision on a modern PC (Athlon 3700+). This makes it roughly 20x slower than [http://code.google.com/p/gmpy/ gmpy] (a Python wrapper for the GNU MP library written in C) but 10x faster than decimal.py.
+  * *Versus decimal*: whereas Python's `decimal` library is primarily designed for correct rounding of decimal fractions, mpmath uses binary numbers for greater speed. mpmath manages roughly 50,000-100,000 arithmetic operations per second with 15-digit precision on a modern PC (~300,000 ops/s with [http://psyco.sourceforge.net/ psyco] enabled and using direct functions), which is an order of magnitude faster than `decimal`. Its performance also scales well with increased precision; the speed is roughly the same at 15 and 150 digits, and multiplication is only 10 times slower at 1000 digits than at 15 digits. At high precision (i.e., hundreds of digits), mpmath is typically a factor 100 or 1000 faster than the `decimal` library.
 
-The performance scales fairly well with increased precision: the speed is roughly the same at 15 and 150 digits, and multiplication is only 10 times slower at 1000 digits than at 15 digits. mpmath is increasingly faster than decimal.py at high precision; for example, calculating the 100th harmonic number 1 + 1/2 + ... + 1/100 with 1000-digit precision is 300 times faster in mpmath.
+  * The *[Performance]* page contains detailed benchmarks, comparing mpmath against Python `Decimals` at various precision levels.
 
-By using functions (`fadd`, `fsub`, `fmul`, etc) instead of working with mpf objects, mpmath becomes quite a bit faster. With the fastest rounding mode and with [http://psyco.sourceforge.net/ Psyco] enabled, 300,000-800,000 arithmetic operations can be performed per second at 15-digit precision, putting mpmath within a factor 3-10 of the speed of gmpy.
+  * *Versus gmpy*: Considering that mpmath is written in pure Python, it compares fairly well to [http://code.google.com/p/gmpy/ gmpy] (a Python wrapper for the lightning-fast GNU MP library written in C). Arithmetic with gmpy is roughly 10-25x faster between 10 and 1000 digits, but closer to 5-10x faster if mpmath is allowed to use psyco and direct functions (though, to be fair, enabling psyco for gmpy as well puts the number above 10x).
 
-The [Performance] page contains a few more detailed benchmarks.
+  * *Extremely high precision*: mpmath is not really designed for doing calculations with millions of digits (the primary limitation is Python's slow integer multiplication and division), but it is possible in principle. Just for entertainment, mpmath includes a demo script [http://mpmath.googlecode.com/svn/trunk/demo/pidigits.py pidigits.py] (in the source distribution) that computes and prints digits of pi in any base 2-36. In round numbers, it can compute 10,000 decimals in half a second, 100,000 decimals in 30 seconds and 1,000,000 decimals in 30 minutes. The large differences between these timings give an indication of the precision range where mpmath ceases to be useful.
 
-Just for entertainment, mpmath includes a demo script pidigits.py (in the source distribution) that computes digits of pi in any base 2-36. Roughly timed, it can compute 10,000 decimals in half a second, 100,000 decimals in 30 seconds and 1,000,000 decimals in 30 minutes. The large differences between these timings give an indication of the precision range where mpmath ceases to be useful.
+==Future development==
+Planned future additions include:
+  * Emulation of all features defined in the IEEE 754 floating-point standard (support for !NaNs and infinities; optional support for denormalized numbers)
+  * Rigorous directed rounding for advanced functions
