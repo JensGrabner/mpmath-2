@@ -11,7 +11,7 @@ mpmath is a replacement for Python's `float`/`complex` types and `math`/`cmath` 
 
 Latest update (see [History] for previous updates):
 
-  * *November 3, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.4.zip version 0.4]. String conversion has been rewritten to use integer arithmetic instead of Decimals, which makes it an order of magnitude faster; basic arithmetic speed has also been improved by 15%. Division now uses a rigorous algorithm for directed rounding (it previously got the last bit wrong with a 0.01% probability). Some functions have been added or renamed, and the unit tests have been made more exhaustive.
+  * *November 3, 2007.* Released [http://code.google.com/p/mpmath/downloads/list?q=0.4 version 0.4]. String conversion has been rewritten to use integer arithmetic instead of Decimals, which makes it an order of magnitude faster; basic arithmetic speed has also been improved by 15%. Division now uses a rigorous algorithm for directed rounding (it previously got the last bit wrong with a 0.01% probability). Some functions have been added or renamed, and the unit tests have been made more exhaustive.
 
 ==Download / Installation==
 
