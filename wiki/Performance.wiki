@@ -1,6 +1,6 @@
 #summary Performance benchmarks
 
-mpmath is written with the goal of providing the fastest possible implementation of arbitrary-precision arithmetic in pure Python. This page compares the performance of mpmath with that of the `decimal` module in Python's standard library. The following tables were generated using the `benchmark.py` script in the mpmath `tests` directory, running on an Athlon 3700+. The script measures the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between 0 and 32.
+mpmath is written with the goal of providing the fastest possible implementation of arbitrary-precision floating-point arithmetic in pure Python. This page compares the performance of mpmath with that of the `decimal` module in Python's standard library. The following tables were generated using the `benchmark.py` script in the mpmath `tests` directory, running on an Athlon 3700+. The script measures the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between 0 and 32.
 
 "Decimal" means that the `decimal.Decimal` class is used, "mpf" means that the `mpmath.mpf` class is used, and "raw mpf" means that the operations are performed using the raw arithmetic functions in `mpmath.lib` (this avoids the overhead of creating object instances). Numbers in parentheses indicate the speedup compared to Decimals.
 
