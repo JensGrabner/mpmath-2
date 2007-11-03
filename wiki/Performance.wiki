@@ -1,7 +1,7 @@
 #summary Performance benchmarks
 #labels Featured
 
-mpmath is written with the goal of providing the fastest possible implementation of arbitrary-precision floating-point arithmetic in pure Python. This page compares the performance of mpmath with that of the `decimal` module in Python's standard library.
+mpmath is written with the goal of providing the fastest implementation of arbitrary-precision floating-point arithmetic possible in pure Python. This page compares the performance of mpmath with that of the `decimal` module in Python's standard library.
 
 ==Explanation of the benchmark==
 
