@@ -1,10 +1,9 @@
 #summary Front page
 
-mpmath is a replacement for Python's `float`/`complex` types and `math`/`cmath` modules with unlimited precision and exponent sizes. It is written entirely in Python without any external dependencies and hence runs almost anywhere, without the need for compilation.
-
 http://mpmath.googlecode.com/svn/doc/mpmath-web.png
 
-==Features==
+mpmath is a replacement for Python's `float`/`complex` types and `math`/`cmath` modules with unlimited precision and exponent sizes. It is written entirely in Python without any external dependencies and hence runs almost anywhere, without the need for compilation. Its features include:
+
   * Arbitrary-precision real and complex floating-point arithmetic
   * Lots of functions: `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, `atan2`, `hypot`, `arg`, `gamma`, `factorial`, `erf`, `upper_gamma`/`lower_gamma` (incomplete gamma functions), `zeta`.
   * Common mathematical constants: `e`, `pi`, `cgamma` (Euler's constant)
