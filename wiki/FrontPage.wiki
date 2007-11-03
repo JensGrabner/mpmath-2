@@ -18,8 +18,7 @@ The most recent development code is available in the [http://mpmath.googlecode.c
 ==Usage==
 *Main page: [Documentation]*
 
-mpmath consists of two parts: an internal functional library and a more user-friendly 
-interface consisting of the classes `mpf`/`mpc` (similar to Python's standard float and complex types), and standard mathematical functions. Importing directly from `mpmath` gives access to the latter. Here is an example of an interactive session:
+Importing directly from `mpmath` gives access to a user-friendly interface similar to using regular Python floats and the math modules. Here is an example of an interactive session:
 
 {{{
 >>> from mpmath import *
@@ -33,7 +32,18 @@ mpf('1.0e+500')
 >>> mpf.dps = 20
 >>> exp(mpc(real=0, imag=1))   # complex numbers are supported
 mpc(real='0.5403023058681397174013', imag='0.8414709848078965066527')
+}}}
 
+The `mpmath.lib` implements direct functions for operations on numbers. Although verbose, these functions are quite a bit faster than working with `mpf` objects, and can be more convenient if one wants detailed control over precision and rounding.
+
+{{{
+from mpmath.lib import *
+>>> a = from_int_exact(1)
+>>> b = from_int_exact(3)
+>>> to_str(fdiv(a, b, prec=20, rounding=ROUND_DOWN), 10)
+'0.3333330154'
+>>> to_str(fdiv(a, b, prec=20, rounding=ROUND_UP), 10)
+'0.3333334923'
 }}}
 
 ==Performance==
