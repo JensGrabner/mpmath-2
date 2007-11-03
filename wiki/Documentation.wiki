@@ -78,6 +78,33 @@ The objects `pi`, `e`, and `cgamma` (Euler's constant) are special objects that 
 3.1415926535897932384626433832795028841971693993751
 }}}
 
+==Special functions==
+mpmath implements all the standard math functions, for both real and complex numbers and with arbitrary precision:
+
+{{{
+>>> cosh(1.234)
+mpf('1.8630338016984225')
+>>> asin(1.0)
+mpf('1.5707963267948966')
+>>> log(1+2j)
+mpc(real='0.80471895621705025', imag='1.1071487177940904')
+
+>>> mpf.dps = 25
+>>> exp(2+3j)
+mpc(real='-7.31511009490110251748653617', imag='1.04274365623590441410150394')
+}}}
+
+Some functions that do not exist in the standard Python math library are available, e.g. factorials (with support for noninteger arguments, of course):
+
+{{{
+>>> factorial(10)
+mpf('3628800.0')
+>>> factorial(0.25)
+mpf('0.90640247705547705')
+>>> factorial(2+3j)
+mpc(real='-0.44011340763700169', imag='-0.063637243126317022')
+}}}
+
 ==Rounding==
 
 Directed rounding is partially implemented. For example, this computes and verifies a 15-digit approximation interval for pi:
