@@ -1,0 +1,93 @@
+#summary Documentation for using mpmath
+
+==Basic usage==
+
+To install mpmath, either run the binary installer (Windows only) or unpack the source distribution and run `python setup.py install`. To import it in an interactive Python session, type
+
+{{{
+>>> from mpmath import *
+}}}
+
+mpmath provides two classes `mpf` and `mpc` which respectively correspond to Python's built-in `float` and `complex`. They interact nicely with other numbers:
+
+{{{
+>>> mpf(3) + 2*mpf('2.5') + 1.0
+mpf('9')
+>>> mpc(1j)**0.5
+mpc(real='0.70710678118654757', imag='0.70710678118654757')
+}}}
+
+The `print` statement displays numbers more prettily:
+{{{
+>>> print mpc(1j)**0.5
+(0.707106781186548 + 0.707106781186548j)
+}}}
+
+==Managing precision==
+
+As seen above, mpfs have a default precision of roughly 15 decimal digits (more precisely 53 bits), the same as standard floats. To change the precision, use the `prec` or `dps` properties of the `mpf` class. `prec` is the precision in bits and `dps` is the precision in decimals; if you change one, the `mpf` class automatically changes the other to match. For example, this sets the precision to 100 digits:
+
+{{{
+>>> mpf.dps = 100
+>>> mpf.dps
+100
+>>> mpf.prec
+336
+}}}
+
+This increases the precision by two bits and then restores it:
+{{{
+>>> mpf.prec += 2
+>>> mpf.prec -= 2
+}}}
+
+When you've set the precision level, all mpf and mpc operations are carried out at that precision:
+
+{{{
+>>> mpf.dps = 50
+>>> mpf(1) / 7
+mpf('0.1428571428571428571428571428571428571428571428571428')
+>>> mpf.dps = 100
+>>> mpf(2) ** 0.5
+mpf('1.4142135623730950488016887242096980785696718753769480731766797379907324784
+6210703885038753432764157274')
+}}}
+
+There is no practical magnitude limitation on numbers. For example, an mpf can represent an approximation of 1 googolplex (note: you need to use the latest development version from the SVN repository for the printing to work):
+
+{{{
+>>> a = mpf(10) ** (10**100)
+>>> print a
+1.0e+100000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000
+>>> print log(a, 10)
+1.0e+100
+}}}
+
+The objects `pi`, `e`, and `cgamma` (Euler's constant) are special objects that behave like mpfs but whose values automatically adjust to the precision.
+
+{{{
+>>> mpf.dps = 15
+>>> print pi
+3.14159265358979
+>>> mpf.dps = 50
+>>> print pi
+3.1415926535897932384626433832795028841971693993751
+}}}
+
+==Rounding==
+
+Directed rounding is partially implemented. For example, this computes and verifies a 15-digit approximation interval for pi:
+
+{{{
+>>> mpf.dps = 15
+>>> mpf.round_down(); pi1 = +pi
+>>> mpf.round_up(); pi2 = +pi
+>>> pi1
+mpf('3.1415926535897931')
+>>> pi2
+mpf('3.1415926535897936')
+>>> mpf.dps = 30
+>>> pi1 < pi < pi2
+True
+}}}
