@@ -1,9 +1,11 @@
 #summary History of mpmath's development
 
+For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file in the SVN repository.
+
   * *November 3, 2007.* Released [http://code.google.com/p/mpmath/downloads/list?q=0.4 version 0.4]. String conversion has been rewritten to use integer arithmetic instead of Decimals, which makes it an order of magnitude faster; basic arithmetic speed has also been improved by 15%. Division now uses a rigorous algorithm for directed rounding (it previously got the last bit wrong with a 0.01% probability). Some functions have been added or renamed, and the unit tests have been made more exhaustive.
   * *October 5, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.3.zip version 0.3]. All the 12 standard trigonometric, hyperbolic, inverse trigonometric and inverse hyperbolic functions are now available in mpmath and work for both real and complex numbers with arbitrary precision. A few useful nonelementary functions like `gamma`, `erf` and `zeta` have been implemented as well. In addition, numerous bugs have been fixed, more tests have been added, and parts of the code have been cleaned up.
   * *October 2, 2007.* Released [http://mpmath.googlecode.com/files/mpmath-0.2.zip version  0.2]. This version fixes several bugs and adds improved support for complex numbers (complex logarithms and powers are now supported).
   * *September 27, 2007.* Released version 0.1.
   * *September 25, 2007.* Started the Google Code project.
 
-For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file in the SVN repository.
+mpmath is based on code originally developed for [http://code.google.com/p/sympy/ SymPy] in mid-2007. That code, in turn, was based on pieces of Python code written between 2005 and 2007 (the oldest being a script for computing digits of pi and e, written in the summer of 2005).
