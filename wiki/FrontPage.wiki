@@ -22,7 +22,7 @@ The most recent development code is available in the [http://mpmath.googlecode.c
 ==Usage==
 *Main page: [Documentation]*
 
-Importing directly from `mpmath` gives access to a user-friendly interface similar to using regular Python floats and the math modules. Here is an example of an interactive session:
+Importing directly from `mpmath` gives access to a user-friendly interface similar to using regular Python floats and the `math`/`cmath` modules. The class `mpf` represents a real floating-point number and the class `mpc` represents a complex number. Here is an example of an interactive session:
 
 {{{
 >>> from mpmath import *
