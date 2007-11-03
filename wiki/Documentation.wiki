@@ -1,4 +1,5 @@
 #summary Documentation for using mpmath
+#labels Featured
 
 ==Basic usage==
 
