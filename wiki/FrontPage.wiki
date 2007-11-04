@@ -10,6 +10,8 @@ mpmath is a replacement for Python's `float`/`complex` types and `math`/`cmath` 
   * Avoids bugs present in Python's `cmath` library, like `asinh` using the wrong branch cut
   * Directed rounding for all arithmetic operations on real numbers, in all directions supported by Python's `decimal` library (floor, ceiling, down, up, half-down, half-up, half-even).
 
+Part of the motivation behind mpmath is to provide an efficient pure-Python backend for arbitrary-precision numerical calculations in [http://code.google.com/p/sympy/ SymPy] (a Python-based computer algebra system). mpmath is included in the current development version of [http://code.google.com/p/sympycore/ sympycore].
+
 Latest update (see [History] for previous updates):
 
   * *November 3, 2007.* Released [http://code.google.com/p/mpmath/downloads/list?q=0.4 version 0.4]. String conversion has been rewritten to use integer arithmetic instead of Decimals, which makes it an order of magnitude faster; basic arithmetic speed has also been improved by 15%. Division now uses a rigorous algorithm for directed rounding (it previously got the last bit wrong with a 0.01% probability). Some functions have been added or renamed, and the unit tests have been made more exhaustive.
