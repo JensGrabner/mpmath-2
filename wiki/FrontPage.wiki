@@ -7,6 +7,7 @@ mpmath is a replacement for Python's `float`/`complex` types and `math`/`cmath` 
   * Arbitrary-precision real and complex floating-point arithmetic
   * Lots of functions: `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, `atan2`, `hypot`, `arg`, `gamma`, `factorial`, `erf`, `upper_gamma`/`lower_gamma` (incomplete gamma functions), `zeta`.
   * Common mathematical constants: `e`, `pi`, `cgamma` (Euler's constant)
+  * Avoids bugs present in Python's `cmath` library, like `asinh` using the wrong branch cut
   * Directed rounding for all arithmetic operations on real numbers, in all directions supported by Python's `decimal` library (floor, ceiling, down, up, half-down, half-up, half-even).
 
 Latest update (see [History] for previous updates):
