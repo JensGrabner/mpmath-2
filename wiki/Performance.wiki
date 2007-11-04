@@ -16,7 +16,7 @@ The three rightmost columns list the same benchmark but with  [http://psyco.sour
 ==Summary==
   * mpmath is roughly 10x faster than the `decimal` module at 10-100 digit precision and 100x faster at 100-1000 digit precision.
   * Using the functional interface in mpmath.lib further improves performance by 2x for some operations.
-  * Transcendental functions are an additional order of magnitude faster than arithmetic. The greatest particular speedup over Decimal in the entire benchmark occurs for computing natural logarithms, which is 8000x faster at 300-digit precision (the test was not run at 1000-digit precision as finishing a single logarithm would take too long in dmath)
+  * Transcendental functions are an additional order of magnitude faster in mpmath compared to `Decimal` implementations. The greatest particular speedup over Decimal in the entire benchmark occurs for computing natural logarithms, which is 8000x faster at 300-digit precision (the test was not run at 1000-digit precision as finishing a single logarithm would take too long in dmath)
   * psyco speeds up both decimal and mpmath by about 50-100%
   * The only operation that is slower in mpmath is (not surprisingly) string conversion
 
