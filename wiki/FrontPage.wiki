@@ -2,13 +2,14 @@
 
 http://mpmath.googlecode.com/svn/doc/mpmath-web.png
 
-mpmath is a pure-[http://www.python.org/ Python] library for multiprecision floating-point arithmetic. Being written in pure Python means (besides compact code -- the mpmath core library takes up roughly 50 KB) that no compilation or installation of external packages is required; mpmath can be run directly on any computer where Python is installed. mpmath supports:
+mpmath is a pure-[http://www.python.org/ Python] library for multiprecision floating-point arithmetic. Being written in pure Python means (besides compact code -- the mpmath core library takes up roughly 50 KB) that no compilation or installation of external packages is required; mpmath can be run directly on any computer where Python is installed. Its features include:
 
   * Arbitrary precision (works fine with thousands of digits)
   * Unlimited exponents (no overflow or underflow)
   * Directed rounding (floor, ceiling, down, up, half-down, half-up, half-even)
   * Transcendental functions (all functions from Python's `math` and `cmath` modules, plus a few more like `gamma`, `factorial`, `erf`)
   * Complex numbers
+  * IEEE 754 compatibility (partially)
 
 Part of the motivation behind mpmath is to provide an efficient pure-Python backend for arbitrary-precision numerical calculations in [http://code.google.com/p/sympy/ SymPy] (a Python-based computer algebra system). mpmath is included in the current development version of [http://code.google.com/p/sympycore/ sympycore].
 
@@ -75,6 +76,8 @@ The *[Performance]* page contains detailed benchmarks, comparing mpmath against 
 
 What about [http://code.google.com/p/gmpy/ GMPY], the Python wrapper for [http://gmplib.org/ GMP]? Like the decimal library, gmpy lacks support for special functions and complex numbers. It also lacks some features that are found in both decimal and mpmath, such as directed rounding. Of course, gmpy is quite a bit faster than both, but mpmath stands up fairly well for a pure-Python library. Arithmetic operations in mpmath are roughly 10x slower than gmpy at all precision levels between 1 and 1000 digits. Using [http://psyco.sourceforge.net/ psyco] and direct functions, mpmath can be as little as 5x slower than gmpy at low precision levels. As an order-of-magnitude estimate, mpmath can do 100,000 flops at 15-digit precision on a modern desktop PC (about twice as many with psyco); whether this is fast enough depends on the application, of course.
 
-mpmath can be used as a drop-in replacement for Python's `float`/`complex` types and `math`/`cmath` libraries. In principle, mpmath is able to emulate the precise behavior of IEEE 754 single/double/extended double arithmetic, which could be useful in some applications. Some IEEE 754 features like denormalized numbers are not yet supported, but for normal numbers, arithmetic on mpmath floats at 53-bit precision behaves identically to IEEE double (Python float) arithmetic. The transcendental functions intentionally don't work quite like those in the standard math library, however; mpmath increases the internal precision to accurately evaluate an expression like `sin(10**20)` whereas `math.sin(10**20)` just returns pseudorandom garbage.
-
 mpmath is not really designed for doing calculations with _millions_ of digits (the primary limitation is Python's slow integer multiplication and division), but it is possible in principle. Just for entertainment, mpmath includes a demo script [http://mpmath.googlecode.com/svn/trunk/demo/pidigits.py pidigits.py] (in the source distribution) that computes and prints digits of pi in any base 2-36. In round numbers, it can compute and print 10,000 decimals in half a second, 100,000 decimals in 30 seconds and 1,000,000 decimals in 30 minutes. The large differences between these timings give an indication of the precision range where mpmath ceases to be useful.
+
+==Compatibility==
+
+mpmath can essentially be used as a drop-in replacement for Python's `float`/`complex` types and `math`/`cmath` libraries. In principle, mpmath is able to emulate the precise behavior of IEEE 754 single/double/extended double arithmetic, which could be useful in some applications. Some IEEE 754 features like denormalized numbers are not yet supported, but for normal numbers, arithmetic on mpmath floats at 53-bit precision behaves identically to IEEE double (Python float) arithmetic. The transcendental functions intentionally don't work quite like those in the standard math library, however; mpmath increases the internal precision to accurately evaluate an expression like `sin(10**20)` whereas `math.sin(10**20)` just returns pseudorandom garbage.
