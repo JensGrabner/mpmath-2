@@ -14,8 +14,8 @@
 ==Nice-to-have features==
   * Optional denormal rounding
   * IEEE 754-compatible exception handling
-  * A magic constant `eps` (similar to eps in Matlab) that changes with precision
-  * Functions for rounding to the nearest higher/lower floating-point number at a given precision
+  * A magic constant `eps` (similar to eps in Matlab) that changes with the precision
+  * Functions for rounding to the next nearby floating-point number (up or down) at a given precision
 
 ==Misc==
   * Interface for switching precision and rounding is not finalized (use context objects like decimal?)
