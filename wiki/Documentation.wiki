@@ -73,7 +73,7 @@ mpf('10.9')
 mpf('10.9')
 }}}
 
-As with Python floats, mpfs can not generally represent decimal fractions exactly, although the error can be made arbitrarily small. Even with dps=30, the representation of 10.9 actually has an error of about 3 × 10^-31^, and these errors propagate across calculations. If you need a certain accuracy in the final result of a calculation, you should always temporarily increase the working precision by a couple of digits while carrying out the calculations. For more information about issues with precision of binary floating-point numbers, read [http://docs.sun.com/source/806-3568/ncg_goldberg.html What Every Computer Scientist Should Know About Floating-Point Arithmetic].
+As with Python floats, mpfs can not generally represent decimal fractions exactly, although the error can be made arbitrarily small. Even with dps=30, the representation of 10.9 actually has an error of about 3 × 10^-31^, and these errors propagate across calculations. If you need a certain accuracy in the final result of a calculation, you should temporarily increase the working precision by a couple of digits (indeed, the ability to do so is the main feature of mpmath!). For more information about issues with precision of binary floating-point numbers, read [http://docs.sun.com/source/806-3568/ncg_goldberg.html What Every Computer Scientist Should Know About Floating-Point Arithmetic].
 
 There is no practical magnitude limitation on numbers. For example, an mpf can represent an approximation of 1 googolplex:
 
