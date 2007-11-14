@@ -2,7 +2,7 @@
 
 http://mpmath.googlecode.com/svn/doc/mpmath-web.png
 
-mpmath is a pure-[http://www.python.org/ Python] library for multiprecision floating-point arithmetic. Being written in pure Python means (besides compact code -- the mpmath core library takes up roughly 50 KB) that no compilation or installation of external packages is required; mpmath can be run directly on any computer where Python is installed. Its features include:
+mpmath is a pure-[http://www.python.org/ Python] library for multiprecision floating-point arithmetic. Being written in pure Python means (besides compact code -- the mpmath core library takes up roughly 50 KB) that no compilation or installation of external packages is required; mpmath can be run directly on any computer where Python 2.4 or later is installed. Its features include:
 
   * Arbitrary precision (works fine with thousands of digits)
   * Unlimited exponents (no overflow or underflow)
