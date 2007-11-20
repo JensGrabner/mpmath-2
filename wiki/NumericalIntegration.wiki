@@ -1,0 +1,94 @@
+#summary High-precision numerical integration
+
+mpmath contains a module `quad` for high-precision numerical integration (quadrature). This module is currently only available from the SVN repository, but will be included in the next release of mpmath.
+
+==Tanh-sinh quadrature==
+
+The function `quadts` performs tanh-sinh quadrature (also known as doubly exponential quadrature). Tanh-sinh quadrature is extremely efficient for analytic integrals and, unlike Gauss-Legendre quadrature, tends to work well when the integrand has integrable singularities at the endpoints of the integration interval. Like Gaussian quadrature, its convergence is often quadratic, meaning that doubling the number of evaluation points gives twice as many accurate digits. The algorithm is not suitable for adaptive quadrature, however, and does not perform well if there are singularities between the endpoints or if the integrand is very bumpy or oscillatory (such integrals should manually be split into smaller pieces).
+
+The syntax for integrating a function _f_ between the endpoints _a_ and _b_ is `quadts(f, a, b)`. For example,
+
+{{{
+>>> quadts(lambda x: sin(x), 0, pi)
+mpf('2.0')
+}}}
+
+`quadts` attempts to evaluate the integral to the full working precision (`mpf.dps`). For example, we can try to calculate 100 digits of pi by integrating the area under the half circle arc x^2^ + y^2^ = 1 (y > 0):
+
+{{{
+>>> mpf.dps = 100
+>>> print quadts(lambda x: 2*sqrt(1 - x**2), -1, 1)
+3.141592653589793238462643383279502884197169399375105820974944592307816406286208
+998628034825342117068
+>>> print pi
+3.141592653589793238462643383279502884197169399375105820974944592307816406286208
+998628034825342117068
+}}}
+
+The tanh-sinh scheme is efficient enough that 100-digit integrals like this one can often be evaluated in less than a second. Let's look at the time needed to compute pi by integration at various precision levels:
+
+{{{
+>>> def g():
+...     quadts(lambda x: 2*sqrt(1 - x**2), -1, 1)
+...
+>>> mpf.dps = 15
+>>> t1=clock(); g(); t2 = clock(); print t2-t1
+0.0333207153423
+>>> t1=clock(); g(); t2 = clock(); print t2-t1
+0.00711570884009
+
+>>> mpf.dps = 100
+>>> t1=clock(); g(); t2 = clock(); print t2-t1
+0.454433175166
+>>> t1=clock(); g(); t2 = clock(); print t2-t1
+0.0451345073187
+
+>>> mpf.dps = 500
+>>> t1=clock(); g(); t2 = clock(); print t2-t1
+17.4166247386
+>>> t1=clock(); g(); t2 = clock(); print t2-t1
+0.558986128125
+}}}
+
+Note that the second evaluation at the same precision level is much faster. The reason for this is that the tanh-sinh algorithm must be initalized by computing a set of evaluation points, and this initalization if often more expensive than actually evaluating the integral. mpmath automatically caches all computed nodes to make subsequent integrations faster. However, the cache is lost when Python shuts down, so if you'd frequently like to use mpmath to calculate (say) 1000-digit integrals, you might want to save the nodes to a file. The nodes are stored in a dict `TS_cache` located in the `quad` module namespace, which you can simply [http://docs.python.org/lib/module-pickle.html pickle].
+
+==Double integrals==
+
+It is possible to calculate double integrals with `quadts`. To do this, simply provide a two-argument function and, instead of two endpoints, provide two intervals. The first interval specifies the range for the x variable and the second interval specifies the range of the y variable.
+
+{{{
+>>> print quadts(lambda x, y: cos(x+y/2), (-pi/2, pi/2), (0, pi))
+4.0
+}}}
+
+Here are some examples from http://mathworld.wolfram.com/DoubleIntegral.html, calculated with `mpf.dps = 30` and printed along with their known values. Each of these integrals took roughly 5 seconds to evaluate.
+
+{{{
+>>> print quadts(lambda x, y: (x-1)/((1-x*y)*log(x*y)), (0, 1), (0, 1))
+0.577215664901532860606512090092
+>>> print cgamma
+0.577215664901532860606512090082
+}}}
+
+{{{
+>>> print quadts(lambda x, y: 1/sqrt(1+x**2+y**2), (-1, 1), (-1, 1))
+3.17343648530607134219175646705
+>>> print 4*log(2+sqrt(3))-2*pi/3
+3.17343648530607134219175646705
+}}}
+
+{{{
+>>> print quadts(lambda x, y: 1/(1-x**2 * y**2), (0, 1), (0, 1))
+1.23370055013616982735431137499
+>>> print pi**2 / 8
+1.23370055013616982735431137498
+}}}
+
+{{{
+>>> print quadts(lambda x, y: 1/(1-x*y), (0, 1), (0, 1))
+1.64493406684822643647241516667
+>>> print pi**2 / 6
+1.64493406684822643647241516665
+}}}
+
+There is no direct support for computing triple or higher dimensional integrals; if desired, this can be done easily by passing a function that calls `quad*()` recursively. While double integrals are reasonably fast, even a simple triple integral at very low precision will probably take several minutes to calculate. A quadruple integral will require a whole lot of patience.
