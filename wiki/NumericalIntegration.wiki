@@ -4,7 +4,7 @@ mpmath contains a module `quad` for high-precision numerical integration (quadra
 
 ==Tanh-sinh quadrature==
 
-The function `quadts` performs tanh-sinh quadrature (also known as doubly exponential quadrature). Tanh-sinh quadrature is extremely efficient for analytic integrals and, unlike Gauss-Legendre quadrature, tends to work well when the integrand has integrable singularities at the endpoints of the integration interval. Like Gaussian quadrature, its convergence is often quadratic, meaning that doubling the number of evaluation points gives twice as many accurate digits. The algorithm is not suitable for adaptive quadrature, however, and does not perform well if there are singularities between the endpoints or if the integrand is very bumpy or oscillatory (such integrals should manually be split into smaller pieces).
+The function `quadts` performs tanh-sinh quadrature (also known as doubly exponential quadrature). Tanh-sinh quadrature is extremely efficient for high-precision integration of analytic functions and, unlike Gauss-Legendre quadrature, tends to work well even when the integrand has (integrable) singularities at the endpoints of the integration interval. Like Gaussian quadrature, its convergence is often quadratic, meaning that doubling the number of evaluation points gives twice as many accurate digits. The algorithm is not suitable for adaptive quadrature, however, and does not perform well if there are singularities between the endpoints or if the integrand is very bumpy or oscillatory (such integrals should manually be split into smaller pieces).
 
 The syntax for integrating a function _f_ between the endpoints _a_ and _b_ is `quadts(f, a, b)`. For example,
 
