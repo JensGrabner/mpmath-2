@@ -52,6 +52,39 @@ The tanh-sinh scheme is efficient enough that 100-digit integrals like this one 
 
 Note that the second evaluation at the same precision level is much faster. The reason for this is that the tanh-sinh algorithm must be initalized by computing a set of evaluation points, and this initalization if often more expensive than actually evaluating the integral. mpmath automatically caches all computed nodes to make subsequent integrations faster. However, the cache is lost when Python shuts down, so if you'd frequently like to use mpmath to calculate (say) 1000-digit integrals, you might want to save the nodes to a file. The nodes are stored in a dict `TS_cache` located in the `quad` module namespace, which you can simply [http://docs.python.org/lib/module-pickle.html pickle].
 
+==Neat examples==
+
+You can integrate over infinite or half-infinite intervals:
+{{{
+>>> print quadts(lambda x: 2/(x**2+1), 0, inf)
+3.14159265358979
+>>> print quadts(lambda x: exp(-x**2), -inf, inf)**2
+3.14159265358979
+}}}
+
+Complex integrals are also supported. The next example computes Euler's constant by using Cauchy's integral formula and looking at the pole of the Riemann zeta function at z = 1.
+
+{{{
+>>> print 1/(2*pi) * quadts(lambda x: zeta(exp(1j*x)+1), 0, 2*pi)
+(0.577215664901533 + 2.16642176957242e-26j)
+>>> print cgamma
+0.577215664901533
+}}}
+
+Functions with integral representations, such as the gamma function, can be implemented  directly from the definition.
+
+{{{
+>>> def Gamma(z):
+...     return quadts(lambda t: exp(-t)*t**(z-1), 0, inf)
+...
+>>> print Gamma(1)
+1.0
+>>> print Gamma(10)
+362880.0
+>>> print Gamma(1+1j)
+(0.498015668118356 + -0.154949828301811j)
+}}}
+
 ==Double integrals==
 
 It is possible to calculate double integrals with `quadts`. To do this, simply provide a two-argument function and, instead of two endpoints, provide two intervals. The first interval specifies the range for the x variable and the second interval specifies the range of the y variable.
@@ -92,3 +125,25 @@ Here are some examples from http://mathworld.wolfram.com/DoubleIntegral.html, ca
 }}}
 
 There is no direct support for computing triple or higher dimensional integrals; if desired, this can be done easily by passing a function that calls `quad*()` recursively. While double integrals are reasonably fast, even a simple triple integral at very low precision will probably take several minutes to calculate. A quadruple integral will require a whole lot of patience.
+
+==Examples of failure==
+
+Attempting to evaluate oscillatory integrals on large intervals by means of the tanh-sinh method is generally futile.
+
+This integral should be pi/2 ~= 1.57:
+{{{
+>>> print quadts(lambda x: sin(x)/x, 0, inf)
+1.1387777867113
+}}}
+
+This should be 0.627 (`quadts` generates complete nonsense):
+{{{
+>>> print quadts(lambda x: sin(x**2), 0, inf)
+-5.1176231319827e+16
+}}}
+
+However, oscillation may not be a problem if suppressed by sufficiently fast decay. This integral is exactly 1/2.
+{{{
+>>> print quadts(lambda x: exp(-x)*sin(x), 0, inf)
+0.500000000000008
+}}}
