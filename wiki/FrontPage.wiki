@@ -7,7 +7,7 @@ mpmath is a pure-[http://www.python.org/ Python] library for arbitrary-precision
   * Runs without compilation on any computer where Python 2.4 or later is installed
   * Fair performance -- typically 10-100x faster than Python's `decimal` library
   * Transcendental functions -- all functions from Python's `math` and `cmath` modules, plus a few more like `gamma`, `factorial`, `erf`
-  * Complex numbers -- with full support for transcendental functions
+  * Complex numbers -- with full support by transcendental functions
   * Directed rounding -- floor, ceiling, down, up, half-down, half-up, half-even
   * Unlimited exponents -- no overflow or underflow
 
