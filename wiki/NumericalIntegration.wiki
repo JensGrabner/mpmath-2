@@ -4,7 +4,7 @@ mpmath contains a module `quad` for high-precision numerical integration (quadra
 
 ==Tanh-sinh quadrature==
 
-The function `quadts` performs tanh-sinh quadrature (also known as doubly exponential quadrature). Tanh-sinh quadrature is extremely efficient for high-precision integration of analytic functions and, unlike Gauss-Legendre quadrature, tends to work well even when the integrand has (integrable) singularities at the endpoints of the integration interval. Like Gaussian quadrature, its convergence is often quadratic, meaning that doubling the number of evaluation points gives twice as many accurate digits. The algorithm is not suitable for adaptive quadrature, however, and does not perform well if there are singularities between the endpoints or if the integrand is very bumpy or oscillatory (such integrals should manually be split into smaller pieces).
+The function `quadts` performs tanh-sinh quadrature (also known as doubly exponential quadrature). Tanh-sinh quadrature is extremely efficient for high-precision integration of analytic functions and, unlike Gauss-Legendre quadrature, tends to work well even when the integrand has (integrable) singularities at the endpoints of the integration interval.
 
 The syntax for integrating a function _f_ between the endpoints _a_ and _b_ is `quadts(f, a, b)`. For example,
 
@@ -25,7 +25,7 @@ mpf('2.0')
 998628034825342117068
 }}}
 
-The tanh-sinh scheme is efficient enough that 100-digit integrals like this one can often be evaluated in less than a second. Let's look at the time needed to compute pi by integration at various precision levels:
+The tanh-sinh scheme is efficient enough that analytic 100-digit integrals like this one can often be evaluated in less than a second. Let's look at the time needed to compute pi by integration at various precision levels:
 
 {{{
 >>> def g():
@@ -85,6 +85,35 @@ Functions with integral representations, such as the gamma function, can be impl
 (0.498015668118356 + -0.154949828301811j)
 }}}
 
+==Error detection==
+
+The tanh-sinh algorithm is not suitable for adaptive quadrature, and does not perform well if there are singularities between the endpoints or if the integrand is very bumpy or oscillatory (such integrals should manually be split into smaller pieces). If the `error=1` option is set, `quadts` will return an error estimate along with the result; this can be useful for debugging.
+
+A simple example where the algorithm fails is the function f(x) = abs(sin(x)), which is not smooth at x = pi. In this case, a close value is calculated, but the result is nowhere near the target accuracy. In this case, `tanh-sinh` correctly estimates the magnitude of the error:
+{{{
+>>> mpf.dps = 15
+>>> quadts(lambda x: abs(sin(x)), 0, 2*pi, error=1)
+(mpf('3.9990089417677899'), mpf('0.0010000000000000002'))
+}}}
+
+Attempting to evaluate oscillatory integrals on large intervals by means of the tanh-sinh method is also generally futile. This integral should be pi/2 ~= 1.57:
+{{{
+>>> print quadts(lambda x: sin(x)/x, 0, inf, error=1)
+(mpf('3.1584385429572479'), mpf('1.0'))
+}}}
+
+This should be 0.627 (`quadts` generates complete nonsense both in the result and the error estimate):
+{{{
+>>> print quadts(lambda x: sin(x**2), 0, inf, error=1)
+(mpf('-3262086438825756.5'), mpf('1.0'))
+}}}
+
+However, oscillation may not be a problem if suppressed by sufficiently fast decay. This integral is exactly 1/2.
+{{{
+>>> print quadts(lambda x: exp(-x)*sin(x), 0, inf)
+0.5
+}}}
+
 ==Double integrals==
 
 It is possible to calculate double integrals with `quadts`. To do this, simply provide a two-argument function and, instead of two endpoints, provide two intervals. The first interval specifies the range for the x variable and the second interval specifies the range of the y variable.
@@ -94,7 +123,7 @@ It is possible to calculate double integrals with `quadts`. To do this, simply p
 4.0
 }}}
 
-Here are some examples from http://mathworld.wolfram.com/DoubleIntegral.html, calculated with `mpf.dps = 30` and printed along with their known values. Each of these integrals took roughly 5 seconds to evaluate.
+Here are some examples from http://mathworld.wolfram.com/DoubleIntegral.html, calculated with `mpf.dps = 30` and printed along with their known values. Each of these integrals should take roughly 5-10 seconds to evaluate.
 
 {{{
 >>> print quadts(lambda x, y: (x-1)/((1-x*y)*log(x*y)), (0, 1), (0, 1))
@@ -124,28 +153,4 @@ Here are some examples from http://mathworld.wolfram.com/DoubleIntegral.html, ca
 1.64493406684822643647241516665
 }}}
 
-There is no direct support for computing triple or higher dimensional integrals; if desired, this can be done easily by passing a function that calls `quad*()` recursively. While double integrals are reasonably fast, even a simple triple integral at very low precision will probably take several minutes to calculate. A quadruple integral will require a whole lot of patience.
-
-==Examples of failure==
-
-Attempting to evaluate oscillatory integrals on large intervals by means of the tanh-sinh method is generally futile.
-
-This integral should be pi/2 ~= 1.57:
-{{{
->>> print quadts(lambda x: sin(x)/x, 0, inf)
-Warning: failed to reach full accuracy. Estimated error: 1.0
-4.95582751209033
-}}}
-
-This should be 0.627 (`quadts` generates complete nonsense):
-{{{
->>> print quadts(lambda x: sin(x**2), 0, inf)
-Warning: failed to reach full accuracy. Estimated error: 1.0
--1.96398951841847e+16
-}}}
-
-However, oscillation may not be a problem if suppressed by sufficiently fast decay. This integral is exactly 1/2.
-{{{
->>> print quadts(lambda x: exp(-x)*sin(x), 0, inf)
-0.5
-}}}
+There is no direct support for computing triple or higher dimensional integrals; if desired, this can be done easily by passing a function that calls `quadts()` recursively. While double integrals are reasonably fast, even a simple triple integral at very low precision will probably take several minutes to calculate. A quadruple integral will require a whole lot of patience.
