@@ -133,17 +133,19 @@ Attempting to evaluate oscillatory integrals on large intervals by means of the 
 This integral should be pi/2 ~= 1.57:
 {{{
 >>> print quadts(lambda x: sin(x)/x, 0, inf)
-1.1387777867113
+Warning: failed to reach full accuracy. Estimated error: 1.0
+4.95582751209033
 }}}
 
 This should be 0.627 (`quadts` generates complete nonsense):
 {{{
 >>> print quadts(lambda x: sin(x**2), 0, inf)
--5.1176231319827e+16
+Warning: failed to reach full accuracy. Estimated error: 1.0
+-1.96398951841847e+16
 }}}
 
 However, oscillation may not be a problem if suppressed by sufficiently fast decay. This integral is exactly 1/2.
 {{{
 >>> print quadts(lambda x: exp(-x)*sin(x), 0, inf)
-0.500000000000008
+0.5
 }}}
