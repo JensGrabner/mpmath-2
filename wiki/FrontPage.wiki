@@ -2,13 +2,14 @@
 
 http://mpmath.googlecode.com/svn/doc/mpmath-web.png
 
-mpmath is a pure-[http://www.python.org/ Python] library for multiprecision floating-point arithmetic. Being written in pure Python means (besides compact code -- the mpmath core library takes up roughly 50 KB) that no compilation or installation of external packages is required; mpmath can be run directly on any computer where Python 2.4 or later is installed. Its features include:
+mpmath is a pure-[http://www.python.org/ Python] library for arbitrary-precision floating-point arithmetic. Its features include:
 
-  * Arbitrary precision (works fine with thousands of digits)
-  * Unlimited exponents (no overflow or underflow)
-  * Directed rounding (floor, ceiling, down, up, half-down, half-up, half-even)
-  * Transcendental functions (all functions from Python's `math` and `cmath` modules, plus a few more like `gamma`, `factorial`, `erf`)
-  * Complex numbers (besides regular arithmetic, all functions support complex arguments)
+  * Runs without compilation on any computer where Python 2.4 or later is installed
+  * Fair performance -- typically 10-100x faster than Python's `decimal` library and 10x slower than the fastest C libraries
+  * Transcendental functions -- all functions from Python's `math` and `cmath` modules, plus a few more like `gamma`, `factorial`, `erf`
+  * Complex numbers -- with full support for transcendental functions
+  * Directed rounding -- floor, ceiling, down, up, half-down, half-up, half-even
+  * Unlimited exponents -- no overflow or underflow
 
 Part of the motivation behind mpmath is to provide an efficient pure-Python backend for arbitrary-precision numerical calculations in [http://code.google.com/p/sympy/ SymPy] (a Python-based computer algebra system). mpmath is included in the current development version of [http://code.google.com/p/sympycore/ sympycore].
 
