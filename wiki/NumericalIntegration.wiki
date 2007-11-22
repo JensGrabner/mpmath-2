@@ -87,7 +87,7 @@ Functions with integral representations, such as the gamma function, can be impl
 
 ==Error detection==
 
-The tanh-sinh algorithm is not suitable for adaptive quadrature, and does not perform well if there are singularities between the endpoints or if the integrand is very bumpy or oscillatory (such integrals should manually be split into smaller pieces). If the `error=1` option is set, `quadts` will return an error estimate along with the result; this can be useful for debugging.
+The tanh-sinh algorithm is not suitable for adaptive quadrature, and does not perform well if there are singularities between the endpoints or if the integrand is very bumpy or oscillatory (such integrals should manually be split into smaller pieces). If the `error=1` option is set, `quadts` will return an error estimate along with the result; although this estimate is not always correct, it can be useful for debugging.
 
 A simple example where the algorithm fails is the function f(x) = abs(sin(x)), which is not smooth at x = pi. In this case, a close value is calculated, but the result is nowhere near the target accuracy. In this case, `tanh-sinh` correctly estimates the magnitude of the error:
 {{{
