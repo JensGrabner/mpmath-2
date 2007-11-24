@@ -86,7 +86,7 @@ There is no practical magnitude limitation on numbers. For example, an mpf can r
 1.0e+100
 }}}
 
-The objects `pi`, `e`, and `cgamma` (Euler's constant) are special objects that behave like mpfs but whose values automatically adjust to the precision.
+The objects `pi`, `e`, and `euler` (Euler's constant) are special objects that behave like mpfs but whose values automatically adjust to the precision.
 
 {{{
 >>> mpf.dps = 15
@@ -95,12 +95,17 @@ The objects `pi`, `e`, and `cgamma` (Euler's constant) are special objects that 
 >>> mpf.dps = 50
 >>> print pi
 3.1415926535897932384626433832795028841971693993751
+>>> print e
+2.7182818284590452353602874713526624977572470937
+>>> print euler
+0.57721566490153286060651209008240243104215933593992
 }}}
 
 ==Special functions==
 mpmath implements all the standard math functions, for both real and complex numbers and with arbitrary precision:
 
 {{{
+>>> mpf.dps = 15
 >>> cosh(1.234)
 mpf('1.8630338016984225')
 >>> asin(1.0)
@@ -116,6 +121,7 @@ mpc(real='-7.31511009490110251748653617', imag='1.04274365623590441410150394')
 Some functions that do not exist in the standard Python math library are available, e.g. factorials (with support for noninteger arguments, of course):
 
 {{{
+>>> mpf.dps = 15
 >>> factorial(10)
 mpf('3628800.0')
 >>> factorial(0.25)
@@ -123,6 +129,49 @@ mpf('0.90640247705547705')
 >>> factorial(2+3j)
 mpc(real='-0.44011340763700169', imag='-0.063637243126317022')
 }}}
+
+==Table of available functions==
+
+|| *Function* || *Description* ||
+|| sqrt(x) || Square root ||
+|| hypot(x,y) || Euclidean distance ||
+|| exp(x) || Exponential function ||
+|| log(x,b) || Natural logarithm (optionally base-b logarithm) ||
+|| cos(x) || Cosine ||
+|| sin(x) || Sine ||
+|| tan(x) || Tangent ||
+|| cosh(x) || Hyperbolic cosine ||
+|| sinh(x) || Hyperbolic sine ||
+|| tanh(x) || Hyperbolic tangent ||
+|| acos(x) || Inverse cosine ||
+|| asin(x) || Inverse sine ||
+|| atan(x) || Inverse tangent ||
+|| acosh(x) || Inverse hyperbolic cosine ||
+|| asinh(x) || Inverse hyperbolic sine ||
+|| atanh(x) || Inverse hyperbolic tangent ||
+|| floor(x) || Floor function (round to integer in the direction of -inf) ||
+|| ceil(x) || Ceiling function (round to integer in the direction of +inf) ||
+|| arg(x) || Complex argument ||
+|| rand() || Generate a random number in [0, 1) ||
+|| factorial(x) || Factorial ||
+|| gamma(x) || Gamma function ||
+|| lower_gamma(a,x) || Lower gamma function ||
+|| upper_gamma(a,x) || Upper gamma function ||
+|| erf(x) || Error function ||
+|| zeta(x) || Riemann zeta function ||
+
+Special numbers:
+|| *Symbol* || *Description* ||
+|| j || Imaginary unit ||
+|| pi || Circle constant pi ~= 3.14159 ||
+|| e || Euler's number (base of the natural logarithm) e ~= 2.71828 ||
+|| euler || Euler's constant gamma ~= 0.577216 ||
+|| clog2 || log(2) ~= 0.693147 ||
+|| clog10 || log(10) ~= 2.30259 ||
+|| inf || Positive infinity ||
+|| -inf || Negative infinify ||
+|| nan || Not-a-number ||
+
 
 ==Rounding==
 
