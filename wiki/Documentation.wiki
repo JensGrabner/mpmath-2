@@ -101,6 +101,25 @@ The objects `pi`, `e`, and `euler` (Euler's constant) are special objects that b
 0.57721566490153286060651209008240243104215933593992
 }}}
 
+==Rounding==
+
+Directed rounding is partially implemented. For example, this computes and verifies a 15-digit approximation interval for pi:
+
+{{{
+>>> mpf.dps = 15
+>>> mpf.round_down(); pi1 = +pi
+>>> mpf.round_up(); pi2 = +pi
+>>> pi1
+mpf('3.1415926535897931')
+>>> pi2
+mpf('3.1415926535897936')
+>>> mpf.dps = 30
+>>> pi1 < pi < pi2
+True
+}}}
+
+Correct rounding does not yet work for all operations, however.
+
 ==Special functions==
 mpmath implements all the standard math functions, for both real and complex numbers and with arbitrary precision:
 
@@ -172,23 +191,6 @@ Special numbers:
 || -inf || Negative infinify ||
 || nan || Not-a-number ||
 
-
-==Rounding==
-
-Directed rounding is partially implemented. For example, this computes and verifies a 15-digit approximation interval for pi:
-
-{{{
->>> mpf.dps = 15
->>> mpf.round_down(); pi1 = +pi
->>> mpf.round_up(); pi2 = +pi
->>> pi1
-mpf('3.1415926535897931')
->>> pi2
-mpf('3.1415926535897936')
->>> mpf.dps = 30
->>> pi1 < pi < pi2
-True
-}}}
 
 ==Internal number representation==
 A binary floating-point number is an exact rational number of the form `x` = `man` × 2^exp^ where `man` and `exp` are integers (called the _mantissa_ and _exponent_). In `mpmath`, a floating-point number is represented as a three-element tuple
