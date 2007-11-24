@@ -14,6 +14,7 @@ mpmath is a pure-[http://www.python.org/ Python] library for arbitrary-precision
 Part of the motivation behind mpmath is to provide an efficient pure-Python backend for arbitrary-precision numerical calculations in [http://code.google.com/p/sympy/ SymPy] (a Python-based computer algebra system). mpmath is included in the current development version of [http://code.google.com/p/sympycore/ sympycore].
 
 Latest update (see [History] for previous updates):
+  * *November 24, 2007.* Released [http://code.google.com/p/mpmath/downloads/list?q=0.5 version 0.5]. The most significant new feature is the quadts function for arbitrary-precision numerical integration using the tanh-sinh algorithm. The modulo operator and floor/ceil functions have also been implemented, and there is partial support for the special numbers inf and nan. Other small changes include a slight speedup of multiplication and division.
 
 ==Basic usage==
 
