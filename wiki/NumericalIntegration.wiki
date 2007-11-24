@@ -77,20 +77,20 @@ Functions with integral representations, such as the gamma function, can be impl
 
 The tanh-sinh algorithm is not suitable for adaptive quadrature, and does not perform well if there are singularities between the endpoints or if the integrand is very bumpy or oscillatory (such integrals should manually be split into smaller pieces). If the `error=1` option is set, `quadts` will return an error estimate along with the result; although this estimate is not always correct, it can be useful for debugging.
 
-A simple example where the algorithm fails is the function f(x) = abs(sin(x)), which is not smooth at x = pi. In this case, a close value is calculated, but the result is nowhere near the target accuracy. In this case, `tanh-sinh` correctly estimates the magnitude of the error:
+A simple example where the algorithm fails is the function f(x) = abs(sin(x)), which is not smooth at x = pi. In this case, a close value is calculated, but the result is nowhere near the target accuracy; however, `quadts` gives a good estimate of the magnitude of the error:
 {{{
 >>> mpf.dps = 15
 >>> quadts(lambda x: abs(sin(x)), 0, 2*pi, error=1)
 (mpf('3.9990089417677899'), mpf('0.001'))
 }}}
 
-Attempting to evaluate oscillatory integrals on large intervals by means of the tanh-sinh method is also generally futile. This integral should be pi/2 ~= 1.57:
+Attempting to evaluate oscillatory integrals on large intervals by means of the tanh-sinh method is generally futile. This integral should be pi/2 ~= 1.57:
 {{{
 >>> print quadts(lambda x: sin(x)/x, 0, inf, error=1)
 (mpf('2.3840907358976544'), mpf('1.0'))
 }}}
 
-This should be 0.627 (`quadts` generates complete nonsense both in the result and the error estimate):
+This should be 0.627 but `quadts` generates complete nonsense both in the result and the error estimate (the error estimate is somewhat arbitrarily capped at 1.0):
 {{{
 >>> print quadts(lambda x: sin(x**2), 0, inf, error=1)
 (mpf('2.5190134849122411e+21'), mpf('1.0'))
@@ -100,6 +100,15 @@ However, oscillation may not be a problem if suppressed by sufficiently fast dec
 {{{
 >>> print quadts(lambda x: exp(-x)*sin(x), 0, inf)
 0.5
+}}}
+
+Even for analytic integrals on finite intervals, there is no guarantee that `quadts` will be successful.  A few examples of integrals for which `quadts` currently fails to reach full accuracy are:
+
+{{{
+quadts(lambda x: sqrt(tan(x)), 0, pi/2)
+quadts(lambda x: atan(x)/(x*sqrt(1-x**2)), 0, 1)
+quadts(lambda x: log(1+x**2)/x**2, 0, 1)
+quadts(lambda x: x**2/((1+x**4)*sqrt(1-x**4)), 0, 1)
 }}}
 
 ==Double integrals==
