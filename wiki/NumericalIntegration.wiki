@@ -1,6 +1,7 @@
 #summary High-precision numerical integration
+#labels Featured
 
-mpmath contains a module `quad` for high-precision numerical integration (quadrature). This module is currently only available from the SVN repository, but will be included in the next release of mpmath.
+As of version 0.5, mpmath contains a module `quad` for high-precision numerical integration (quadrature).
 
 ==Tanh-sinh quadrature==
 
