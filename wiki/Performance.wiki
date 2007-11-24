@@ -5,13 +5,9 @@ mpmath is written with the goal of providing the fastest implementation of arbit
 
 ==Explanation of the benchmark==
 
-These tables were generated using the `benchmark.py` script in the mpmath `tests` directory, running on an Athlon 3700+. The script measures the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between 0 and 32.
-
-"Decimal" means that the `decimal.Decimal` class is used, "mpf" means that the `mpmath.mpf` class is used, and "raw mpf" means that the operations are performed using the raw arithmetic functions in `mpmath.lib` (this avoids the overhead of creating object instances). Numbers in parentheses indicate the speedup compared to Decimals.
+These tables were generated using the `benchmark.py` script in the mpmath `tests` directory, running on an Athlon 3700+. The script measures the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between 0 and 32. "Decimal" means that the `decimal.Decimal` class is used, "mpf" means that the `mpmath.mpf` class is used, and "raw mpf" means that the operations are performed using the raw arithmetic functions in `mpmath.lib` (this avoids the overhead of creating object instances). Numbers in parentheses indicate the speedup compared to Decimals. The three rightmost columns list the same benchmark but with  [http://psyco.sourceforge.net/ psyco] enabled (with `psyco.full()`).
 
 The decimal library does not implement transcendental functions, but there are user-made libraries that can be used for comparison. The Python Package Index contains at least three libraries: [http://pypi.python.org/pypi/dmath/0.9 dmath], [http://pypi.python.org/pypi/AJDecimalMathAdditions/0.1.0 AJDecimalMathAdditions], and  [http://pypi.python.org/pypi/decimalfuncs/1.4 decimalfuncs]. They all have roughly similar performance, but dmath seems to be slightly faster overall and was therefore used for this benchmark.
-
-The three rightmost columns list the same benchmark but with  [http://psyco.sourceforge.net/ psyco] enabled (with `psyco.full()`).
 
 ==Summary==
   * mpmath is roughly 10x faster than the `decimal` module at 10-100 digit precision and 100x faster at 100-1000 digit precision.
