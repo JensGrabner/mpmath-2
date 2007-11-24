@@ -21,7 +21,7 @@ Use the "Featured Downloads" links on the right to download the latest version. 
 
 The [Documentation] wiki page describes the available features fairly comprehensively.
 
-Importing all contents from the `mpmath` module gives access to the classes `mpf` (representing a real floating-point number) and `mpc` (a complex number), as well as a number of functions familiar from Python's `math` and `cmath` modules, including `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, `atan2`, `hypot`. A quick demonstration in the interactive Python interpreter:
+Importing all contents from the `mpmath` module gives access to the classes `mpf` (for a real floating-point numbers) and `mpc` (for complex numbers), as well as a number of functions familiar from Python's `math` and `cmath` modules, including `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, `atan2`, `hypot`. A quick demonstration in the interactive Python interpreter:
 
 {{{
 >>> from mpmath import *
