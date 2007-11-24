@@ -19,7 +19,9 @@ Latest update (see [History] for previous updates):
 
 Use the "Featured Downloads" links on the right to download the latest version. To install mpmath, either run the binary installer (Windows only) or unzip the source package and run `python setup.py install`. The most recent development code is available in the [http://mpmath.googlecode.com/svn/ SVN repository]. Old versions are available from the [http://code.google.com/p/mpmath/downloads/list downloads page].
 
-Importing all contents from the `mpmath` module gives access to the classes `mpf` (representing a real floating-point number) and `mpc` (a complex number), as well as a number of functions familiar from Python's `math` and `cmath` modules, including `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, `atan2`, `hypot`. Here is an example of an interactive session:
+The [Documentation] wiki page describes the available features fairly comprehensively.
+
+Importing all contents from the `mpmath` module gives access to the classes `mpf` (representing a real floating-point number) and `mpc` (a complex number), as well as a number of functions familiar from Python's `math` and `cmath` modules, including `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, `atan2`, `hypot`. A quick demonstration in the interactive Python interpreter:
 
 {{{
 >>> from mpmath import *
@@ -38,7 +40,6 @@ mpc(real='0.5403023058681397174013', imag='0.8414709848078965066527')
 Suppose you need 250 digits of `1-tanh(pi*sqrt(163))`. Evaluating this expression directly using Python's math functions won't give a single digit since the tanh value differs from 1 by less than 10^-34^. Obtaining a fully accurate value is easy in mpmath by increasing the working precision (the following calculation takes about 2 ms of CPU time):
 
 {{{
->>> from mpmath import *
 >>> mpf.dps = 300
 >>> a = tanh(pi*sqrt(163))
 >>> mpf.dps = 250
@@ -47,6 +48,15 @@ Suppose you need 250 digits of `1-tanh(pi*sqrt(163))`. Evaluating this expressio
 28220961164584196307134531718146007142093177368543313383147966120054717968661325
 33092032077098156399455773519701080949781301191960905408797891757218766439604790
 9136148524081177295745455524995633685457274904
+}}}
+
+Although mpmath is mainly intended to be an arbitrary-precision replacement for Python's `math` and `cmath` modules, some more advanced utilities are available. For example, the `quadts` function computes integrals with arbitrary precision (see the [NumericalIntegration] wiki page for detailed documentation with multiple examples):
+
+{{{
+>>> mpf.dps = 100
+>>> print quadts(lambda x: 2/(x**2+1), 0, inf)
+3.141592653589793238462643383279502884197169399375105820974944592307816406286208
+998628034825342117068
 }}}
 
 ==Low-level operations==
