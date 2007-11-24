@@ -13,6 +13,8 @@ The syntax for integrating a function _f_ between the endpoints _a_ and _b_ is `
 mpf('2.0')
 }}}
 
+===High precision===
+
 `quadts` attempts to evaluate the integral to the full working precision (`mpf.dps`). For example, we can try to calculate 100 digits of pi by integrating the area under the half circle arc x^2^ + y^2^ = 1 (y > 0):
 
 {{{
@@ -25,34 +27,20 @@ mpf('2.0')
 998628034825342117068
 }}}
 
-The tanh-sinh scheme is efficient enough that analytic 100-digit integrals like this one can often be evaluated in less than a second. Let's look at the time needed to compute pi by integration at various precision levels:
+The tanh-sinh scheme is efficient enough that analytic 100-digit integrals like this one can often be evaluated in less than a second.
 
-{{{
->>> def g():
-...     quadts(lambda x: 2*sqrt(1 - x**2), -1, 1)
-...
->>> mpf.dps = 15
->>> t1=clock(); g(); t2 = clock(); print t2-t1
-0.0333207153423
->>> t1=clock(); g(); t2 = clock(); print t2-t1
-0.00711570884009
+===Timing and initialization===
 
->>> mpf.dps = 100
->>> t1=clock(); g(); t2 = clock(); print t2-t1
-0.454433175166
->>> t1=clock(); g(); t2 = clock(); print t2-t1
-0.0451345073187
+Let's look at the time needed to compute the aforementioned circle integral at various precision levels:
 
->>> mpf.dps = 500
->>> t1=clock(); g(); t2 = clock(); print t2-t1
-17.4166247386
->>> t1=clock(); g(); t2 = clock(); print t2-t1
-0.558986128125
-}}}
+|| *Precision* || *First evaluation* || *Second evaluation* ||
+|| 15 || 0.038 s || 0.0080 s ||
+|| 50 || 0.52 s || 0.050 s ||
+|| 500 || 16.4 s || 0.53 s ||
 
-Note that the second evaluation at the same precision level is much faster. The reason for this is that the tanh-sinh algorithm must be initalized by computing a set of evaluation points, and this initalization if often more expensive than actually evaluating the integral. mpmath automatically caches all computed nodes to make subsequent integrations faster. However, the cache is lost when Python shuts down, so if you'd frequently like to use mpmath to calculate (say) 1000-digit integrals, you might want to save the nodes to a file. The nodes are stored in a dict `TS_cache` located in the `quad` module namespace, which you can simply [http://docs.python.org/lib/module-pickle.html pickle].
+The second integration at the same precision level is much faster. The reason for this is that the tanh-sinh algorithm must be initalized by computing a set of evaluation points, and this initalization if often more expensive than actually evaluating the integral. mpmath automatically caches all computed nodes to make subsequent integrations faster. However, the cache is lost when Python shuts down, so if you'd frequently like to use mpmath to calculate (say) 1000-digit integrals, you might want to save the nodes to a file. The nodes are stored in a dict `TS_cache` located in the `quad` module, which can be [http://docs.python.org/lib/module-pickle.html pickled] if desired.
 
-==Neat examples==
+===Features and application examples===
 
 You can integrate over infinite or half-infinite intervals:
 {{{
@@ -85,7 +73,7 @@ Functions with integral representations, such as the gamma function, can be impl
 (0.498015668118356 + -0.154949828301811j)
 }}}
 
-==Error detection==
+===Error detection===
 
 The tanh-sinh algorithm is not suitable for adaptive quadrature, and does not perform well if there are singularities between the endpoints or if the integrand is very bumpy or oscillatory (such integrals should manually be split into smaller pieces). If the `error=1` option is set, `quadts` will return an error estimate along with the result; although this estimate is not always correct, it can be useful for debugging.
 
