@@ -170,6 +170,7 @@ mpc(real='-0.44011340763700169', imag='-0.063637243126317022')
 || acos(x) || Inverse cosine ||
 || asin(x) || Inverse sine ||
 || atan(x) || Inverse tangent ||
+|| atan2(y,x) || Inverse tangent atan(y/x) with attention to signs of both x and y||
 || acosh(x) || Inverse hyperbolic cosine ||
 || asinh(x) || Inverse hyperbolic sine ||
 || atanh(x) || Inverse hyperbolic tangent ||
@@ -228,3 +229,6 @@ The modules in the `mpmath.lib` directory contain functions for working directly
 }}}
 
 Of course, since this sum can be represented exactly with only 10 bits in the mantissa, no rounding was performed.
+
+==Applications==
+  * [NumericalIntegration] -- arbitrary-precision numerical integration
