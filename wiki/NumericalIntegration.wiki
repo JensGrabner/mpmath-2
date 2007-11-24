@@ -81,19 +81,19 @@ A simple example where the algorithm fails is the function f(x) = abs(sin(x)), w
 {{{
 >>> mpf.dps = 15
 >>> quadts(lambda x: abs(sin(x)), 0, 2*pi, error=1)
-(mpf('3.9990089417677899'), mpf('0.0010000000000000002'))
+(mpf('3.9990089417677899'), mpf('0.001'))
 }}}
 
 Attempting to evaluate oscillatory integrals on large intervals by means of the tanh-sinh method is also generally futile. This integral should be pi/2 ~= 1.57:
 {{{
 >>> print quadts(lambda x: sin(x)/x, 0, inf, error=1)
-(mpf('3.1584385429572479'), mpf('1.0'))
+(mpf('2.3840907358976544'), mpf('1.0'))
 }}}
 
 This should be 0.627 (`quadts` generates complete nonsense both in the result and the error estimate):
 {{{
 >>> print quadts(lambda x: sin(x**2), 0, inf, error=1)
-(mpf('-3262086438825756.5'), mpf('1.0'))
+(mpf('2.5190134849122411e+21'), mpf('1.0'))
 }}}
 
 However, oscillation may not be a problem if suppressed by sufficiently fast decay. This integral is exactly 1/2.
@@ -113,7 +113,7 @@ It is possible to calculate double integrals with `quadts`. To do this, simply p
 
 ===Hard examples===
 
-Here are some more difficult examples from http://mathworld.wolfram.com/DoubleIntegral.html, calculated with `mpf.dps = 30` and printed along with their known values. Each of these integrals takes a couple of seconds to evaluate.
+Here are some more difficult examples from http://mathworld.wolfram.com/DoubleIntegral.html (all except the second contain corner singularities). Each integral is calculated with `mpf.dps = 30` (which takes a couple of seconds), and the result is compared to the known analytical value.
 
 {{{
 >>> print quadts(lambda x, y: (x-1)/((1-x*y)*log(x*y)), (0, 1), (0, 1))
@@ -145,17 +145,17 @@ Here are some more difficult examples from http://mathworld.wolfram.com/DoubleIn
 
 ===Examples of failure===
 
-Many simple-looking double integrals cannot be evaluated directly. In this example, `quadts` will run for several seconds before returning a value with very low accuracy:
+Apparently simple-looking double integrals might not be possible to evaluate directly. In this example, `quadts` will run for several seconds before returning a value with very low accuracy:
 {{{
 >>> mpf.dps = 15
->>> quadts(lambda x, y: ((x-0.5)**2+(y-0.5)**2)**0.5, (0, 1), (0, 1), error=1)
+>>> quadts(lambda x, y: sqrt((x-0.5)**2+(y-0.5)**2), (0, 1), (0, 1), error=1)
 (mpf('0.38259743528830826'), mpf('1.0e-6'))
 }}}
 
 The problem is due to the non-analytic behavior of the function at (0.5, 0.5). We can do much better by splitting the area into four pieces (because of the symmetry, we only need to evaluate one of them):
 
 {{{
->>> print quadts(lambda x, y: 4*((x-0.5)**2+(y-0.5)**2)**0.5, (0.5, 1), (0.5, 1))
+>>> print quadts(lambda x, y: 4*sqrt((x-0.5)**2+(y-0.5)**2), (0.5, 1), (0.5, 1))
 0.382597858232106
 >>> print (sqrt(2) + asinh(1))/6
 0.382597858232106
