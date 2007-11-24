@@ -7,7 +7,7 @@ mpmath is a pure-[http://www.python.org/ Python] library for arbitrary-precision
   * Runs without compilation on any computer where Python 2.4 or later is installed
   * Fair performance -- typically 10-100x faster than Python's `decimal` library
   * Transcendental functions -- all functions from Python's `math` and `cmath` modules, plus a few more like `gamma`, `factorial`, `erf`
-  * Complex numbers -- with full support by transcendental functions
+  * Complex numbers -- with support for transcendental functions
   * Directed rounding -- floor, ceiling, down, up, half-down, half-up, half-even
   * Unlimited exponents -- no overflow or underflow
 
@@ -22,7 +22,7 @@ Use the "Featured Downloads" links on the right to download the latest version. 
 
 The [Documentation] wiki page describes the available features fairly comprehensively.
 
-Importing all contents from the `mpmath` module gives access to the classes `mpf` (for a real floating-point numbers) and `mpc` (for complex numbers), as well as a number of functions familiar from Python's `math` and `cmath` modules, including `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, `atan2`, `hypot`. A quick demonstration in the interactive Python interpreter:
+Importing all contents from the `mpmath` module gives access to the classes `mpf` (for real floating-point numbers) and `mpc` (for complex numbers), as well as a number of functions familiar from Python's `math` and `cmath` modules, including `sqrt`, `exp`, `log`, `power`, `cos`, `sin`, `tan`, `cosh`, `sinh`, `tanh`, `acos`, `asin`, `atan`, `acosh`, `asinh`, `atanh`, `atan2`, `hypot`. A quick demonstration in the interactive Python interpreter:
 
 {{{
 >>> from mpmath import *
@@ -76,13 +76,15 @@ Internally, `mpmath` represents floating-point numbers as tuples of integers. Th
 
 ==Performance comparison==
 
-Why another arbitrary-precision library? Why not use Python's built-in [http://docs.python.org/lib/module-decimal.html decimal] library? There are several reasons, not least speed. Both decimal and mpmath represent numbers as tuples of Python ints, but mpmath uses binary arithmetic which is much more efficient. Typically, mpmath is 10-100 times faster than decimal at low to medium precision levels (and asymptotically even faster). The decimal library also does not implement transcendental functions or complex numbers. Although there are packages for decimal functions (several, in fact), they are all quite slow. For example, a 300-digit logarithm in [http://code.google.com/p/dmath/ dmath] takes 8 seconds, compared to 1 ms in mpmath.
+Both mpmath and Python's built-in [http://docs.python.org/lib/module-decimal.html decimal] library essentially represent numbers as tuples of Python ints, but mpmath uses binary arithmetic which is much more efficient. Typically, mpmath is 10-100 times faster than decimal at low to medium precision levels (and asymptotically even faster). The decimal library also does not implement transcendental functions or complex numbers. Although there are packages for decimal functions (several, in fact), they are all quite slow. For example, a 300-digit logarithm in [http://code.google.com/p/dmath/ dmath] takes 8 seconds, compared to 1 ms in mpmath.
 
-The [Performance] page contains detailed benchmarks, comparing mpmath against Python `Decimals` at various precision levels. As an order-of-magnitude estimate, mpmath can do 100,000 flops at 15-digit precision on a modern desktop PC (about twice as many with psyco); whether this is fast enough depends on the application, of course.
+The [Performance] page contains detailed benchmarks, comparing mpmath against Python `Decimals` at various precision levels.
 
 Like the decimal library, [http://code.google.com/p/gmpy/ gmpy] lacks support for special functions and complex numbers. It also lacks some features that are found in both decimal and mpmath, such as directed rounding. Of course, gmpy is quite a bit faster than both decimal and mpmath, but mpmath stands up fairly well for a pure-Python library. Arithmetic operations in mpmath are roughly 10-15x slower than gmpy at all precision levels between 1 and 1000 digits; using [http://psyco.sourceforge.net/ psyco] and direct functions, basic arithmetic is only 6-7x slower at low precision levels.
 
-mpmath is not really designed for doing calculations with _millions_ of digits (the primary limitation is Python's asymptotically slow integer multiplication and division), but it is possible in principle. Just for entertainment, mpmath includes a demo script [http://mpmath.googlecode.com/svn/trunk/demo/pidigits.py pidigits.py] (in the source distribution) that computes and prints digits of pi in any base 2-36. In round numbers, it can compute and print 10,000 decimals in half a second, 100,000 decimals in 30 seconds and 1,000,000 decimals in 30 minutes. The large differences between these timings give an indication of the precision range where mpmath ceases to be useful.
+As an order-of-magnitude estimate, mpmath can do 100,000 flops at 15-digit precision on a modern desktop PC (about twice as many with psyco); whether this is fast enough depends on the application, of course.
+
+mpmath is not really designed for doing calculations with _millions_ of digits (the primary limitation is Python's asymptotically slow integer multiplication and division), but it is possible in principle. Just for entertainment, mpmath includes a demo script [http://mpmath.googlecode.com/svn/trunk/demo/pidigits.py pidigits.py] (in the source distribution) that computes and prints digits of pi in any base 2-36. In round numbers, it can compute and print 10,000 decimals in half a second, 100,000 decimals in 30 seconds and 1,000,000 decimals in 30 minutes.
 
 ==Compatibility==
 
