@@ -156,6 +156,7 @@ mpc(real='-0.44011340763700169', imag='-0.063637243126317022')
 || hypot(x,y) || Euclidean distance ||
 || exp(x) || Exponential function ||
 || log(x,b) || Natural logarithm (optionally base-b logarithm) ||
+|| power(x,y) || Power, x^y ||
 || cos(x) || Cosine ||
 || sin(x) || Sine ||
 || tan(x) || Tangent ||
