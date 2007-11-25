@@ -56,7 +56,7 @@ Complex integrals are also supported. The next example computes Euler's constant
 {{{
 >>> print 1/(2*pi) * quadts(lambda x: zeta(exp(1j*x)+1), 0, 2*pi)
 (0.577215664901533 + 2.16642176957242e-26j)
->>> print cgamma
+>>> print euler
 0.577215664901533
 }}}
 
