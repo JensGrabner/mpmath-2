@@ -122,7 +122,7 @@ mpf('3.1415926535897936')
 True
 }}}
 
-Rounding does not yet always work as it should. However, it is correct for the arithmetic operations +, -, *, /.
+Rounding does not yet always work as it should. However, it is correct for the arithmetic operations `+`, `-`, `*`, `/`.
 
 ==Special functions==
 mpmath implements all the standard math functions, for both real and complex numbers and with arbitrary precision:
