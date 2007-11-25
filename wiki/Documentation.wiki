@@ -90,6 +90,8 @@ mpf('10.9')
 mpf('10.9')
 }}}
 
+Binary fractions such as 0.5, 1.5, 0.75, 0.125, etc, are also safe since those can be represented exactly by Python floats.
+
 As with Python floats, mpfs can not generally represent decimal fractions exactly, although the error can be made arbitrarily small. Even with dps=30, the representation of 10.9 actually has an error of about 3 × 10^-31^, and these errors propagate across calculations. If you need a certain accuracy in the final result of a calculation, you should temporarily increase the working precision by a couple of digits (indeed, the ability to do so is the main feature of mpmath!). For more information about issues with precision of binary floating-point numbers, read [http://docs.sun.com/source/806-3568/ncg_goldberg.html What Every Computer Scientist Should Know About Floating-Point Arithmetic].
 
 ==Exponent sizes==
