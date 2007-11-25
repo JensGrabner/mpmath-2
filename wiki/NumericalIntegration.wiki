@@ -128,7 +128,7 @@ Here are some more difficult examples from http://mathworld.wolfram.com/DoubleIn
 {{{
 >>> print quadts(lambda x, y: (x-1)/((1-x*y)*log(x*y)), (0, 1), (0, 1))
 0.577215664901532860606512090082
->>> print cgamma
+>>> print euler
 0.577215664901532860606512090082
 }}}
 
