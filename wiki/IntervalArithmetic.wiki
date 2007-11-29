@@ -55,7 +55,32 @@ The [Documentation] page shows that 1 googolplex, 10e(10^100^), can be represent
 
 The interval mantissa does not contain a single correct digit, but ~15 digits are encoded in the exponents, which are correctly rounded up and down. In conclusion, interval arithmetic has no problem coping with numbers whose size may cause accuracy problems in ordinary floating-point arithmetic.
 
+==Proving inequalities==
+Can we use interval arithmetic to prove the inequality `exp(pi*sqrt(163)) < 640320**3 + 744`? The left-hand and right-hand sides agree to over 30 digits, so low-precision arithmetic may give the wrong result:
+
+{{{
+>>> mpf.dps = 25
+>>> exp(pi*sqrt(163)) < (640320**3 + 744)
+False
+}}}
+
+To get the right answer, we can use interval arithmetic to check whether the difference between the two numbers is negative. Interval arithmetic does not tell us the answer right away, but it is honest enough to tell us that:
+
+{{{
+>>> mpi(e) ** (mpi(pi) * mpi(163)**0.5) - (640320**3 + 744)
+[-0.0000007934868335723876953125, 0.000000946223735809326171875]
+}}}
+
+There is both a negative and a positive endpoint, so we cannot tell for certain whether the true difference is on one side or the other of zero. The solution is to increase the precision until the answer is strictly one-signed:
+
+{{{
+>>> mpf.dps = 35
+>>> mpi(e) ** (mpi(pi) * mpi(163)**0.5) - (640320**3 + 744)
+[-7.499745182520944908333149214740842580795e-13, -7.4986067702398351286774413892
+99929141998e-13]
+}}}
+
 ==Special functions==
-So far, only the arithmetic operators and `+, -, *, /` are fully supported by intervals. Powers (`**`) are supported only in the basic case of both numbers being positive, and are currently not guaranteed to give correct results in all cases (an error should require some effort to find, though!).
+So far, only the arithmetic operators `+, -, *, /` are fully supported by intervals. Powers (`**`) are supported only in the basic case of both numbers being positive, and are currently not guaranteed to give correct results in all cases (an error should require some effort to find, though!).
 
 It would obviously be nice if you could calculate functions like `exp`, `log`, `sin`, `tan`, etc. Besides being able to ensure full accuracy for high-precision input, the implementation should be smart enough that, for instance, `cos` of an interval wider than 2*pi reduces to [-1, 1]. Transcendental interval functions are planned, but getting them right will require some effort.
