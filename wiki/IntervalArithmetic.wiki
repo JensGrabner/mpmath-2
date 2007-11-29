@@ -1,0 +1,56 @@
+#summary Interval arithmetic
+
+The next version of mpmath will feature interval arithmetic (this document is a draft).
+
+==Working with mpi instances=
+
+You can create an `mpi` from a number (treated as a zero-width interval) or a pair of numbers. Strings are treated as exact decimal numbers (note that a Python float like 0.1 generally does not represent the same number as its literal; use "0.1" instead).
+
+{{{
+>>> mpi(3)
+[3, 3]
+>>> mpi(2, 3)
+[2, 3]
+>>> mpi(0.1)  # probably not what you want
+[0.10000000000000000555, 0.10000000000000000555]
+>>> mpi('0.1')  # good
+[0.099999999999999991673, 0.10000000000000000555]
+}}}
+
+The fact that '0.1' results in an interval of nonzero width proves that 0.1 cannot be represented using binary floating-point numbers at this precision level (in fact, it cannot be represented exactly at any precision).
+
+Interval arithmetic uses the same precision as the `mpf` class; if `mpf.dps = 50` is set, all interval operations will be carried out with 50-digit precision. Of course, interval arithmetic is guaranteed to give correct bounds at any precision, but a higher precision makes the intervals narrower and hence more accurate.
+
+==Example arithmetic==
+Division is generally not an exact operation in floating-point arithmetic. Using interval arithmetic, we can track both the error from the division and the error that propagates if we follow up with the inverse operation:
+
+{{{
+>>> 1 / mpi(3)
+[0.33333333333333331483, 0.33333333333333337034]
+>>> 1 / (1 / mpi(3))
+[2.9999999999999995559, 3.0000000000000004441]
+}}}
+
+The same goes for computing square roots:
+{{{
+>>> (mpi(2) ** 0.5) ** 2
+[1.9999999999999993339, 2.0000000000000004441]
+}}}
+
+By design, interval arithmetic propagates errors, no matter how tiny, that would get rounded off in normal floating-point arithmetic.
+{{{
+>>> mpi(1) + mpi('1e-10000')
+[1.0, 1.000000000000000222]
+}}}
+
+The [Documentation] page shows that 1 googolplex, 10e(10^100^), can be represented approximately by an `mpf`. In fact, the approximation is surprisingly poor in some respects: at 15-digit precision, 15 digits are not even sufficient for representing the exact integer value of the 100-digit exponent. Interval arithmetic shows this phenomenon quite clearly:
+
+{{{
+>>> mpi(10) ** (10**100)
+[8.764150614478983589e+999999999999999577937442449244650288135906221600843613734
+4172525418802729006627916222015405100151261, 7.0824128566848680891e+100000000000
+00002528897464962343855885068477784526843237045844382284543847321520815234855350
+460857113]
+}}}
+
+The interval mantissa does not contain a single correct digit, but ~15 digits are encoded in the exponents, which are correctly rounded up and down. In conclusion, interval arithmetic has no problem coping with numbers whose size may cause accuracy problems in ordinary floating-point arithmetic.
