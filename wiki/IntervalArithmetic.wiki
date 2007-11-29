@@ -64,7 +64,7 @@ Can we use interval arithmetic to prove the inequality `exp(pi*sqrt(163)) < 6403
 False
 }}}
 
-To get the right answer, we can use interval arithmetic to check whether the difference between the two numbers is negative. Interval arithmetic does not tell us the answer right away, but it is honest enough to tell us that:
+To get the right answer, we can use interval arithmetic to check whether the difference between the two numbers is negative. Interval arithmetic does not tell us the answer right away, but it is honest enough to admit it:
 
 {{{
 >>> mpi(e) ** (mpi(pi) * mpi(163)**0.5) - (640320**3 + 744)
