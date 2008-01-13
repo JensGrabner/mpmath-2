@@ -141,7 +141,7 @@ Est error:            0.656804986571616
 Actual error          0.122389432263983
 }}}
 
-The rounding error (3e-15) is small, but the truncation error (0.7) is very large due to the small number of terms. Note that the estimated error is larger than the actual error: this should be expected -- for all values of x and n -- since interval arithmetic is conservative (if the error estimate turned out to small, it would be a bug in the mpmath interval arithmetic or in taylordemo.py).
+The rounding error (3e-15) is small, but the truncation error (0.7) is very large due to the small number of terms. Note that the estimated error is larger than the actual error: this should be expected -- for all values of x and n -- since interval arithmetic is conservative (if the error estimate turned out too small, it would be a bug in the mpmath interval arithmetic or in taylordemo.py).
 
 If we try with n = 25, the computed value is more accurate:
 
