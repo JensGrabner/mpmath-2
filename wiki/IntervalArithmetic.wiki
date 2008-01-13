@@ -7,6 +7,7 @@ The next version of mpmath will feature interval arithmetic (this document is a 
 You can create an `mpi` from a number (treated as a zero-width interval) or a pair of numbers. Strings are treated as exact decimal numbers (note that a Python float like 0.1 generally does not represent the same number as its literal; use "0.1" instead).
 
 {{{
+>>> from mpmath import *
 >>> mpi(3)
 [3, 3]
 >>> mpi(2, 3)
