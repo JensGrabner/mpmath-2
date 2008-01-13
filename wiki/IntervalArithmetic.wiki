@@ -1,6 +1,6 @@
 #summary Interval arithmetic
 
-The next version of mpmath will feature interval arithmetic (this document is a draft).
+Since version 0.6, mpmath provides support for interval arithmetic via the `mpi` class.
 
 ==Working with mpi instances=
 
