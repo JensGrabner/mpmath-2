@@ -43,20 +43,32 @@ By design, interval arithmetic propagates errors, no matter how tiny, that would
 [1.0, 1.000000000000000222]
 }}}
 
-The [Documentation] page shows that 1 googolplex, 10e(10^100^), can be represented approximately by an `mpf`. In fact, the approximation is surprisingly poor in some respects: at 15-digit precision, 15 digits are not even sufficient for representing the exact integer value of the 100-digit exponent. Interval arithmetic shows this phenomenon quite clearly:
+The [Documentation] page shows that 1 googolplex, 10e(10^100^), can be represented approximately by an `mpf`. Using intervals, the absolute error is seen to be quite big:
 
 {{{
 >>> mpi(10) ** (10**100)
-[8.764150614478983589e+999999999999999577937442449244650288135906221600843613734
-4172525418802729006627916222015405100151261, 7.0824128566848680891e+100000000000
-00002528897464962343855885068477784526843237045844382284543847321520815234855350
-460857113]
+[9.9999999999999991279e+99999999999999999999999999999999999999999999999999999999
+99999999999999999999999999999999999999999999, 1.0000000000000000241e+10000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000
+0000000000]
 }}}
 
-The interval mantissa does not contain a single correct digit, but ~15 digits are encoded in the exponents, which are correctly rounded up and down. In conclusion, interval arithmetic has no problem coping with numbers whose size may cause accuracy problems in ordinary floating-point arithmetic.
+Intervals may be infinite or half-infinite:
+{{{
+>>> 1 / mpi(2, inf)
+[0.0, 0.5]
+}}}
 
-==Proving inequalities==
-Can we use interval arithmetic to prove the inequality `exp(pi*sqrt(163)) < 640320**3 + 744`? The left-hand and right-hand sides agree to over 30 digits, so low-precision arithmetic may give the wrong result:
+The `in` operator tests whether a number or interval is contained in another interval:
+{{{
+>>> mpi(0, 2) in mpi(0, 10)
+True
+>>> 3 in mpi(-inf, 0)
+False
+}}}
+
+==Establishing inequalities==
+Interval arithmetic can be used to establish inequality like `exp(pi*sqrt(163)) < 640320**3 + 744`? The left-hand and right-hand sides in this equation agree to over 30 digits, so low-precision arithmetic may give the wrong result:
 
 {{{
 >>> mpf.dps = 25
@@ -64,7 +76,7 @@ Can we use interval arithmetic to prove the inequality `exp(pi*sqrt(163)) < 6403
 False
 }}}
 
-To get the right answer, we can use interval arithmetic to check whether the difference between the two numbers is negative. Interval arithmetic does not tell us the answer right away, but it is honest enough to admit it:
+The answer should be True, but the rounding errors are larger than the difference between the numbers. To get the right answer, we can use interval arithmetic to check whether the difference between the two sides of the equation. Interval arithmetic does not tell us the answer right away if we keep mpf.dps = 25, but it is honest enough to admit it:
 
 {{{
 >>> mpi(e) ** (mpi(pi) * mpi(163)**0.5) - (640320**3 + 744)
@@ -83,4 +95,4 @@ There is both a negative and a positive endpoint, so we cannot tell for certain 
 ==Special functions==
 So far, only the arithmetic operators `+, -, *, /` are fully supported by intervals. Powers (`**`) are supported only in the basic case of both numbers being positive, and are currently not guaranteed to give correct results in all cases (an error should require some effort to find, though!).
 
-It would obviously be nice if you could calculate functions like `exp`, `log`, `sin`, `tan`, etc. Besides being able to ensure full accuracy for high-precision input, the implementation should be smart enough that, for instance, `cos` of an interval wider than 2*pi reduces to [-1, 1]. Transcendental interval functions are planned, but getting them right will require some effort.
+It would obviously be nice if you could calculate functions like `exp`, `log`, `sin`, `tan`, etc. Besides being able to ensure full accuracy for high-precision input, the implementation should be smart enough that, for instance, `cos` of an interval wider than 2*pi reduces to [-1, 1]. Transcendental interval functions are planned, but will require some work to make robust.
