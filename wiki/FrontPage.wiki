@@ -83,7 +83,7 @@ The [Performance] page contains detailed benchmarks, comparing mpmath against Py
 
 mpmath may also be benchmarked against [http://code.google.com/p/gmpy/ gmpy] (GMP), which is written in C and hence is quite a bit faster. Arithmetic operations in mpmath are roughly 10-15x slower than gmpy at all precision levels between 1 and 1000 digits; or about 6x slower using [http://psyco.sourceforge.net/ psyco] and `mpmath.lib` functions. However, mpmath has many features that [http://code.google.com/p/gmpy/ gmpy] lacks, such as special functions, complex numbers and directed rounding; mpmath also does not require compilation, and its license is more liberal.
 
-As an order-of-magnitude figure, mpmath can do 100,000 floating-point operations at 15-digit precision on a decently modern PC, about 200,000 flops with psyco and 400,000 flops with psyco and mpmath.lib functions. This is fast enough for many purposes -- it depends on the application, of course.
+As an order-of-magnitude figure, mpmath can do 100,000 floating-point operations per second at 15-digit precision on a decently modern PC, about 200,000 flops with psyco and 400,000 flops with psyco and mpmath.lib functions. This is fast enough for many purposes -- it depends on the application, of course.
 
 ===Extremely high precision===
 
