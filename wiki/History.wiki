@@ -1,4 +1,4 @@
-#summary History of mpmath's development
+#summary Archived news and history of mpmath's development
 
 For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file in the SVN repository.
   * *January 13, 2008.* Released [http://code.google.com/p/mpmath/downloads/list?q=0.6 version 0.6]. A new class class (mpi) for interval arithmetic has been added. Rounding for powers has been improved, and infinities/nan are supported in more places. Various small bugs have been fixed, the mpf class implementation has been simplified, and tweaks to the integer bitcount code (among other things) have resulted in arithmetic now being about 20-30% faster.
