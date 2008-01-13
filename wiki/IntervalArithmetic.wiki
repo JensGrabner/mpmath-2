@@ -95,4 +95,50 @@ There is both a negative and a positive endpoint, so we cannot tell for certain 
 ==Special functions==
 So far, only the arithmetic operators `+, -, *, /` are fully supported by intervals. Powers (`**`) are supported only in the basic case of both numbers being positive, and are currently not guaranteed to give correct results in all cases (an error should require some effort to find, though!).
 
-It would obviously be nice if you could calculate functions like `exp`, `log`, `sin`, `tan`, etc. Besides being able to ensure full accuracy for high-precision input, the implementation should be smart enough that, for instance, `cos` of an interval wider than 2*pi reduces to [-1, 1]. Transcendental interval functions are planned, but will require some work to make robust.
+It would obviously be nice if you could calculate functions like `exp`, `log`, `sin`, `tan`, etc. Besides being able to ensure full accuracy for high-precision input, the implementation should be smart enough that, for instance, `cos` of an interval wider than 2*pi reduces to [-1, 1]. Transcendental interval functions are planned, but will require some work to make both robust and efficient.
+
+==Taylor series demo==
+The demo file [http://mpmath.googlecode.com/svn/trunk/mpmath/apps/taylordemo.py taylordemo.py] included in mpmath uses interval arithmetic to demonstrate rounding and truncation error of Taylor series. (Rounding error is the result of performing arithmetic with finitely many digits. Truncation error is the error from truncating an infinite Taylor series after only a finite number of terms. The total error is the sum of the rounding and truncation error.)
+
+The function exponential(x, n) computes exp(x) using n terms of the Taylor series. It sums the series using interval arithmetic to estimate the accumulated rounding error, and then computes an analytic upper estimate of the truncation error using the Lagrange remainder formula.
+
+For example, we can try computing exp(2). If we use n = 5 terms, we get the following results:
+
+{{{
+>>> exponential(2, 5)
+Correct value:        7.38905609893065
+Computed midpoint:    7.26666666666667
+Computed interval:    [7.2666666666666657193, 7.2666666666666683838]
+Est rounding error:   2.66453525910038e-15
+Est truncation error: 0.656804986571613
+Est error:            0.656804986571616
+Actual error          0.122389432263983
+}}}
+
+The rounding error (3e-15) is small, but the truncation error (0.7) is very large due to the small number of terms. Note that the estimated error is larger than the actual error: this should be expected -- for all values of x and n -- since interval arithmetic is conservative (if the error estimate turned out to small, it would be a bug in the mpmath interval arithmetic or in taylordemo.py).
+
+If we try with n = 25, the computed value is more accurate:
+
+{{{
+>>> exponential(2, 25)
+Correct value:        7.38905609893065
+Computed midpoint:    7.38905609893065
+Computed interval:    [7.3890560989306424133, 7.3890560989306628414]
+Est rounding error:   2.04281036531029e-14
+Est truncation error: 1.22956027743875e-18
+Est error:            2.04293332133803e-14
+Actual error          1.77635683940025e-15
+}}}
+
+Note that the rounding error has become larger than the truncation error. In general, summing more terms from the Taylor series results in a smaller truncation error but a larger rounding error, and the best result (for both efficiency and accuracy) is obtained by finding the crossing point that minimizes their sum. Including a ridiculous number of terms makes the truncation error astronomically small, but the rounding errors nonetheless make us start losing accurate digits:
+
+{{{
+>>> exponential(2, 50000)
+Correct value:        7.38905609893065
+Computed midpoint:    7.38905609895285
+Computed interval:    [7.3890560989306424133, 7.389056098975049558]
+Est rounding error:   4.44071446281669e-11
+Est truncation error: 2.79078364936534e-198189
+Est error:            4.44071446281669e-11
+Actual error          2.21955787083061e-11
+}}}
