@@ -1,13 +1,13 @@
 #summary Documentation for using mpmath
 #labels Featured
 
-This page contains an introduction to mpmath. It does not cover all features. Most mpmath modules contain a fair amount of comments and docstrings, however, so it should be fairly easy to figure out how to use something by looking at the source code, or by looking at the [http://mpmath.googlecode.com/svn/trunk/tests/ unit tests].
+This page contains an introduction to mpmath. It does not cover all features. Most mpmath modules contain a fair amount of comments and docstrings, however, so it should be fairly easy to figure out how to use something by looking at the source code, or by looking at the [http://mpmath.googlecode.com/svn/trunk/mpmath/tests/ unit tests].
 
 ==Installation==
 
 The latest version can be download from the [http://code.google.com/p/mpmath/downloads/list download page] or the links on the front page. To install mpmath, either run the binary installer (Windows only) or unzip the source package and run `python setup.py install`.
 
-If you download the source package, some extra test files are included. You can test that mpmath works as it should by running `python runtests.py` in the tests directory (requires [http://codespeak.net/py/dist/test.html py.test]). There is also an interactive demo script `pidigits.py` for computing (lots of) digits of pi.
+If you download the source package, some extra test files are included. You can test that mpmath works as it should by running `python runtests.py` in the tests directory. There is also an interactive demo script `pidigits.py` for computing (lots of) digits of pi that may be fun to try out (just run `python pidigits.py` in `mpmath/apps` and follow the instructions).
 
 ==Basic usage==
 
@@ -225,7 +225,7 @@ The modules in the `mpmath.lib` directory contain functions for working directly
 >>> from mpmath.lib import *
 >>> two = (1, 1, 1)
 >>> ten = (5, 1, 3)
->>> twelve = fadd(two, ten, 10, ROUND_FLOOR)
+>>> twelve = fadd(two, ten, 10, round_floor)
 >>> twelve
 (3, 2, 2)
 }}}
@@ -234,3 +234,4 @@ Of course, since this sum can be represented exactly with only 10 bits in the ma
 
 ==Applications==
   * [NumericalIntegration] -- arbitrary-precision numerical integration
+  * [IntervalArithmetic] -- intervals with directed rounding used for the arithmetic
