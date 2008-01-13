@@ -126,6 +126,8 @@ True
 
 Rounding does not yet always work as it should. However, it is correct for the arithmetic operations `+`, `-`, `*`, `/`.
 
+Directed rounding can be used for interval arithmetic, which mpmath implements via the `mpi`type. See [IntervalArithmetic] for documentation and applications of this feature.
+
 ==Special functions==
 mpmath implements all the standard math functions, for both real and complex numbers and with arbitrary precision:
 
