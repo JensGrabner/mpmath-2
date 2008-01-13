@@ -18,6 +18,8 @@ Latest updates (see [History] for previous updates):
 ==Installation==
 Use the "Featured Downloads" links on the right to download the latest version. To install mpmath, either run the binary installer (Windows only) or unzip the source package and run `python setup.py install`. The most recent development code is available in the [http://mpmath.googlecode.com/svn/ SVN repository]. Old versions are available from the [http://code.google.com/p/mpmath/downloads/list downloads page].
 
+Debian package information is available at http://packages.debian.org/python-mpmath
+
 ==Features and documentation==
 
 ===Basic usage===
