@@ -19,6 +19,19 @@ You can create an `mpi` from a number (treated as a zero-width interval) or a pa
 
 The fact that '0.1' results in an interval of nonzero width proves that 0.1 cannot be represented using binary floating-point numbers at this precision level (in fact, it cannot be represented exactly at any precision).
 
+Intervals have the properties .a, .b (endpoints), .mid and .delta (width):
+{{{
+>>> x = mpi(2, 5)
+>>> x.a
+mpf('2.0')
+>>> x.b
+mpf('5.0')
+>>> x.mid
+mpf('3.5')
+>>> x.delta
+mpf('3.0')
+}}}
+
 Interval arithmetic uses the same precision as the `mpf` class; if `mpf.dps = 50` is set, all interval operations will be carried out with 50-digit precision. Of course, interval arithmetic is guaranteed to give correct bounds at any precision, but a higher precision makes the intervals narrower and hence more accurate.
 
 {{{
@@ -167,7 +180,7 @@ Est error:            1388.88888888889
 Actual error          542.333378733263
 }}}
 
-Even with an appropriate truncation, the Taylor series gives poor results. Note that only 9 significant digits turn out correct.
+Even with an appropriate truncation, the Taylor series gives poor results. Note that only 9 significant digits turn out correct:
 
 {{{
 >>> exponential(-10, 60)
