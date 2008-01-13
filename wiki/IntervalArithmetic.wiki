@@ -124,7 +124,7 @@ There is both a negative and a positive endpoint, so we cannot tell for certain 
 ==Taylor series demo==
 The demo file [http://mpmath.googlecode.com/svn/trunk/mpmath/apps/taylordemo.py taylordemo.py] included in mpmath uses interval arithmetic to demonstrate rounding and truncation error of Taylor series. (Rounding error is the result of performing arithmetic with finitely many digits. Truncation error is the error from truncating an infinite Taylor series after only a finite number of terms. The total error is the sum of the rounding and truncation error.)
 
-The function exponential(x, n) computes exp(x) using n terms of the Taylor series. It sums the series using interval arithmetic to estimate the accumulated rounding error, and then computes an analytic upper estimate of the truncation error using the Lagrange remainder formula.
+The function exponential(x, n) computes exp(x) using n terms of the Taylor series. It sums the series using interval arithmetic to estimate the accumulated rounding error, and then computes an analytic upper estimate of the truncation error using the Lagrange remainder formula. It finally computes the correct value using mpmath.exp() (which uses a robust algorithm) and prints a comparison.
 
 For example, we can try computing exp(2). If we use n = 5 terms, we get the following results:
 
