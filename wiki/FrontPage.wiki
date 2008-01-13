@@ -89,7 +89,7 @@ As an order-of-magnitude figure, mpmath can do 100,000 floating-point operations
 
 ===Extremely high precision===
 
-mpmath is not really designed for doing calculations with _millions_ of digits (the primary limitation is Python's asymptotically slow integer multiplication and division), but it is possible in principle. Just for entertainment, mpmath includes a demo script [http://mpmath.googlecode.com/svn/trunk/mpmath/apps/pidigits.py pidigits.py] (in the source distribution) that computes and prints digits of pi in any base 2-36. In round numbers, it can compute and print 10,000 decimals in half a second, 100,000 decimals in 30 seconds and 1,000,000 decimals in 30 minutes.
+mpmath is not really designed for doing calculations with _millions_ of digits (the primary limitation is Python's asymptotically slow integer multiplication and division), but it is possible in principle. Just for entertainment, mpmath includes a demo script [http://mpmath.googlecode.com/svn/trunk/mpmath/apps/pidigits.py pidigits.py] that computes and prints digits of pi in any base 2-36. In round numbers, it can compute and print 10,000 decimals in half a second, 100,000 decimals in 30 seconds and 1,000,000 decimals in 30 minutes.
 
 ==Compatibility==
 
