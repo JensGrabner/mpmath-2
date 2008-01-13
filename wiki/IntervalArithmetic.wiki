@@ -130,6 +130,7 @@ The function exponential(x, n) computes exp(x) using n terms of the Taylor serie
 For example, we can try computing exp(2). If we use n = 5 terms, we get the following results:
 
 {{{
+>>> from mpmath.apps.taylordemo import exponential
 >>> exponential(2, 5)
 Correct value:        7.38905609893065
 Computed midpoint:    7.26666666666667
