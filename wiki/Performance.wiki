@@ -14,7 +14,7 @@ Summary:
 This graph compares the speed of Decimal (blue), mpmath.mpf (red) and mpmath.lib (green) with psyco enabled, using the default (half-even) rounding mode. The x axis measures the precision (in decimal digits) and the y axis measures the relative speed compared to [http://code.google.com/p/gmpy/ gmpy] (in other words, lower is better). Note that the y axis is logarithmic.
 [http://mpmath.googlecode.com/svn/wiki/arithmetic_performance.png]
 
-Under optimal conditions (using floor rounding), multiplication with mpmath.lib at low precision (< 50 decimal digits) is only 4x slower than in gmpy; addition and division are about 5x slower.
+Under optimal conditions (using floor rounding), multiplication with mpmath.lib at low precision (< 50 decimal digits) is only 4x slower than in gmpy; addition and division are about 4-5x slower.
 [http://mpmath.googlecode.com/svn/wiki/arithmetic_performance_floor.png]
 
 ==Detailed tables==
