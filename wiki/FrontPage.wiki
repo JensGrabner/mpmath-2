@@ -1,5 +1,7 @@
 #summary Front page
 
+==About mpmath==
+
 mpmath is a pure-[http://www.python.org/ Python] library for arbitrary-precision floating-point arithmetic. Its features include:
 
   * Runs without compilation on any computer where Python 2.4 or later is installed
