@@ -7,7 +7,7 @@
   * Sine and cosine lose accuracy near zeros other than at x = 0
   * mpfs are not eval-repr-invariant at some precision levels
   * Complex mul, div, sqrt and tan lose accuracy for numbers with very large real and very small imaginary parts
-  * Most functions don't handle inifinities and nans
+  * Some functions don't handle inifinities and nans
 
 ===Nice-to-have features===
   * Optional denormal rounding
