@@ -170,7 +170,7 @@ Est error:            4.44071446281669e-11
 Actual error          2.21955787083061e-11
 }}}
 
-It is striking to attempt to use the exp Taylor series for a negative number. The first few terms oscillate between huge values that cancel each other out, but truncating too early gives nonsense:
+It is striking to attempt to use the exp Taylor series for a negative number. The first few terms oscillate between huge values that cancel each other out; truncating too early gives nonsense:
 
 {{{
 >>> exponential(-10, 5)
