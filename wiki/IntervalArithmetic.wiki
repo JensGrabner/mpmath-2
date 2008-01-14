@@ -99,7 +99,7 @@ False
 }}}
 
 ==Establishing inequalities==
-Interval arithmetic can be used to establish inequality like `exp(pi*sqrt(163)) < 640320**3 + 744`? The left-hand and right-hand sides in this equation agree to over 30 digits, so low-precision arithmetic may give the wrong result:
+Interval arithmetic can be used to establish inequality like `exp(pi*sqrt(163)) < 640320**3 + 744`. The left-hand and right-hand sides in this equation agree to over 30 digits, so low-precision arithmetic may give the wrong result:
 
 {{{
 >>> mpf.dps = 25
