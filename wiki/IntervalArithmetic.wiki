@@ -107,7 +107,7 @@ Interval arithmetic can be used to establish inequality like `exp(pi*sqrt(163)) 
 False
 }}}
 
-The answer should be True, but the rounding errors are larger than the difference between the numbers. To get the right answer, we can use interval arithmetic to check whether the difference between the two sides of the equation. Interval arithmetic does not tell us the answer right away if we keep mpf.dps = 25, but it is honest enough to admit it:
+The answer should be True, but the rounding errors are larger than the difference between the numbers. To get the right answer, we can use interval arithmetic to check the sign of the difference between the two sides of the inequality. Interval arithmetic does not tell us the answer right away if we keep mpf.dps = 25, but it is honest enough to admit it:
 
 {{{
 >>> mpi(e) ** (mpi(pi) * mpi(163)**0.5) - (640320**3 + 744)
