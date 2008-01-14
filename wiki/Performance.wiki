@@ -3,21 +3,14 @@
 
 mpmath is written with the goal of providing the fastest implementation of arbitrary-precision floating-point arithmetic possible in pure Python. This page compares the performance of mpmath with that of the `decimal` module in Python's standard library.
 
-==Explanation of the benchmark==
-
-These tables were generated using the `benchmark.py` script in the mpmath `tests` directory, running on an Athlon 3700+. The script measures the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between 0 and 32. "Decimal" means that the `decimal.Decimal` class is used, "mpf" means that the `mpmath.mpf` class is used, and "raw mpf" means that the operations are performed using the raw arithmetic functions in `mpmath.lib` (this avoids the overhead of creating object instances). Numbers in parentheses indicate the speedup compared to Decimals. The three rightmost columns list the same benchmark but with  [http://psyco.sourceforge.net/ psyco] enabled (with `psyco.full()`).
-
-The decimal library does not implement transcendental functions, but there are user-made libraries that can be used for comparison. The Python Package Index contains at least three libraries: [http://pypi.python.org/pypi/dmath/0.9 dmath], [http://pypi.python.org/pypi/AJDecimalMathAdditions/0.1.0 AJDecimalMathAdditions], and  [http://pypi.python.org/pypi/decimalfuncs/1.4 decimalfuncs]. They all have roughly similar performance, but dmath seems to be slightly faster overall and was therefore used for this benchmark.
-
-==Summary==
+Summary:
   * mpmath is roughly 10x faster than the `decimal` module at 10-100 digit precision and 100x faster at 100-1000 digit precision.
   * Using the functional interface in mpmath.lib further improves performance by 2x for some operations.
   * Transcendental functions are an additional order of magnitude faster in mpmath compared to `Decimal` implementations. The greatest particular speedup over Decimal in the entire benchmark occurs for computing natural logarithms, which is 8000x faster at 300-digit precision (the test was not run at 1000-digit precision as finishing a single logarithm would take too long in dmath)
-  * psyco speeds up both decimal and mpmath by about 50-100%
+  * psyco generally speeds up both decimal and mpmath by about 50-100% (it sometimes speeds up mpmath much more)
   * The only operation that is slower in mpmath is (not surprisingly) string conversion
 
-==Graphs==
-
+==Visual comparison of arithmetic speed==
 This graph compares the speed of Decimal (blue), mpmath.mpf (red) and mpmath.lib (green) with psyco enabled, using the default (half-even) rounding mode. The x axis measures the precision (in decimal digits) and the y axis measures the relative speed compared to [http://code.google.com/p/gmpy/ gmpy] (in other words, lower is better). Note that the y axis is logarithmic.
 [http://mpmath.googlecode.com/svn/wiki/arithmetic_performance.png]
 
@@ -25,6 +18,10 @@ Under optimal conditions (using floor rounding), multiplication with mpmath.lib 
 [http://mpmath.googlecode.com/svn/wiki/arithmetic_performance_floor.png]
 
 ==Detailed tables==
+
+These tables were generated using the `benchmark.py` script in the mpmath `tests` directory, running on an Athlon 3700+. The script measures the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between 0 and 32. "Decimal" means that the `decimal.Decimal` class is used, "mpf" means that the `mpmath.mpf` class is used, and "raw mpf" means that the operations are performed using the raw arithmetic functions in `mpmath.lib` (this avoids the overhead of creating object instances). Numbers in parentheses indicate the speedup compared to Decimals. The three rightmost columns list the same benchmark but with  [http://psyco.sourceforge.net/ psyco] enabled (with `psyco.full()`).
+
+The decimal library does not implement transcendental functions, but there are user-made libraries that can be used for comparison. The Python Package Index contains at least three libraries: [http://pypi.python.org/pypi/dmath/0.9 dmath], [http://pypi.python.org/pypi/AJDecimalMathAdditions/0.1.0 AJDecimalMathAdditions], and  [http://pypi.python.org/pypi/decimalfuncs/1.4 decimalfuncs]. They all have roughly similar performance, but dmath seems to be slightly faster overall and was therefore used for this benchmark.
 
 *Convert to integer (int(x))*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
