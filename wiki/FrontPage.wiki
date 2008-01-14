@@ -14,7 +14,7 @@ mpmath is a pure-[http://www.python.org/ Python] library for arbitrary-precision
 Part of the motivation behind mpmath is to provide an efficient pure-Python backend for arbitrary-precision numerical calculations in [http://code.google.com/p/sympy/ SymPy] (a Python-based computer algebra system). mpmath is included in the current development version of [http://code.google.com/p/sympycore/ sympycore].
 
 Latest updates (see [History] for previous updates):
-  * *January 13, 2008.* Released [http://code.google.com/p/mpmath/downloads/list?q=0.6 version 0.6]. A new class (mpi) for interval arithmetic has been added. Rounding for powers has been improved, and infinities/nan are supported in more places. Various small bugs have been fixed, the mpf class implementation has been simplified, and tweaks to the integer bitcount code (among other things) have resulted in arithmetic now being about 20-30% faster.
+  * *January 13, 2008.* Released [http://code.google.com/p/mpmath/downloads/list?q=0.6 version 0.6]. A new class (mpi) for interval arithmetic has been added. Rounding for powers has been improved, and infinities/nan are supported in more places. Various small bugs have been fixed, the mpf class implementation has been simplified, and tweaks to the integer bitcount code (among other things) resulted in arithmetic now being about 20-30% faster.
   * *December 8, 2007.* There is now a mailing list: [http://groups.google.com/group/mpmath]. mpmath is also being [http://qa.debian.org/developer.php?login=python-modules-team@lists.alioth.debian.org added to debian] (thanks to [http://matrixhasu.altervista.org/ Sandro Tosi] and the Debian Python Modules Team)
 
 ==Installation==
