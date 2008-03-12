@@ -63,4 +63,4 @@ Some demo scripts are available:
   * [http://mpmath.googlecode.com/svn/trunk/demo/taylor.py taylor.py] -- educational interval arithmetic
 
 ==Projects using mpmath==
-  * [SymPy] and [SympyCore]
+  * [http://code.google.com/p/sympy SymPy] and [http://code.google.com/p/sympycore SympyCore]
