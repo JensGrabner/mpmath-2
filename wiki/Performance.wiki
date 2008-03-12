@@ -1,18 +1,20 @@
 #labels Featured
 ==Basic operations==
 
-As a rough guide to the performance of basic operations, the following results were clocked at precision levels between 10 and 10000 decimal digits on an Athlon 3700+ (2.21 GHz), using [http://psyco.sourceforge.net/ Psyco]. All times are in milliseconds.
+The time needed to perform some basic calculations at precision levels between 10 and 10000 decimal digits are given in the following table. The times were measured on an Athlon 3700+ (2.21 GHz), using Python 2.5.1 and with [http://psyco.sourceforge.net/ Psyco] enabled. All times are in milliseconds (ranging from 1/500,000 of a second for a low-precision addition to 4.6 seconds for a 10,000-digit sine).
+
+The inputs are x = sqrt(3) and y = sqrt(5).
 
 || *op/dps* || *10* || *100* || *1000* || *10000* ||
-||add(x,y)|| 0.0022 || 0.0021 || 0.0049 || 0.0036 ||
-||mul(x,y)|| 0.0025 || 0.0041 ||  0.12  ||   5.0  ||
-||div(x,y)|| 0.0040 || 0.011  ||  0.41  ||   37   ||
-||sqrt(x) || 0.0096 || 0.020  ||  0.32  ||   25   ||
-|| exp(x) ||  0.012 || 0.069  ||  8.0   ||  1200  ||
-|| log(x) ||  0.030 ||  0.13  ||  8.7   ||  1200  ||
-|| sin(x) ||  0.026 ||  0.10  ||   15   ||  4600  ||
+||add(x,y)|| 0.0022 ms || 0.0021 ms || 0.0049 ms || 0.0036 ms ||
+||mul(x,y)|| 0.0025 ms || 0.0041 ms ||  0.12 ms  ||   5.0 ms  ||
+||div(x,y)|| 0.0040 ms || 0.011 ms  ||  0.41 ms  ||   37 ms   ||
+||sqrt(x) || 0.0096 ms || 0.020 ms  ||  0.32 ms  ||   25 ms   ||
+|| exp(x) ||  0.012 ms || 0.069 ms  ||  8.0 ms   ||  1200 ms  ||
+|| log(x) ||  0.030 ms ||  0.13 ms  ||  8.7 ms   ||  1200 ms  ||
+|| sin(x) ||  0.026 ms ||  0.10 ms  ||   15 ms   ||  4600 ms  ||
 
-For comparison, timings for several arbitrary-precision libraries are [http://pari.math.u-bordeaux.fr/benchs/timings-mpfr.html listed on the PARI website]. Mpmath stands up fairly well considering that it is written in an interpreted language: although generally at least an order of magnitude slower than the fastest library (MPFR), it is comparable in speed to the slower ones (including Maple, !ArPrec and MuPAD).
+For comparison, timings for the same operations for several other arbitrary-precision libraries are [http://pari.math.u-bordeaux.fr/benchs/timings-mpfr.html listed on the PARI website]. Mpmath stands up fairly well considering that it is written in an interpreted language: although generally at least an order of magnitude slower than the fastest library (MPFR), it is comparable in speed to the slower ones (including Maple, !ArPrec and MuPAD).
 
 In the author's experience, mpmath is typically 2-10 times slower than Mathematica 5 for high-precision numerical integration and similar high-level tasks (but actually faster on rare occasions).
 
