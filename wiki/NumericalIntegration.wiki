@@ -1,5 +1,4 @@
 #summary High-precision numerical integration
-#labels Featured
 
 As of version 0.5, mpmath contains a module `quad` for high-precision numerical integration (quadrature).
 
