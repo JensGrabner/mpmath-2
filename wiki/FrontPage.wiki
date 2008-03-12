@@ -1,11 +1,9 @@
 #summary Front page
 
-Updates:
-
   * 2008-03-15 - released 0.7 ([http://mpmath.googlecode.com/svn/trunk/CHANGES changes])
   * 2008-01-13 - released 0.6
 
-See [History] for previous updates.
+[History Older news]
 
 ==About mpmath==
 
@@ -43,16 +41,22 @@ A few different ways to compute pi (here to 50 decimal places): using elementary
 >>> mp.dps = 50
 >>> print pi
 3.1415926535897932384626433832795028841971693993751
+
 >>> print 2*asinh(j).imag
 3.1415926535897932384626433832795028841971693993751
+
 >>> print 4*quadts(lambda x: sqrt(1-x**2), 0, 1)
 3.1415926535897932384626433832795028841971693993751
+
 >>> print quadts(lambda x: exp(-x**2), -inf, inf) ** 2
 3.1415926535897932384626433832795028841971693993751
+
 >>> print gamma(0.5)**2
 3.1415926535897932384626433832795028841971693993751
+
 >>> print sqrt(6*zeta(2))
 3.1415926535897932384626433832795028841971693993751
+
 >>> print secant(sin, 3.0)
 3.1415926535897932384626433832795028841971693993751
 }}}
