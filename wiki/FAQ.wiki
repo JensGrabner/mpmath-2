@@ -1,0 +1,29 @@
+#summary Frequently Asked Questions
+
+==Why does the double compatibility test fail?==
+
+You may get a result like the following when running the mpmath tests:
+
+{{{
+$ py.test 
+
+(...)
+
+            assert mpx * mpy == x * y
+E           assert mpx / mpy == x / y
+>           assert (mpf('-4.1974624032366689e+117') /
+mpf('-8.4657370748010221e-47')) == (-4.1974624032366689e+117 /
+-8.4657370748010221e-47)
+
+[/home/ondra/ext/mpmath/mpmath/tests/test_compatibility.py:35]
+________________________________________________________________________________
+============= tests finished: 76 passed, 1 failed in 28.46 seconds=============
+}}}
+
+This particular unit test checks that mpmath correctly emulates IEEE 754 double precision arithmetic by generating thousands of random Python floats and comparing the results of Python float operations with mpmath operations. A failure indicates that the computed results differ, implying that either Python or mpmath generated a wrong result.
+
+If this error occurred with a release version of mpmath, it is likely that the value computed by mpmath is the correct one. The test is known to fail with versions of Python compiled with gcc on (at least some) 32-bit systems, apparently because gcc generates floating-point code that does not round correctly. It seems that 64-bit versions of Python as well as non-gcc builds of Python (e.g. the 32-bit Windows version compiled with MSVC) produce correct results.
+
+If this problem occurred with a non-gcc version Python or on a 64-bit system (or if you can verify that the value produced by mpmath is the wrong one), please issue a new bug report.
+
+The test may be edited in the future to pass with a warning on systems where the Python float type can be detected to be inaccurate.
