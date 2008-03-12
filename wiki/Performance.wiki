@@ -14,6 +14,8 @@ As a rough guide to the performance of basic operations, the following results w
 
 For comparison, timings for several arbitrary-precision libraries are [http://pari.math.u-bordeaux.fr/benchs/timings-mpfr.html listed on the PARI website]. Mpmath stands up fairly well considering that it is written in an interpreted language: although generally at least an order of magnitude slower than the fastest library (MPFR), it is comparable in speed to the slower ones (including Maple, !ArPrec and MuPAD).
 
+In the author's experience, mpmath is typically 2-10 times slower than Mathematica 5 for high-precision numerical integration and similar high-level tasks (but actually faster on rare occasions).
+
 ==Detailed benchmarks vs Decimal==
 
 The following benchmarks measure the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between 0 and 32. "Decimal" means that the `decimal.Decimal` class is used, "mpf" means that the `mpmath.mpf` class is used, and "raw mpf" means that the operations are performed using the low-level functions in `mpmath.lib` (this avoids the overhead of creating mpf instances). The three rightmost columns list the same benchmark but with Psyco enabled.
