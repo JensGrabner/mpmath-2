@@ -1,5 +1,4 @@
 #summary Interval arithmetic
-#labels Featured
 
 Since version 0.6, mpmath provides support for interval arithmetic via the `mpi` class.
 
