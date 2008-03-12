@@ -2,21 +2,25 @@ from mpmath.lib import *
 from mpmath import *
 
 try:
-    r = round_half_even
-    ctx = mpf
-except NameError, AttributeError:
     r = round_nearest
     ctx = mp
+except NameError, AttributeError:
+    try:
+        r = round_half_even
+        ctx = mpf
+    except NameError, AttributeError:
+        r = ROUND_HALF_EVEN
+        ctx = mpf
 
-x15 = fsqrt(from_int(3), 53, r)
-y15 = fsqrt(from_int(5), 53, r)
+x15 = fsqrt(from_int(3, 53, r), 53, r)
+y15 = fsqrt(from_int(5, 53, r), 53, r)
 
 ctx.dps = 15
 mx15 = mpf(3) ** 0.5
 my15 = mpf(5) ** 0.5
 
-x50 = fsqrt(from_int(3), 170, r)
-y50 = fsqrt(from_int(5), 170, r)
+x50 = fsqrt(from_int(3, 170, r), 170, r)
+y50 = fsqrt(from_int(5, 170, r), 170, r)
 
 ctx.dps = 50
 mx50 = mpf(3) ** 0.5
