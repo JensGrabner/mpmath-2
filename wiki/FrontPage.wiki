@@ -62,9 +62,9 @@ A few different ways to compute pi (here to 50 decimal places): using elementary
 }}}
 
 Some demo scripts are available:
-  * [http://mpmath.googlecode.com/svn/trunk/demo/pidigits.py pidigits.py] -- print thousands of digits of pi in any base
-  * [http://mpmath.googlecode.com/svn/trunk/demo/manydigits.py manydigits.py] -- outputs solutions to [http://www.cs.ru.nl/~milad/manydigits/problems.php Many Digits competition problems]
-  * [http://mpmath.googlecode.com/svn/trunk/demo/taylor.py taylor.py] -- educational interval arithmetic
+  * [http://code.google.com/p/mpmath/source/browse/trunk/demo/pidigits.py pidigits.py] -- print thousands of digits of pi in any base
+  * [http://code.google.com/p/mpmath/source/browse/trunk/demo/manydigits.py manydigits.py] -- outputs solutions to [http://www.cs.ru.nl/~milad/manydigits/problems.php Many Digits competition problems]
+  * [http://code.google.com/p/mpmath/source/browse/trunk/demo/taylor.py taylor.py] -- educational interval arithmetic
 
 ==Projects using mpmath==
   * [http://code.google.com/p/sympy SymPy] and [http://code.google.com/p/sympycore SympyCore]
