@@ -1,154 +1,137 @@
-#summary Performance benchmarks
 #labels Featured
+==Basic operations==
 
-mpmath is written with the goal of providing the fastest implementation of arbitrary-precision floating-point arithmetic possible in pure Python. This page compares the performance of mpmath with that of the `decimal` module in Python's standard library.
+As a rough guide to the performance of basic operations, the following results were clocked at precision levels between 10 and 10000 decimal digits on an Athlon 3700+ (2.21 GHz), using [http://psyco.sourceforge.net/ Psyco]. All times are in milliseconds.
 
-Summary:
-  * mpmath is roughly 10x faster than the `decimal` module at 10-100 digit precision and 100x faster at 100-1000 digit precision.
-  * Using the functional interface in mpmath.lib further improves performance by 2x for some operations.
-  * Transcendental functions are an additional order of magnitude faster in mpmath compared to `Decimal` implementations. The greatest particular speedup over Decimal in the entire benchmark occurs for computing natural logarithms, which is 8000x faster at 300-digit precision (the test was not run at 1000-digit precision as finishing a single logarithm would take too long in dmath)
-  * psyco generally speeds up both decimal and mpmath by about 50-100% (it sometimes speeds up mpmath much more)
-  * The only operation that is slower in mpmath is (not surprisingly) string conversion
+|| *op/dps* || *10* || *100* || *1000* || *10000* ||
+||add(x,y)|| 0.0022 || 0.0021 || 0.0049 || 0.0036 ||
+||mul(x,y)|| 0.0025 || 0.0041 ||  0.12  ||   5.0  ||
+||div(x,y)|| 0.0040 || 0.011  ||  0.41  ||   37   ||
+||sqrt(x) || 0.0096 || 0.020  ||  0.32  ||   25   ||
+|| exp(x) ||  0.012 || 0.069  ||  8.0   ||  1200  ||
+|| log(x) ||  0.030 ||  0.13  ||  8.7   ||  1200  ||
+|| sin(x) ||  0.026 ||  0.10  ||   15   ||  4600  ||
 
-==Visual comparison of arithmetic speed==
-This graph compares the speed of Decimal (blue), mpmath.mpf (red) and mpmath.lib (green) with psyco enabled, using the default (half-even) rounding mode. The x axis measures the precision (in decimal digits) and the y axis measures the relative speed compared to [http://code.google.com/p/gmpy/ gmpy] (in other words, lower is better). Note that the y axis is logarithmic.
-[http://mpmath.googlecode.com/svn/wiki/arithmetic_performance.png]
+For comparison, timings for several arbitrary-precision libraries are [http://pari.math.u-bordeaux.fr/benchs/timings-mpfr.html listed on the PARI website]. Mpmath stands up fairly well considering that it is written in an interpreted language: although generally at least an order of magnitude slower than the fastest library (MPFR), it is comparable in speed to the slower ones (including Maple, !ArPrec and MuPAD).
 
-Under optimal conditions (using floor rounding), multiplication with mpmath.lib at low precision (< 50 decimal digits) is only 4x slower than in gmpy; addition and division are about 4-5x slower.
-[http://mpmath.googlecode.com/svn/wiki/arithmetic_performance_floor.png]
+==Detailed benchmarks vs Decimal==
 
-==Detailed tables==
+The following benchmarks measure the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between 0 and 32. "Decimal" means that the `decimal.Decimal` class is used, "mpf" means that the `mpmath.mpf` class is used, and "raw mpf" means that the operations are performed using the low-level functions in `mpmath.lib` (this avoids the overhead of creating mpf instances). The three rightmost columns list the same benchmark but with Psyco enabled.
 
-These tables were generated using the `benchmark.py` script in the mpmath `tests` directory, running on an Athlon 3700+. The script measures the number of operations that can be carried out per second at the given precision with x and y being random full-precision numbers between 0 and 32. "Decimal" means that the `decimal.Decimal` class is used, "mpf" means that the `mpmath.mpf` class is used, and "raw mpf" means that the operations are performed using the raw arithmetic functions in `mpmath.lib` (this avoids the overhead of creating object instances). Numbers in parentheses indicate the speedup compared to Decimals. The three rightmost columns list the same benchmark but with  [http://psyco.sourceforge.net/ psyco] enabled (with `psyco.full()`).
+Numbers in parentheses indicate the speedup compared to Decimals. In summary, mpmath operations are generally around 2-10 times faster at low to medium precision and nearly all operations are much faster asymptotically. (The obvious exception is conversion to strings, where Decimals don't need to do any work.)
 
-The decimal library does not implement transcendental functions, but there are user-made libraries that can be used for comparison. The Python Package Index contains at least three libraries: [http://pypi.python.org/pypi/dmath/0.9 dmath], [http://pypi.python.org/pypi/AJDecimalMathAdditions/0.1.0 AJDecimalMathAdditions], and  [http://pypi.python.org/pypi/decimalfuncs/1.4 decimalfuncs]. They all have roughly similar performance, but dmath seems to be slightly faster overall and was therefore used for this benchmark.
+(The tests for powers, exp and log only go up to 1000 digits as the decimal versions took too long to finish at 3000 digits.)
 
 *Convert to integer (int(x))*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 82000 || 380000 (4.7x) || 740000 (9.0x) || 82000 || 590000 (7.2x) || 3280000 (39.7x) ||
-|| 30 || 52000 || 390000 (7.5x) || 740000 (14.3x) || 54000 || 540000 (10.0x) || 3250000 (59.2x) ||
-|| 100 || 19000 || 390000 (20.3x) || 740000 (38.3x) || 18000 || 580000 (31.1x) || 3250000 (174.1x) ||
-|| 300 || 6500 || 390000 (60.0x) || 740000 (113.6x) || 6400 || 560000 (86.5x) || 3250000 (502.5x) ||
-|| 1000 || 2000 || 390000 (191.6x) || 740000 (360.2x) || 1900 || 560000 (283.7x) || 3220000 (1615.5x) ||
+|| 15 || 350000 || 410000 (1.2x) || 840000 (2.4x) || 510000 || 550000 (1.1x) || 3470000 (6.7x) ||
+|| 30 || 350000 || 420000 (1.2x) || 870000 (2.5x) || 510000 || 650000 (1.3x) || 4970000 (9.6x) ||
+|| 100 || 350000 || 420000 (1.2x) || 860000 (2.5x) || 510000 || 620000 (1.2x) || 4640000 (9.0x) ||
+|| 300 || 350000 || 420000 (1.2x) || 860000 (2.5x) || 510000 || 640000 (1.3x) || 4700000 (9.2x) ||
+|| 1000 || 350000 || 420000 (1.2x) || 850000 (2.4x) || 510000 || 630000 (1.2x) || 4770000 (9.2x) ||
+|| 3000 || 350000 || 420000 (1.2x) || 870000 (2.5x) || 520000 || 650000 (1.2x) || 4640000 (8.8x) ||
 
 *Convert to string (str(x))*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 71000 || 39000 (0.6x) || 40000 (0.6x) || 75000 || 60000 (0.8x) || 66000 (0.9x) ||
-|| 30 || 47000 || 36000 (0.8x) || 35000 (0.7x) || 52000 || 50000 (1.0x) || 51000 (1.0x) ||
-|| 100 || 18000 || 14000 (0.8x) || 14000 (0.8x) || 18000 || 16000 (0.9x) || 16000 (0.9x) ||
-|| 300 || 6600 || 3200 (0.5x) || 3400 (0.5x) || 6400 || 3300 (0.5x) || 3500 (0.6x) ||
-|| 1000 || 1700 || 350 (0.2x) || 360 (0.2x) || 1900 || 360 (0.2x) || 370 (0.2x) ||
+|| 15 || 250000 || 41000 (0.2x) || 42000 (0.2x) || 450000 || 60000 (0.1x) || 57000 (0.1x) ||
+|| 30 || 240000 || 36000 (0.1x) || 36000 (0.1x) || 440000 || 50000 (0.1x) || 50000 (0.1x) ||
+|| 100 || 240000 || 14000 (0.1x) || 14000 (0.1x) || 450000 || 16000 (0.0x) || 16000 (0.0x) ||
+|| 300 || 210000 || 3200 (0.0x) || 3400 (0.0x) || 350000 || 3300 (0.0x) || 3500 (0.0x) ||
+|| 1000 || 180000 || 430 (0.0x) || 430 (0.0x) || 280000 || 430 (0.0x) || 430 (0.0x) ||
+|| 3000 || 150000 || 44 (0.0x) || 50 (0.0x) || 200000 || 45 (0.0x) || 50 (0.0x) ||
 
 *Convert to float (float(x))*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 52000 || 330000 (6.5x) || 590000 (11.4x) || 57000 || 400000 (7.1x) || 1080000 (18.7x) ||
-|| 30 || 35000 || 280000 (7.9x) || 460000 (12.9x) || 40000 || 360000 (9.0x) || 950000 (23.7x) ||
-|| 100 || 15000 || 280000 (18.6x) || 440000 (28.8x) || 16000 || 340000 (21.7x) || 830000 (51.7x) ||
-|| 300 || 5700 || 270000 (48.9x) || 430000 (76.9x) || 5800 || 350000 (60.8x) || 850000 (145.9x) ||
-|| 1000 || 1800 || 280000 (156.0x) || 440000 (244.8x) || 1800 || 350000 (192.3x) || 830000 (450.2x) ||
+|| 15 || 120000 || 310000 (2.5x) || 530000 (4.2x) || 150000 || 420000 (2.8x) || 1220000 (8.0x) ||
+|| 30 || 110000 || 250000 (2.3x) || 390000 (3.5x) || 130000 || 370000 (2.8x) || 900000 (6.9x) ||
+|| 100 || 97000 || 250000 (2.6x) || 390000 (4.0x) || 110000 || 370000 (3.4x) || 900000 (8.2x) ||
+|| 300 || 56000 || 250000 (4.5x) || 390000 (7.0x) || 75000 || 370000 (5.0x) || 910000 (12.2x) ||
+|| 1000 || 26000 || 250000 (9.6x) || 390000 (14.9x) || 35000 || 370000 (10.3x) || 890000 (24.9x) ||
+|| 3000 || 10000 || 250000 (24.4x) || 390000 (37.5x) || 14000 || 370000 (25.7x) || 920000 (62.7x) ||
 
 *Equality (x==y)*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 37000 || 460000 (12.3x) || 960000 (25.6x) || 70000 || 580000 (8.2x) || 2010000 (28.4x) ||
-|| 30 || 29000 || 460000 (15.6x) || 950000 (32.4x) || 51000 || 590000 (11.6x) || 2050000 (40.0x) ||
-|| 100 || 14000 || 460000 (32.9x) || 950000 (68.2x) || 20000 || 580000 (28.4x) || 2050000 (99.5x) ||
-|| 300 || 4800 || 450000 (93.6x) || 950000 (195.9x) || 6100 || 590000 (96.2x) || 2050000 (333.8x) ||
-|| 1000 || 940 || 450000 (484.5x) || 950000 (1014.4x) || 1000 || 590000 (551.9x) || 2020000 (1883.2x) ||
+|| 15 || 130000 || 520000 (4.1x) || 1300000 (10.0x) || 290000 || 700000 (2.4x) || 5260000 (18.0x) ||
+|| 30 || 130000 || 520000 (3.9x) || 1230000 (9.3x) || 310000 || 700000 (2.2x) || 6270000 (19.7x) ||
+|| 100 || 120000 || 510000 (4.0x) || 1230000 (9.5x) || 310000 || 700000 (2.2x) || 6270000 (19.9x) ||
+|| 300 || 130000 || 510000 (3.9x) || 1230000 (9.4x) || 290000 || 700000 (2.4x) || 5420000 (18.2x) ||
+|| 1000 || 130000 || 500000 (3.9x) || 1160000 (9.0x) || 290000 || 710000 (2.4x) || 6390000 (21.7x) ||
+|| 3000 || 120000 || 500000 (3.9x) || 1310000 (10.2x) || 280000 || 710000 (2.5x) || 5340000 (18.6x) ||
 
 *Comparison (x<y)*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 38000 || 280000 (7.3x) || 470000 (12.3x) || 68000 || 480000 (7.0x) || 1640000 (24.0x) ||
-|| 30 || 30000 || 280000 (9.2x) || 470000 (15.6x) || 51000 || 470000 (9.2x) || 1670000 (32.7x) ||
-|| 100 || 14000 || 280000 (19.2x) || 470000 (32.5x) || 20000 || 470000 (22.6x) || 1660000 (79.5x) ||
-|| 300 || 5100 || 280000 (55.4x) || 470000 (93.4x) || 6300 || 470000 (75.8x) || 1670000 (265.5x) ||
-|| 1000 || 960 || 280000 (289.6x) || 470000 (490.9x) || 1000 || 470000 (445.2x) || 1670000 (1560.1x) ||
+|| 15 || 130000 || 280000 (2.0x) || 780000 (5.6x) || 280000 || 650000 (2.3x) || 13760000 (48.2x) ||
+|| 30 || 130000 || 280000 (2.0x) || 770000 (5.6x) || 290000 || 650000 (2.2x) || 14910000 (50.2x) ||
+|| 100 || 130000 || 280000 (2.0x) || 770000 (5.6x) || 290000 || 620000 (2.2x) || 14910000 (51.4x) ||
+|| 300 || 140000 || 280000 (2.0x) || 770000 (5.5x) || 280000 || 620000 (2.2x) || 14310000 (50.0x) ||
+|| 1000 || 140000 || 280000 (2.0x) || 770000 (5.5x) || 280000 || 630000 (2.3x) || 14310000 (50.6x) ||
+|| 3000 || 140000 || 280000 (2.0x) || 770000 (5.4x) || 270000 || 670000 (2.5x) || 14310000 (52.5x) ||
 
 *Addition (x+y)*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 10000 || 100000 (9.3x) || 130000 (12.7x) || 20000 || 230000 (11.6x) || 450000 (22.4x) ||
-|| 30 || 8100 || 92000 (11.4x) || 120000 (15.0x) || 14000 || 200000 (14.1x) || 370000 (25.4x) ||
-|| 100 || 3000 || 93000 (30.4x) || 120000 (40.2x) || 5100 || 200000 (39.3x) || 360000 (71.1x) ||
-|| 300 || 1000 || 84000 (84.2x) || 100000 (109.1x) || 1400 || 160000 (114.9x) || 260000 (183.5x) ||
-|| 1000 || 180 || 62000 (333.5x) || 76000 (409.9x) || 220 || 98000 (432.4x) || 120000 (561.1x) ||
+|| 15 || 19000 || 120000 (6.5x) || 160000 (8.5x) || 40000 || 270000 (6.7x) || 590000 (14.6x) ||
+|| 30 || 18000 || 110000 (6.3x) || 140000 (8.0x) || 36000 || 240000 (6.8x) || 480000 (13.4x) ||
+|| 100 || 11000 || 110000 (9.8x) || 150000 (12.9x) || 17000 || 240000 (13.9x) || 470000 (26.9x) ||
+|| 300 || 3700 || 100000 (27.5x) || 120000 (34.5x) || 4100 || 190000 (47.4x) || 310000 (76.5x) ||
+|| 1000 || 450 || 72000 (157.8x) || 85000 (185.8x) || 460 || 100000 (230.9x) || 130000 (300.2x) ||
+|| 3000 || 47 || 44000 (933.3x) || 49000 (1035.2x) || 47 || 56000 (1183.2x) || 64000 (1346.1x) ||
 
 *Subtraction (x-y)*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 10000 || 100000 (9.4x) || 95000 (9.0x) || 20000 || 230000 (11.8x) || 250000 (12.8x) ||
-|| 30 || 7900 || 92000 (11.6x) || 92000 (11.5x) || 14000 || 200000 (13.8x) || 250000 (17.0x) ||
-|| 100 || 3000 || 93000 (30.7x) || 61000 (20.1x) || 5100 || 200000 (39.3x) || 130000 (25.8x) ||
-|| 300 || 1000 || 84000 (84.5x) || 57000 (57.7x) || 1400 || 160000 (115.8x) || 110000 (81.8x) ||
-|| 1000 || 180 || 63000 (341.0x) || 47000 (257.0x) || 220 || 98000 (433.3x) || 81000 (360.3x) ||
+|| 15 || 17000 || 89000 (5.1x) || 100000 (6.2x) || 36000 || 190000 (5.3x) || 320000 (8.7x) ||
+|| 30 || 16000 || 88000 (5.3x) || 110000 (6.6x) || 32000 || 190000 (5.9x) || 320000 (10.1x) ||
+|| 100 || 11000 || 68000 (6.1x) || 79000 (7.1x) || 16000 || 130000 (7.8x) || 180000 (11.3x) ||
+|| 300 || 3400 || 66000 (19.2x) || 77000 (22.4x) || 3800 || 120000 (31.9x) || 170000 (44.2x) ||
+|| 1000 || 400 || 54000 (134.2x) || 62000 (154.2x) || 410 || 88000 (215.5x) || 110000 (270.8x) ||
+|| 3000 || 54 || 36000 (680.0x) || 41000 (770.0x) || 54 || 51000 (943.0x) || 58000 (1076.9x) ||
 
 *Multiplication (x*y)*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 8100 || 110000 (14.0x) || 150000 (19.7x) || 15000 || 240000 (15.7x) || 500000 (32.4x) ||
-|| 30 || 5100 || 110000 (21.9x) || 150000 (30.8x) || 10000 || 240000 (24.0x) || 480000 (48.0x) ||
-|| 100 || 1700 || 84000 (47.0x) || 100000 (59.6x) || 3300 || 140000 (44.4x) || 210000 (64.9x) ||
-|| 300 || 530 || 39000 (74.4x) || 44000 (84.1x) || 880 || 49000 (56.1x) || 56000 (63.8x) ||
-|| 1000 || 100 || 7800 (74.2x) || 8000 (76.6x) || 130 || 8100 (58.3x) || 8300 (59.7x) ||
+|| 15 || 25000 || 130000 (5.2x) || 170000 (7.0x) || 57000 || 290000 (5.1x) || 570000 (10.1x) ||
+|| 30 || 23000 || 130000 (5.7x) || 170000 (7.7x) || 48000 || 280000 (5.9x) || 570000 (11.9x) ||
+|| 100 || 12000 || 97000 (7.7x) || 120000 (9.5x) || 17000 || 160000 (9.3x) || 240000 (13.4x) ||
+|| 300 || 2800 || 42000 (15.0x) || 45000 (16.2x) || 2900 || 51000 (17.1x) || 55000 (18.7x) ||
+|| 1000 || 300 || 7900 (25.8x) || 8000 (26.1x) || 310 || 8200 (26.5x) || 8300 (26.9x) ||
+|| 3000 || 39 || 1300 (35.0x) || 1300 (35.1x) || 39 || 1300 (35.2x) || 1300 (35.4x) ||
 
 *Division (x/y)*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 4200 || 87000 (20.8x) || 110000 (27.5x) || 10000 || 180000 (18.1x) || 310000 (31.4x) ||
-|| 30 || 2300 || 81000 (34.7x) || 100000 (44.8x) || 5900 || 150000 (26.4x) || 250000 (41.8x) ||
-|| 100 || 760 || 58000 (76.1x) || 69000 (90.5x) || 1800 || 88000 (48.2x) || 110000 (60.2x) ||
-|| 300 || 220 || 18000 (84.0x) || 19000 (88.5x) || 450 || 21000 (46.2x) || 22000 (48.8x) ||
-|| 1000 || 40 || 2400 (60.2x) || 2400 (60.7x) || 59 || 2400 (41.5x) || 2400 (41.8x) ||
+|| 15 || 22000 || 89000 (4.0x) || 110000 (5.1x) || 47000 || 180000 (3.8x) || 300000 (6.5x) ||
+|| 30 || 20000 || 80000 (3.9x) || 100000 (5.0x) || 40000 || 160000 (4.1x) || 250000 (6.3x) ||
+|| 100 || 14000 || 58000 (4.0x) || 70000 (4.8x) || 21000 || 89000 (4.1x) || 110000 (5.1x) ||
+|| 300 || 4500 || 18000 (4.1x) || 19000 (4.3x) || 5000 || 21000 (4.2x) || 22000 (4.4x) ||
+|| 1000 || 540 || 2400 (4.5x) || 2400 (4.5x) || 550 || 2400 (4.5x) || 2400 (4.5x) ||
+|| 3000 || 71 || 290 (4.0x) || 290 (4.1x) || 71 || 290 (4.0x) || 290 (4.1x) ||
 
 *Square root (x^0.5)*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 440 || 44000 (101.2x) || 53000 (120.6x) || 880 || 110000 (133.6x) || 130000 (153.9x) ||
-|| 30 || 290 || 36000 (126.6x) || 42000 (146.1x) || 580 || 92000 (158.0x) || 100000 (181.1x) ||
-|| 100 || 100 || 24000 (231.7x) || 26000 (253.8x) || 200 || 48000 (235.0x) || 52000 (252.5x) ||
-|| 300 || 30 || 12000 (414.6x) || 13000 (435.9x) || 53 || 18000 (342.1x) || 18000 (350.8x) ||
-|| 1000 || 6 || 2800 (425.0x) || 2800 (433.9x) || 9 || 3100 (340.7x) || 3100 (340.6x) ||
+|| 15 || 14000 || 43000 (3.0x) || 49000 (3.5x) || 29000 || 110000 (4.0x) || 120000 (4.3x) ||
+|| 30 || 12000 || 35000 (2.9x) || 40000 (3.3x) || 22000 || 94000 (4.2x) || 100000 (4.6x) ||
+|| 100 || 6200 || 25000 (4.0x) || 27000 (4.4x) || 8200 || 52000 (6.4x) || 55000 (6.7x) ||
+|| 300 || 1400 || 12000 (8.9x) || 13000 (9.4x) || 1400 || 17000 (11.6x) || 18000 (12.8x) ||
+|| 1000 || 140 || 2800 (19.1x) || 2800 (19.5x) || 140 || 3000 (21.0x) || 3000 (21.0x) ||
+|| 3000 || 15 || 400 (25.3x) || 400 (25.8x) || 15 || 410 (26.0x) || 410 (26.1x) ||
 
-*Integer power (x^42)*
+*Integer power (x^5)*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 860 || 30000 (35.6x) || 33000 (39.0x) || 1700 || 39000 (22.8x) || 45000 (26.4x) ||
-|| 30 || 600 || 15000 (25.5x) || 16000 (26.7x) || 1100 || 17000 (14.9x) || 18000 (15.8x) ||
-|| 100 || 230 || 6900 (29.3x) || 7000 (29.8x) || 420 || 12000 (28.4x) || 12000 (29.7x) ||
-|| 300 || 74 || 4600 (61.7x) || 4600 (62.3x) || 110 || 6300 (53.1x) || 6500 (54.6x) ||
-|| 1000 || 14 || 1400 (96.2x) || 1400 (96.4x) || 19 || 1500 (80.3x) || 1500 (81.2x) ||
+|| 15 || 2300 || 75000 (31.9x) || 95000 (40.3x) || 3900 || 120000 (31.9x) || 180000 (47.0x) ||
+|| 30 || 1600 || 53000 (31.4x) || 62000 (37.1x) || 2500 || 82000 (32.7x) || 98000 (39.4x) ||
+|| 100 || 460 || 41000 (90.4x) || 46000 (101.9x) || 540 || 82000 (152.5x) || 100000 (189.7x) ||
+|| 300 || 47 || 19000 (420.8x) || 21000 (449.2x) || 48 || 26000 (535.6x) || 27000 (572.7x) ||
+|| 1000 || 2 || 3700 (1817.8x) || 3700 (1834.7x) || 2 || 3800 (1908.0x) || 3900 (1927.0x) ||
 
 *Exponential function (exp(x))*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 93 || 32000 (349.5x) || 36000 (386.6x) || 190 || 46000 (232.7x) || 73000 (368.0x) ||
-|| 30 || 37 || 26000 (694.6x) || 28000 (749.1x) || 80 || 41000 (522.0x) || 53000 (661.2x) ||
-|| 100 || 5 || 9600 (1705.4x) || 9900 (1757.5x) || 11 || 12000 (1087.5x) || 12000 (1155.9x) ||
-|| 300 || 0 || 1600 (2267.9x) || 1600 (2269.9x) || 1 || 1700 (1361.2x) || 1700 (1376.5x) ||
+|| 15 || 6500 || 38000 (5.9x) || 41000 (6.3x) || 11000 || 70000 (5.9x) || 94000 (7.9x) ||
+|| 30 || 4900 || 29000 (5.9x) || 30000 (6.2x) || 7800 || 50000 (6.4x) || 58000 (7.4x) ||
+|| 100 || 1200 || 11000 (8.7x) || 11000 (8.8x) || 1500 || 14000 (9.8x) || 15000 (10.4x) ||
+|| 300 || 110 || 1700 (15.8x) || 1700 (15.8x) || 110 || 1800 (16.2x) || 1800 (16.2x) ||
+|| 1000 || 4 || 120 (28.8x) || 120 (28.9x) || 4 || 120 (28.8x) || 120 (28.7x) ||
 
 *Natural logarithm (log(x))*
 || *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 80 || 14000 (181.9x) || 16000 (200.4x) || 160 || 24000 (146.2x) || 29000 (174.3x) ||
-|| 30 || 18 || 10000 (534.3x) || 10000 (570.3x) || 39 || 17000 (441.3x) || 18000 (479.8x) ||
-|| 100 || 1 || 4400 (3065.6x) || 4600 (3162.8x) || 2 || 6400 (2194.8x) || 6600 (2274.1x) ||
-|| 300 || 0 || 1000 (8102.6x) || 1000 (8190.2x) || 0 || 1100 (5223.2x) || 1100 (5236.9x) ||
-
-*Sine (sin(x))*
-|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 130 || 18000 (134.8x) || 19000 (142.5x) || 280 || 30000 (107.7x) || 36000 (128.9x) ||
-|| 30 || 57 || 14000 (253.8x) || 15000 (265.1x) || 110 || 23000 (199.7x) || 27000 (231.2x) ||
-|| 100 || 8 || 5700 (639.0x) || 5800 (647.8x) || 17 || 7800 (441.1x) || 8200 (463.3x) ||
-|| 300 || 1 || 960 (828.8x) || 960 (830.0x) || 2 || 1000 (511.2x) || 1000 (517.6x) ||
-
-*Tangent (tan(x))*
-|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 69 || 16000 (240.1x) || 17000 (251.1x) || 140 || 32000 (226.0x) || 33000 (234.5x) ||
-|| 30 || 29 || 12000 (428.6x) || 12000 (442.5x) || 60 || 22000 (379.2x) || 23000 (395.5x) ||
-|| 100 || 4 || 5200 (1165.9x) || 5300 (1184.0x) || 8 || 7400 (843.0x) || 7500 (848.3x) ||
-|| 300 || 0 || 910 (1563.5x) || 910 (1570.9x) || 1 || 1000 (981.9x) || 1000 (982.3x) ||
-
-*Inverse tangent(atan(x))*
-|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 29 || 10000 (345.1x) || 10000 (363.4x) || 60 || 19000 (328.5x) || 19000 (327.6x) ||
-|| 30 || 11 || 6200 (566.9x) || 6300 (576.5x) || 22 || 10000 (467.4x) || 10000 (468.1x) ||
-|| 100 || 1 || 1300 (1035.2x) || 1300 (1021.8x) || 2 || 1800 (688.5x) || 1800 (689.0x) ||
-|| 300 || 0 || 140 (1004.0x) || 140 (1003.8x) || 0 || 150 (626.4x) || 160 (627.5x) ||
-
-*Hyperbolic cosine (cosh(x))*
-|| *digits* || *Decimal* || *mpf* ||  *raw mpf* || *Decimal+psyco* || *mpf+psyco* || *raw mpf+psyco* ||
-|| 15 || 140 || 16000 (112.3x) || 17000 (118.6x) || 280 || 31000 (109.8x) || 39000 (135.6x) ||
-|| 30 || 62 || 14000 (231.0x) || 15000 (242.2x) || 120 || 26000 (210.3x) || 30000 (244.8x) ||
-|| 100 || 9 || 7000 (752.5x) || 7100 (769.9x) || 18 || 9700 (533.6x) || 10000 (562.7x) ||
-|| 300 || 1 || 1400 (1212.1x) || 1400 (1218.2x) || 2 || 1500 (753.3x) || 1500 (762.5x) ||
+|| 15 || 3300 || 13000 (4.1x) || 17000 (5.3x) || 5800 || 28000 (4.9x) || 37000 (6.4x) ||
+|| 30 || 2500 || 9800 (3.9x) || 11000 (4.6x) || 3800 || 19000 (5.0x) || 23000 (6.1x) ||
+|| 100 || 700 || 4500 (6.5x) || 4900 (7.1x) || 830 || 7300 (8.8x) || 7700 (9.3x) ||
+|| 300 || 80 || 1000 (13.3x) || 1000 (13.7x) || 83 || 1200 (14.8x) || 1200 (15.2x) ||
+|| 1000 || 3 || 100 (26.7x) || 100 (26.8x) || 3 || 100 (26.9x) || 100 (27.0x) ||
