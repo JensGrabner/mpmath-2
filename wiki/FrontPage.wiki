@@ -1,6 +1,7 @@
 #summary Front page
 
-  * 2008-03-15 - released 0.7 ([http://mpmath.googlecode.com/svn/trunk/CHANGES changes])
+  * 2008-03-14 - a serious problem when using mpmath with Python 2.4 has been found; see note below
+  * 2008-03-12 - released 0.7 ([http://mpmath.googlecode.com/svn/trunk/CHANGES changes])
   * 2008-01-13 - released 0.6
 
 [History Older news]
@@ -10,6 +11,8 @@
 Mpmath is a pure-Python library for arbitrary-precision floating-point arithmetic. It implements the standard functions from Python's `math` and `cmath` modules (`exp`, `log`, `sin`...), plus a few nonelementary special functions (`gamma`, `zeta`...), and has utilities for arbitrary-precision numerical differentiation, integration, root-finding, and interval arithmetic. It supports unlimited exponent sizes, has full support for complex numbers, and offers better performance than Python's standard `decimal` library. Mpmath is lightweight (~100 KB), free (BSD license), and easy to install or include in other software due to being written entirely in Python with no additional dependencies.
 
 ==Installation==
+
+*Important note: mpmath should only be used with Python 2.5 or later. Although mpmath is compatible with Python 2.4 features, Python 2.4 has a severe bug in list indexing that may cause mpmath to raise exceptions or silently produce wrong results.*
 
 You can install the latest released version of mpmath by running:
 
