@@ -1,7 +1,7 @@
 #summary Front page
 
 ==Status==
-* 2008-04-19: mpmath is 0.8 is released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
+* 2008-04-20: mpmath is 0.8 is released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
 
 [History Older news]
 
