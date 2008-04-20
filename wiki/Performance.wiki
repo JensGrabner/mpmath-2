@@ -14,7 +14,7 @@ The inputs are x = sqrt(3) and y = sqrt(5).
 || log(x) ||  0.030 ms ||  0.13 ms  ||  8.7 ms   ||  1200 ms  ||
 || sin(x) ||  0.026 ms ||  0.10 ms  ||   15 ms   ||  4600 ms  ||
 
-For comparison, timings for the same operations for several other arbitrary-precision libraries are [http://pari.math.u-bordeaux.fr/benchs/timings-mpfr.html listed on the PARI website]. Mpmath stands up fairly well considering that it is written in an interpreted language: although generally at least an order of magnitude slower than the fastest library (MPFR), it is comparable in speed to the slower ones (including Maple, !ArPrec and MuPAD).
+For comparison, timings for the same operations for several other arbitrary-precision libraries are [http://pari.math.u-bordeaux.fr/benchs/timings-mpfr.html listed on the PARI website]. Mpmath stands up fairly well considering that it is written in an interpreted language: although generally at least an order of magnitude slower than the fastest library (MPFR), it is comparable in speed to Maple, !ArPrec and MuPAD.
 
 In the author's experience, mpmath is typically 2-10 times slower than Mathematica 5 for high-precision numerical integration and similar high-level tasks (but actually faster on rare occasions).
 

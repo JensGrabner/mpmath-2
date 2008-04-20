@@ -1,3 +1,3 @@
 #summary Documentation for using mpmath
 
-This wiki page is now obsolete: see the [http://mpmath.googlecode.com/svn/trunk/doc/manual.html mpmath manual] for up-to-date documentation.
+This wiki page is now obsolete: see the [http://mpmath.googlecode.com/svn/trunk/doc/build/index.html mpmath manual] for up-to-date documentation.

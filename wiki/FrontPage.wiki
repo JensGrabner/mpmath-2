@@ -1,73 +1,85 @@
 #summary Front page
 
-  * 2008-03-14 - a serious problem when using mpmath with Python 2.4 has been found; see note below
-  * 2008-03-12 - released 0.7 ([http://mpmath.googlecode.com/svn/trunk/CHANGES changes])
-  * 2008-01-13 - released 0.6
+==Status==
+* 2008-04-19: mpmath is 0.8 is released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
 
 [History Older news]
 
 ==About mpmath==
 
-Mpmath is a pure-Python library for arbitrary-precision floating-point arithmetic. It implements the standard functions from Python's `math` and `cmath` modules (`exp`, `log`, `sin`...), plus a few nonelementary special functions (`gamma`, `zeta`...), and has utilities for arbitrary-precision numerical differentiation, integration, root-finding, and interval arithmetic. It supports unlimited exponent sizes, has full support for complex numbers, and offers better performance than Python's standard `decimal` library. Mpmath is lightweight (~100 KB), free (BSD license), and easy to install or include in other software due to being written entirely in Python with no additional dependencies.
+Mpmath is a pure-Python library for arbitrary-precision floating-point arithmetic. It implements a large set of mathematical functions and provides utilities for arbitrary-precision numerical differentiation, integration, root-finding, interval arithmetic, and other tasks. It supports unlimited exponent sizes, has full support for complex numbers, and is faster than Python's standard `decimal` library.
 
-==Installation==
-
-*Important note: mpmath should only be used with Python 2.5 or later. Although mpmath is compatible with Python 2.4 features, Python 2.4 has a severe bug in list indexing that may cause mpmath to raise exceptions or silently produce wrong results.*
-
-You can install the latest released version of mpmath by running:
-
-{{{
-python -m easy_install mpmath
-}}}
-
-Alternatively, you can download and install mpmath manually. Either run the binary installer (Windows only) or extract the source archive and run:
-
-{{{
-python setup.py install
-}}}
-
-Debian and Ubuntu users can `apt-get` mpmath (see [http://packages.debian.org/python-mpmath package information], please verify that the most recent version is available).
+Mpmath is free (BSD license) and easy to install or include in other software due to being written entirely in Python with no additional dependencies.
 
 ==Documentation==
 
-  * *[http://mpmath.googlecode.com/svn/trunk/doc/manual.html Mpmath manual] (HTML)* -- also [http://mpmath.googlecode.com/svn/trunk/doc/manual.pdf available as PDF]
-  * [Performance] - see how well (or poorly) mpmath compares to other arbitrary-precision arithmetic libraries
-  * [FAQ]
-  * The [http://code.google.com/p/mpmath/source/browse source code] itself may be helpful
+*[http://mpmath.googlecode.com/svn/trunk/doc/manual.html Mpmath documentation]* (HTML)
+
+Provides installation instructions and extensive interactive examples.
+
+==List of features==
+
+Arithmetic:
+* Real and complex numbers with arbitrary precision
+* Unlimited exponent sizes / magnitudes
+* Support for infinities and not-a-numbers
+* Directed rounding
+* Rudimentary interval arithmetic
+
+Functions:
+* Elementary functions (sqrt, exp, log, trigonometric, hyperbolic, inverse trig and hyperbolic)
+* Standard mathematical constants: pi, e, the golden ratio, Euler's constant (gamma)
+* Less standard constants: Catalan's, Apery's, Khinchin's and Glaisher's constants
+* Lambert W function (all branches)
+* Error function (erf)
+* Gamma functions (complete and incomplete), factorials and binomial coefficients
+* Riemann zeta function and Bernoulli numbers
+* Bessel function of the first kind
+* Arithmetic-geometric mean
+* Complete elliptic integrals
+* Jacobi, Legendre and Chebyshev functions
+* Generic hypergeometric functions
+
+High-level features:
+* Integration
+* Differentiation
+* Limits and summation of infinite series (with convergence acceleration)
+* Root-finding
+* Polynomial evaluation and root-finding
+* Chebyshev approximation
+* Basic ODE solvers
+* Integer relation detection (constant recognition)
 
 ==Demonstration==
 
-A few different ways to compute pi (here to 50 decimal places): using elementary functions, quadrature of the unit circle, quadrature of a Gaussian integral, special functions, and root-finding.
+A few different ways to compute pi (here to 50 decimal places): directly, as special values of various functions, using quadrature of the unit circle, quadrature of a Gaussian integral, accelerated summation of the slowly convergent Leibniz series, a limit of a sequence, and root-finding. To test mpmath, you can paste the following directly into an interactive Python session:
 
 {{{
->>> from mpmath import *
->>> mp.dps = 50
->>> print pi
-3.1415926535897932384626433832795028841971693993751
-
->>> print 2*asinh(j).imag
-3.1415926535897932384626433832795028841971693993751
-
->>> print 4*quadts(lambda x: sqrt(1-x**2), 0, 1)
-3.1415926535897932384626433832795028841971693993751
-
->>> print quadts(lambda x: exp(-x**2), -inf, inf) ** 2
-3.1415926535897932384626433832795028841971693993751
-
->>> print gamma(0.5)**2
-3.1415926535897932384626433832795028841971693993751
-
->>> print sqrt(6*zeta(2))
-3.1415926535897932384626433832795028841971693993751
-
->>> print secant(sin, 3.0)
-3.1415926535897932384626433832795028841971693993751
+from mpmath import *
+mp.dps = 50
+print pi
+print 2*asinh(j).imag
+print gamma(0.5)**2
+print sqrt(6*zeta(2))
+print quadts(lambda x: 4*sqrt(1-x**2), 0, 1)
+print quadts(lambda x: exp(-x**2), -inf, inf) ** 2
+print sumsh(lambda n: 4*(-1)**n/(2*n+1), 0, inf)
+print limit(lambda n: 2**(4*n+1)*factorial(n)**4/(2*n+1)/factorial(2*n)**2, inf)
+print secant(sin, 3.14)
 }}}
 
-Some demo scripts are available:
+Each command should print `3.1415926535897932384626433832795028841971693993751`.
+
+Some additional demo scripts are available:
   * [http://code.google.com/p/mpmath/source/browse/trunk/demo/pidigits.py pidigits.py] -- print thousands of digits of pi in any base
   * [http://code.google.com/p/mpmath/source/browse/trunk/demo/manydigits.py manydigits.py] -- outputs solutions to [http://www.cs.ru.nl/~milad/manydigits/problems.php Many Digits competition problems]
   * [http://code.google.com/p/mpmath/source/browse/trunk/demo/taylor.py taylor.py] -- educational interval arithmetic
+
+Some example computations with high precision:
+* [http://mpmath.googlecode.com/svn/data/golden_ratio.txt The golden ratio] to 100,000 digits (computed in 4 seconds)
+* [http://mpmath.googlecode.com/svn/data/glaisher.txt Glaisher's constant] to 20,000 digits (computed in 16 hours)
+* [http://mpmath.googlecode.com/svn/data/khinchin.txt Khinchin's constant] to 6,000 digits (computed in 8 hours)
+* [http://mpmath.googlecode.com/svn/data/bernoulli.txt 2500 Bernoulli numbers] with 64 digits (computed in 1 minute)
 
 ==Projects using mpmath==
   * [http://code.google.com/p/sympy SymPy] and [http://code.google.com/p/sympycore SympyCore]
