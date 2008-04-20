@@ -20,35 +20,35 @@ Provides installation instructions and extensive interactive examples.
 ==List of features==
 
 Arithmetic:
-* Real and complex numbers with arbitrary precision
-* Unlimited exponent sizes / magnitudes
-* Support for infinities and not-a-numbers
-* Directed rounding
-* Rudimentary interval arithmetic
+  * Real and complex numbers with arbitrary precision
+  * Unlimited exponent sizes / magnitudes
+  * Support for infinities and not-a-numbers
+  * Directed rounding
+  * Rudimentary interval arithmetic
 
 Functions:
-* Elementary functions (sqrt, exp, log, trigonometric, hyperbolic, inverse trig and hyperbolic)
-* Standard mathematical constants: pi, e, the golden ratio, Euler's constant (gamma)
-* Less standard constants: Catalan's, Apery's, Khinchin's and Glaisher's constants
-* Lambert W function (all branches)
-* Error function (erf)
-* Gamma functions (complete and incomplete), factorials and binomial coefficients
-* Riemann zeta function and Bernoulli numbers
-* Bessel function of the first kind
-* Arithmetic-geometric mean
-* Complete elliptic integrals
-* Jacobi, Legendre and Chebyshev functions
-* Generic hypergeometric functions
+  * Elementary functions (sqrt, exp, log, trigonometric, hyperbolic, inverse trig and hyperbolic)
+  * Standard mathematical constants: pi, e, the golden ratio, Euler's constant (gamma)
+  * Less standard constants: Catalan's, Apery's, Khinchin's and Glaisher's constants
+  * Lambert W function (all branches)
+  * Error function (erf)
+  * Gamma functions (complete and incomplete), factorials and binomial coefficients
+  * Riemann zeta function and Bernoulli numbers
+  * Bessel function of the first kind
+  * Arithmetic-geometric mean
+  * Complete elliptic integrals
+  * Jacobi, Legendre and Chebyshev functions
+  * Generic hypergeometric functions
 
 High-level features:
-* Integration
-* Differentiation
-* Limits and summation of infinite series (with convergence acceleration)
-* Root-finding
-* Polynomial evaluation and root-finding
-* Chebyshev approximation
-* Basic ODE solvers
-* Integer relation detection (constant recognition)
+  * Integration
+  * Differentiation
+  * Limits and summation of infinite series (with convergence acceleration)
+  * Root-finding
+  * Polynomial evaluation and root-finding
+  * Chebyshev approximation
+  * Basic ODE solvers
+  * Integer relation detection (constant recognition)
 
 ==Demonstration==
 
@@ -76,10 +76,10 @@ Some additional demo scripts are available:
   * [http://code.google.com/p/mpmath/source/browse/trunk/demo/taylor.py taylor.py] -- educational interval arithmetic
 
 Some example computations with high precision:
-* [http://mpmath.googlecode.com/svn/data/golden_ratio.txt The golden ratio] to 100,000 digits (computed in 4 seconds)
-* [http://mpmath.googlecode.com/svn/data/glaisher.txt Glaisher's constant] to 20,000 digits (computed in 16 hours)
-* [http://mpmath.googlecode.com/svn/data/khinchin.txt Khinchin's constant] to 6,000 digits (computed in 8 hours)
-* [http://mpmath.googlecode.com/svn/data/bernoulli.txt 2500 Bernoulli numbers] with 64 digits (computed in 1 minute)
+  * [http://mpmath.googlecode.com/svn/data/golden_ratio.txt The golden ratio] to 100,000 digits (computed in 4 seconds)
+  * [http://mpmath.googlecode.com/svn/data/glaisher.txt Glaisher's constant] to 20,000 digits (computed in 16 hours)
+  * [http://mpmath.googlecode.com/svn/data/khinchin.txt Khinchin's constant] to 6,000 digits (computed in 8 hours)
+  * [http://mpmath.googlecode.com/svn/data/bernoulli.txt 2500 Bernoulli numbers] with 64 digits (computed in 1 minute)
 
 ==Projects using mpmath==
   * [http://code.google.com/p/sympy SymPy] and [http://code.google.com/p/sympycore SympyCore]
