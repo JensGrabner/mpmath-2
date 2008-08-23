@@ -1,6 +1,7 @@
 #summary Archived news and history of mpmath's development
 
 For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file in the SVN repository.
+  * 2008-04-20: mpmath is 0.8 is released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] and [http://groups.google.com/group/mpmath/browse_thread/thread/e03b09255ffed701 release announcement] for details.
   * *March 12, 2008.* Released 0.7
   * *January 13, 2008.* Released [http://code.google.com/p/mpmath/downloads/list?q=0.6 version 0.6]. A new class class (mpi) for interval arithmetic has been added. Rounding for powers has been improved, and infinities/nan are supported in more places. Various small bugs have been fixed, the mpf class implementation has been simplified, and tweaks to the integer bitcount code (among other things) resulted in arithmetic now being about 20-30% faster.
   * *December 8, 2007.* There is now a mailing list: [http://groups.google.com/group/mpmath]. mpmath is also being [http://qa.debian.org/developer.php?login=python-modules-team@lists.alioth.debian.org added to debian] (thanks to [http://matrixhasu.altervista.org/ Sandro Tosi] and the Debian Python Modules Team)
