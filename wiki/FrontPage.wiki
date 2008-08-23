@@ -1,9 +1,9 @@
 #summary Front page
 
 ==Status==
-* 2008-08-22: The svn version of mpmath can optionally use gmpy for faster high-precision computations. See the [http://mpmath.googlecode.com/svn/bench/mpbench.html new benchmark results].
+* 2008-08-23: mpmath 0.9 released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] and [http://groups.google.com/group/mpmath/browse_thread/thread/9889451665f51ff8 release announcement] for details.
 
-* 2008-04-20: mpmath is 0.8 is released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] and [http://groups.google.com/group/mpmath/browse_thread/thread/e03b09255ffed701 release announcement] for details.
+* 2008-08-22: The svn version of mpmath can optionally use gmpy for faster high-precision computations. See the [http://mpmath.googlecode.com/svn/bench/mpbench.html new benchmark results].
 
 [History Older news]
 
@@ -11,7 +11,7 @@
 
 Mpmath is a pure-Python library for arbitrary-precision floating-point arithmetic. It implements a large set of mathematical functions and provides utilities for arbitrary-precision numerical differentiation, integration, root-finding, interval arithmetic, and other tasks. It supports unlimited exponent sizes, has full support for complex numbers, and is faster than Python's standard `decimal` library.
 
-Mpmath is free (BSD license) and easy to install or include in other software due to being written entirely in Python with no additional dependencies.
+Mpmath is free (BSD license) and easy to install or include in other software due to being written entirely in Python with no additional dependencies. It can be used as a standalone library or via [http://code.google.com/p/sympy SymPy] which uses it for numerical evaluation of symbolic expressions. Mpmath can optionally use [http://code.google.com/p/gmpy gmpy] to speed up computations with thousands of digits.
 
 ==Documentation==
 
@@ -36,10 +36,12 @@ Functions:
   * Error function (erf)
   * Gamma functions (complete and incomplete), factorials and binomial coefficients
   * Riemann zeta function and Bernoulli numbers
-  * Bessel function of the first kind
+  * Bessel function of the first kind, Airy functions
+  * Exponential and trigonometric integrals
   * Arithmetic-geometric mean
   * Complete elliptic integrals
-  * Jacobi, Legendre and Chebyshev functions
+  * Jacobi elliptic functions
+  * Jacobi, Legendre and Chebyshev polynomials
   * Generic hypergeometric functions
 
 High-level features:
