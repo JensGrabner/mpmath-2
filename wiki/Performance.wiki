@@ -1,4 +1,5 @@
-#labels Featured
+NOTE: This wiki page is now obsolete. See http://mpmath.googlecode.com/svn/bench/mpbench.html for up to date benchmarks.
+
 ==Basic operations==
 
 The time needed to perform some basic calculations at precision levels between 10 and 10,000 decimal digits are given in the following table. The times were measured on an Athlon 3700+ (2.21 GHz), using Python 2.5.1 and with [http://psyco.sourceforge.net/ Psyco] enabled. All times are in milliseconds (ranging from 1/500,000 of a second for a low-precision addition to 4.6 seconds for a 10,000-digit sine).
