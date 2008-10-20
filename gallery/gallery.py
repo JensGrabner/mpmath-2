@@ -1,5 +1,7 @@
 from mpmath import *
 
+import os
+
 try:
     import psyco
     psyco.full()
@@ -18,24 +20,28 @@ and <a href="http://matplotlib.sourceforge.net/">matplotlib</a> by
 ''')
 
 def plotgroup(name, fs, descs, xlim=[-5, 5], ylim=None, repoints=500,
-    relim=[-5,5], imlim=[-5, 5], singularities=[]):
+    relim=[-5,5], imlim=[-5, 5], singularities=[], complex_only=False):
     print name, "..."
     fp.write('<h2>%s</h2>' % name)
     f1name = '%s.png' % name
     fnname = name + ' C%i.png'
-    plot(fs, xlim=xlim, ylim=ylim, file=f1name, points=repoints, dpi=40,
-        singularities=singularities)
+    if not (complex_only or os.path.exists(f1name)):
+        plot(fs, xlim=xlim, ylim=ylim, file=f1name, points=repoints, dpi=40,
+            singularities=singularities)
     for k, f in enumerate(fs):
-        cplot(f, file=(fnname % k), re=relim, im=imlim, points=35000,
-        dpi=40, verbose=1)
+        if not os.path.exists(fnname % k):
+            cplot(f, file=(fnname % k), re=relim, im=imlim, points=35000,
+            dpi=40, verbose=1)
     fp.write('<table><tr>')
-    fp.write('<td><img src="%s" /></td>' % f1name)
+    if not complex_only:
+        fp.write('<td><img src="%s" /></td>' % f1name)
     for k in range(len(fs)):
         fp.write('<td><img src="%s" /></td>' % (fnname % k))
     fp.write('</tr><tr align="center">')
     desc = ",<br/>".join(descs)
     desc = desc[0].upper() + desc[1:]
-    fp.write('<td>%s</td>' % desc)
+    if not complex_only:
+        fp.write('<td>%s</td>' % desc)
     for k, d in enumerate(descs):
         fp.write('<td>Complex %s</td>' % descs[k])
     fp.write('</tr></table>')
@@ -121,6 +127,37 @@ plotgroup("Polygamma functions", [digamma, trigamma],
 
 plotgroup("Riemann zeta function", [zeta], ["Riemann zeta function &zeta;(x)"],
     ylim=[-5, 5], relim=[-20, 20], imlim=[-30, 30])
+
+plotgroup("Jacobi theta functions 1-2", [lambda x: jtheta(1,x,0.5), lambda x: jtheta(2,x,0.5)],
+    ["&theta;<sub>1</sub>(x,1/2)", "&theta;<sub>2</sub>(x,1/2)"])
+plotgroup("Jacobi theta functions 3-4", [lambda x: jtheta(3,x,0.5), lambda x: jtheta(4,x,0.5)],
+    ["&theta;<sub>3</sub>(x,1/2)", "&theta;<sub>4</sub>(x,1/2)"])
+
+plotgroup("Derivative of Jacobi theta functions 1-2", [lambda x: djtheta(1,x,0.5), lambda x: djtheta(2,x,0.5)],
+    ["&theta;'<sub>1</sub>(x,1/2)", "&theta;'<sub>2</sub>(x,1/2)"])
+plotgroup("Derivative of Jacobi theta functions 3-4", [lambda x: djtheta(3,x,0.5), lambda x: djtheta(4,x,0.5)],
+    ["&theta;'<sub>3</sub>(x,1/2)", "&theta;'<sub>4</sub>(x,1/2)"])
+
+plotgroup("Jacobi theta functions 1-2, variable nome",
+    [lambda q: jtheta(1,(1+j)/3,q), lambda q: jtheta(2,(1+j)/3,q)],
+    ["&theta;<sub>1</sub>((1+i)/3,q)", "&theta;<sub>2</sub>((1+i)/3,q)"],
+    xlim=[-1,1], ylim=[-1, 1], relim=[-1,1], imlim=[-1,1], complex_only=True)
+
+plotgroup("Jacobi theta functions 3-4, variable nome",
+    [lambda q: jtheta(3,(1+j)/3,q), lambda q: jtheta(4,(1+j)/3,q)],
+    ["&theta;<sub>3</sub>((1+i)/3,q)", "&theta;<sub>4</sub>((1+i)/3,q)"],
+    xlim=[-1,1], ylim=[-1, 1], relim=[-1,1], imlim=[-1,1], complex_only=True)
+
+plotgroup("Derivative of Jacobi theta functions 1-2, variable nome",
+    [lambda q: djtheta(1,(1+j)/3,q), lambda q: djtheta(2,(1+j)/3,q)],
+    ["&theta;<sub>1</sub>((1+i)/3,q)", "&theta;<sub>2</sub>((1+i)/3,q)"],
+    xlim=[-1,1], ylim=[-1, 1], relim=[-1,1], imlim=[-1,1], complex_only=True)
+
+plotgroup("Derivative of Jacobi theta functions 3-4, variable nome",
+    [lambda q: djtheta(3,(1+j)/3,q), lambda q: djtheta(4,(1+j)/3,q)],
+    ["&theta;'<sub>3</sub>((1+i)/3,q)", "&theta;'<sub>4</sub>((1+i)/3,q)"],
+    xlim=[-1,1], ylim=[-1, 1], relim=[-1,1], imlim=[-1,1], complex_only=True)
+
 
 fp.write("</body></html>")
 fp.close()
