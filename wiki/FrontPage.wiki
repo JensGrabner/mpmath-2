@@ -83,11 +83,11 @@ Some additional demo scripts are available:
   * [http://code.google.com/p/mpmath/source/browse/trunk/demo/manydigits.py manydigits.py] -- outputs solutions to [http://www.cs.ru.nl/~milad/manydigits/problems.php Many Digits competition problems]
   * [http://code.google.com/p/mpmath/source/browse/trunk/demo/taylor.py taylor.py] -- educational interval arithmetic
 
-Some example computations with high precision (Note: these were computed with an old version of mpmath. The latest version is much faster.):
-  * [http://mpmath.googlecode.com/svn/data/golden_ratio.txt The golden ratio] to 100,000 digits (computed in 4 seconds)
-  * [http://mpmath.googlecode.com/svn/data/glaisher.txt Glaisher's constant] to 20,000 digits (computed in 16 hours)
-  * [http://mpmath.googlecode.com/svn/data/khinchin.txt Khinchin's constant] to 6,000 digits (computed in 8 hours)
-  * [http://mpmath.googlecode.com/svn/data/bernoulli.txt 2500 Bernoulli numbers] with 64 digits (computed in 1 minute)
+Some example computations with high precision:
+  * [http://mpmath.googlecode.com/svn/data/golden_ratio.txt The golden ratio] to 100,000 digits (computed in 4 seconds, in pure Python mode)
+  * [http://mpmath.googlecode.com/svn/data/glaisher.txt Glaisher's constant] to 20,000 digits (computed in 1 hour)
+  * [http://mpmath.googlecode.com/svn/data/khinchin.txt Khinchin's constant] to 10,000 digits (computed in 11 minutes)
+  * [http://mpmath.googlecode.com/svn/data/bernoulli.txt 2500 Bernoulli numbers] with 64 digits (computed in 6 seconds)
 
 ==Projects using mpmath==
   * [http://code.google.com/p/sympy SymPy] and [http://code.google.com/p/sympycore SympyCore]
