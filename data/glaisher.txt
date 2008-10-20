@@ -3,8 +3,8 @@
 Computed using A = exp((6 (-zeta'(2))/pi^2 + log 2 pi + gamma)/12)
 with Euler-Maclaurin summation for zeta'(2).
 
-The computation took 16 hours. The first 10,000 digits agree with
-a computation to that precision which took 2 hours.
+The computation took 1 hour. The first 10,000 digits agree with
+a computation to that precision which took 9 minutes.
 
 >>> from mpmath import *
 >>> mp.dps = 20025

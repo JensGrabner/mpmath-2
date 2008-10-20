@@ -1,5 +1,5 @@
 100,000 digits of the golden ratio phi = (1 + sqrt(5))/2. The computation
-took 4 seconds.
+took 4 seconds using mpmath in pure Python mode (not using gmpy).
 
 >>> from mpmath import *
 >>> mp.dps = 100025
