@@ -15,9 +15,9 @@ http://mpmath.googlecode.com/svn/doc/frontpic.png
 
 ==Documentation==
 
-*[http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Mpmath documentation]* (HTML)
+*[http://mpmath.googlecode.com/svn/tags/0.10/doc/build/index.html Mpmath 0.10 documentation]* (HTML) -- provides installation instructions and extensive interactive examples.
 
-Provides installation instructions and extensive interactive examples.
+[http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Trunk documentation] -- includes unreleased changes / features
 
 ==List of features==
 
