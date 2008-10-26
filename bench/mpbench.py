@@ -1,7 +1,8 @@
 import mpmath
 from mpmath import *
-from mpmath.lib import *
+from mpmath.libmpf import *
 from mpmath.libmpc import *
+from mpmath.libelefun import *
 import sys
 import os
 
@@ -123,7 +124,7 @@ def timing(case):
     w = mpc(x,y)
     z = mpc(mpf(d[4])/d[5], mpf(d[6])/d[7])
     if %LIB%:
-        prec=mp.prec; dps=mp.dps; rnd=lib.round_nearest
+        prec=mp.prec; dps=mp.dps; rnd=round_nearest
         x = x._mpf_
         y = y._mpf_
         w = w._mpc_
@@ -161,8 +162,9 @@ if not %GMPY%:
 
 import mpmath
 from mpmath import *
-from mpmath.lib import *
+from mpmath.libmpf import *
 from mpmath.libmpc import *
+from mpmath.libelefun import *
 
 if %SINGLE%:
     t = [timing(0)]
@@ -296,14 +298,14 @@ def arithmetic_benchmark():
     benchmark("Convert to integer", "int(x)", "to_int(x)")
     benchmark("Convert to float", "float(x)", "to_float(x)")
     benchmark("Convert to string", "str(x)", "to_str(x,dps)")
-    benchmark("Comparison", "x < y", "fcmp(x,y)")
-    benchmark("Addition", "x+y", "fadd(x,y,prec,rnd)")
-    benchmark("Subtraction", "x-y", "fsub(x,y,prec,rnd)")
-    benchmark("Multiplication", "x*y", "fmul(x,y,prec,rnd)")
-    benchmark("Division", "x/y", "fdiv(x,y,prec,rnd)")
-    benchmark("Integer power", "x**5", "fpowi(x,5,prec,rnd)")
-    benchmark("Square root", "sqrt(x)", "fsqrt(x,prec,rnd)")
-    benchmark("Cube root", "cbrt(x)", "fcbrt(x,prec,rnd)")
+    benchmark("Comparison", "x < y", "mpf_cmp(x,y)")
+    benchmark("Addition", "x+y", "mpf_add(x,y,prec,rnd)")
+    benchmark("Subtraction", "x-y", "mpf_sub(x,y,prec,rnd)")
+    benchmark("Multiplication", "x*y", "mpf_mul(x,y,prec,rnd)")
+    benchmark("Division", "x/y", "mpf_div(x,y,prec,rnd)")
+    benchmark("Integer power", "x**5", "mpf_pow_int(x,5,prec,rnd)")
+    benchmark("Square root", "sqrt(x)", "mpf_sqrt(x,prec,rnd)")
+    benchmark("Cube root", "cbrt(x)", "mpf_cbrt(x,prec,rnd)")
     benchmark("Complex addition", "w+z", "mpc_add(w,z,prec,rnd)")
     benchmark("Complex subtraction", "w-z", "mpc_sub(w,z,prec,rnd)")
     benchmark("Complex multiplication", "w*z", "mpc_mul(w,z,prec,rnd)")
@@ -316,10 +318,10 @@ def arithmetic_benchmark():
 
 def functions_benchmark():
     title("Section 3: Functions")
-    benchmark("Exponential", "exp(x)", "fexp(x,prec,rnd)")
-    benchmark("Logarithm", "log(x)", "flog(x,prec,rnd)")
-    benchmark("Sine", "sin(x)", "fsin(x,prec,rnd)")
-    benchmark("Inverse tangent", "atan(x)", "fatan(x,prec,rnd)")
+    benchmark("Exponential", "exp(x)", "mpf_exp(x,prec,rnd)")
+    benchmark("Logarithm", "log(x)", "mpf_log(x,prec,rnd)")
+    benchmark("Sine", "sin(x)", "mpf_sin(x,prec,rnd)")
+    benchmark("Inverse tangent", "atan(x)", "mpf_atan(x,prec,rnd)")
     benchmark("Inverse hyperbolic cotangent", "acoth(x)")
     benchmark("Error function", "erf(x)")
     benchmark("Lambert W function", "lambertw(x)")
@@ -337,11 +339,11 @@ def functions_benchmark():
 
 def misc_benchmark():
     title("Section 4: Miscellaneous")
-    benchmark("Numerical integration*", "quadts(sqrt, 1, 2)", maxprec=1000)
-    benchmark("Numerical double integration*", "quadts(lambda x, y: sqrt(x+y), (1, 2), (1, 2))", maxprec=100)
-    benchmark("Polynomial roots, deg=3", "polyroots([x*i for i in range(3+1)])")
-    benchmark("Polynomial roots, deg=10", "polyroots([x*i for i in range(10+1)])")
-    benchmark("Chebyshev approximation", "chebyfit(sqrt, 1, 2, mp.dps)", maxprec=100)
+    benchmark("Numerical integration*", "quad(sqrt, [1, 2])", maxprec=1000)
+    benchmark("Numerical double integration*", "quad(lambda x, y: sqrt(x+y), [1, 2], [1, 2])", maxprec=100)
+    benchmark("Polynomial roots, deg=3", "polyroots([x*i for i in range(3+1)][::-1])")
+    benchmark("Polynomial roots, deg=10", "polyroots([x*i for i in range(10+1)][::-1])")
+    benchmark("Chebyshev approximation", "chebyfit(sqrt, [1, 2], mp.dps)", maxprec=100)
 
 def all_benchmarks():
     constants_benchmark()
@@ -349,4 +351,5 @@ def all_benchmarks():
     functions_benchmark()
     misc_benchmark()
 
-all_benchmarks()
+#all_benchmarks()
+misc_benchmark()
