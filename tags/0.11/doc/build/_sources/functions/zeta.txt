@@ -1,0 +1,31 @@
+Zeta functions
+--------------
+
+.. contents::
+
+Riemann zeta function (:func:`zeta`)
+....................................
+
+.. autofunction:: mpmath.functions.zeta
+
+Dirichlet eta function (:func:`altzeta`)
+........................................
+
+.. autofunction:: mpmath.functions.altzeta
+
+Bernoulli numbers and polynomials (:func:`bernoulli`, :func:`bernfrac`, :func:`bernpoly`)
+.........................................................................................
+
+.. autofunction:: mpmath.functions.bernoulli
+.. autofunction:: mpmath.functions.bernfrac
+.. autofunction:: mpmath.functions.bernpoly(n,z)
+
+Polylogarithms (:func:`polylog`)
+................................
+
+.. autofunction:: mpmath.functions.polylog(s,z)
+
+Stieltjes constants (:func:`stieltjes`)
+.......................................
+
+.. autofunction:: mpmath.functions.stieltjes

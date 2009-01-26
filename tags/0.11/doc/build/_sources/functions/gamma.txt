@@ -1,0 +1,47 @@
+Factorials and gamma functions
+------------------------------
+
+.. contents::
+
+Factorials (:func:`factorial`/:func:`fac`)
+..........................................
+
+.. autofunction:: mpmath.functions.factorial
+
+Gamma function (:func:`gamma`, :func:`gammaprod`)
+.................................................
+
+.. autofunction:: mpmath.functions.gamma
+.. autofunction:: mpmath.functions.gammaprod
+
+Binomial coefficients, rising and falling factorials (:func:`binomial`, :func:`rf`, :func:`ff`)
+...............................................................................................
+
+.. autofunction:: mpmath.functions.binomial
+.. autofunction:: mpmath.functions.rf
+.. autofunction:: mpmath.functions.ff
+
+Beta function (:func:`beta`)
+............................
+
+.. autofunction:: mpmath.functions.beta
+
+Double factorials (:func:`fac2`)
+................................
+
+.. autofunction:: mpmath.functions.fac2(x)
+
+Super- and hyperfactorials (:func:`superfac`, :func:`hyperfac`, :func:`barnesg`)
+................................................................................
+
+.. autofunction:: mpmath.functions.superfac
+.. autofunction:: mpmath.functions.hyperfac
+.. autofunction:: mpmath.functions.barnesg
+
+Polygamma functions (:func:`psi`, :func:`digamma`, :func:`trigamma`, :func:`harmonic`)
+......................................................................................
+
+.. autofunction:: mpmath.functions.psi
+.. autofunction:: mpmath.functions.digamma
+.. autofunction:: mpmath.functions.trigamma
+.. autofunction:: mpmath.functions.harmonic
