@@ -1,7 +1,7 @@
 #summary Front page
 
 ==Status==
-* 2008-10-15: mpmath 0.10 released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details. ([History Older news])
+* 2009-01-26: mpmath 0.11 released. See [http://fredrik-j.blogspot.com/2009/01/mpmath-011-released.html this blog update] and the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details. ([History Older news])
 
 ==About mpmath==
 
@@ -15,9 +15,7 @@ http://mpmath.googlecode.com/svn/doc/frontpic.png
 
 ==Documentation==
 
-*[http://mpmath.googlecode.com/svn/tags/0.10/doc/build/index.html Mpmath 0.10 documentation]* (HTML) -- provides installation instructions and extensive interactive examples.
-
-[http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Trunk documentation] -- includes unreleased changes / features
+[http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Main documentation] (HTML) -- provides installation instructions and extensive interactive examples.
 
 ==List of features==
 
@@ -34,27 +32,31 @@ Functions:
   * Standard mathematical constants: pi, e, the golden ratio, Euler's constant (gamma)
   * Less standard constants: Catalan's, Apery's, Khinchin's and Glaisher's constants
   * Lambert W function (all branches)
-  * Error function (erf), imaginary and complementary error functions; normal distribution functions
-  * Gamma functions (complete and incomplete), factorials and binomial coefficients
+  * Error function (erf), imaginary and complementary error functions; inverse error function; normal distribution functions
+  * Gamma functions (complete and incomplete), factorials, double factorials and binomial coefficients
+  * Fibonacci numbers
+  * Barnes G-function, super- and hyperfactorials
   * Polygamma functions
   * Riemann zeta function and Bernoulli numbers (fast numerical and exact computation of large Bernoulli numbers)
+  * Polylogarithms
   * Stieltjes constants
-  * Bessel function of the first kind, Airy functions
+  * Bessel and Hankel functions; Airy functions
   * Exponential and trigonometric integrals
   * Arithmetic-geometric mean
   * Complete elliptic integrals
-  * Jacobi elliptic functions
+  * Jacobi elliptic functions and Jacobi theta functions
   * Jacobi, Legendre and Chebyshev polynomials
   * Generic hypergeometric functions
 
 High-level features:
   * Numerical integration (regular, double/triple integrals, oscillatory)
-  * Numerical differentiation
+  * Numerical differentiation (arbitrary orders)
   * Limits and summation of infinite series (with convergence acceleration)
-  * Root-finding (secant method, bisection, modified Newton's method, and other algorithms)
+  * Root-finding (1D and multidimensional; secant method, bisection, modified Newton's method, and other algorithms)
   * Polynomial evaluation and polynomial root-finding
   * Chebyshev approximation
-  * Basic ODE solvers
+  * ODE solvers
+  * Fourier and Taylor series
   * Integer relation detection (constant recognition)
   * Linear algebra functions (linear system solving, LU factorization, matrix inverse, matrix norms)
 
@@ -69,9 +71,9 @@ print pi
 print 2*asinh(j).imag
 print gamma(0.5)**2
 print sqrt(6*zeta(2))
-print quadts(lambda x: 4*sqrt(1-x**2), [0, 1])
-print quadts(lambda x: exp(-x**2), [-inf, inf]) ** 2
-print sumsh(lambda n: 4*(-1)**n/(2*n+1), [0, inf])
+print quad(lambda x: 4*sqrt(1-x**2), [0, 1])
+print quad(lambda x: exp(-x**2), [-inf, inf]) ** 2
+print nsum(lambda n: 4*(-1)**n/(2*n+1), [0, inf])
 print limit(lambda n: 2**(4*n+1)*factorial(n)**4/(2*n+1)/factorial(2*n)**2, inf)
 print findroot(sin, 3.14)
 }}}
