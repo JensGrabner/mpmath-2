@@ -1,6 +1,8 @@
 #summary Front page
 
 ==Status==
+* 2009-02-05: [http://code.google.com/p/hcpy/ hcpy], an RPN calculator that uses mpmath, is available
+
 * 2009-01-26: mpmath 0.11 released. See [http://fredrik-j.blogspot.com/2009/01/mpmath-011-released.html this blog update] and the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details. ([History Older news])
 
 ==About mpmath==
