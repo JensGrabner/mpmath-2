@@ -16,8 +16,11 @@ If [http://matplotlib.sourceforge.net/ matplotlib] is available, mpmath also pro
 http://mpmath.googlecode.com/svn/doc/frontpic.png
 
 ==Documentation==
+The documentation provides installation instructions and extensive interactive examples.
 
-[http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Main documentation] (HTML) -- provides installation instructions and extensive interactive examples.
+* [http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Main documentation, development version] (HTML)
+
+* [http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Main documentation, 0.11 release] (HTML) 
 
 ==List of features==
 
