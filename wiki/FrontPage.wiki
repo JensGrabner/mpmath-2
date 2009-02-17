@@ -20,7 +20,7 @@ The documentation provides installation instructions and extensive interactive e
 
 * [http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Main documentation, development version] (HTML)
 
-* [http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Main documentation, 0.11 release] (HTML) 
+* [http://mpmath.googlecode.com/svn/tags/0.11/doc/build/index.html Main documentation, 0.11 release] (HTML) 
 
 ==List of features==
 
