@@ -97,6 +97,7 @@ Some example computations with high precision:
   * [http://mpmath.googlecode.com/svn/data/bernoulli.txt 2500 Bernoulli numbers] with 64 digits (computed in 6 seconds)
 
 ==Projects using mpmath==
-  * [http://code.google.com/p/sympy SymPy] and [http://code.google.com/p/sympycore SympyCore], Python computer algebra systems
+  * [http://code.google.com/p/sympy SymPy] and [http://code.google.com/p/sympycore SympyCore], Python computer algebra systems, use mpmath for numerical evaluation
   * [http://code.google.com/p/hcpy/ hcpy], an RPN calculator
   * [http://gitorious.org/pytaylor pytaylor], Taylor models for Python using mpmath and sympy
+  * [http://tnt.math.metro-u.ac.jp/nzmath/ NZMATH] uses mpmath for auxiliary calculations in its ECPP code
