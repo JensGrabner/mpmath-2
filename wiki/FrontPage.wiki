@@ -99,3 +99,4 @@ Some example computations with high precision:
 ==Projects using mpmath==
   * [http://code.google.com/p/sympy SymPy] and [http://code.google.com/p/sympycore SympyCore], Python computer algebra systems
   * [http://code.google.com/p/hcpy/ hcpy], an RPN calculator
+  * [http://gitorious.org/pytaylor pytaylor], Taylor models for Python using mpmath and sympy
