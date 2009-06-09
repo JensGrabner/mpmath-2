@@ -1,0 +1,23 @@
+Elliptic functions
+------------------
+
+.. contents::
+
+Elliptic integrals (:func:`ellipe`, :func:`ellipk`)
+...................................................
+
+.. autofunction:: mpmath.functions.ellipk(x, **kwargs)
+.. autofunction:: mpmath.functions.ellipe(x, **kwargs)
+
+Jacobi theta functions (:func:`jtheta`, :func:`djtheta`)
+........................................................
+
+.. autofunction:: mpmath.elliptic.jtheta(n,z,q)
+.. autofunction:: mpmath.elliptic.djtheta(n,z,q,nd=1)
+
+Jacobi elliptic functions (:func:`jsn`, :func:`jcn`, :func:`jdn`)
+.................................................................
+
+.. autofunction:: mpmath.elliptic.jsn(u,m)
+.. autofunction:: mpmath.elliptic.jcn(u,m)
+.. autofunction:: mpmath.elliptic.jdn(u,m)
