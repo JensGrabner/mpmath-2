@@ -1,7 +1,7 @@
 #summary Front page
 
 ==Status==
-* 2009-08-13: mpmath 0.13 released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
+* 2009-08-13: mpmath 0.13 released. See the [http://groups.google.com/group/mpmath/browse_thread/thread/960b02f0a2ed5dfa announcement] and [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
 
 ([History Older news])
 
