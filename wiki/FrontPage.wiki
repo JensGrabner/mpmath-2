@@ -1,11 +1,9 @@
 #summary Front page
 
 ==Status==
-* 2009-06-09: mpmath 0.12 released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
+* 2009-08-13: mpmath 0.13 released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
 
-* 2009-02-05: [http://code.google.com/p/hcpy/ hcpy], an RPN calculator that uses mpmath, is available
-
-* 2009-01-26: mpmath 0.11 released. See [http://fredrik-j.blogspot.com/2009/01/mpmath-011-released.html this blog update] and the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details. ([History Older news])
+([History Older news])
 
 ==About mpmath==
 
@@ -22,7 +20,7 @@ The documentation provides installation instructions and extensive interactive e
 
 * [http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Main documentation, development version] (HTML)
 
-* [http://mpmath.googlecode.com/svn/tags/0.12/doc/build/index.html Main documentation, 0.12 release] (HTML) 
+* [http://mpmath.googlecode.com/svn/tags/0.13/doc/build/index.html Main documentation, 0.13 release] (HTML) 
 
 ==List of features==
 
@@ -40,25 +38,25 @@ Functions:
   * Less standard constants: Catalan's, Apery's, Khinchin's and Glaisher's constants
   * Lambert W function (all branches)
   * Error function (erf), imaginary and complementary error functions; inverse error function; normal distribution functions
-  * Gamma functions (complete and incomplete), factorials, double factorials and binomial coefficients, log gamma function
+  * Gamma functions (complete and incomplete), factorials, double factorials and binomial coefficients, log gamma function; complete and incomplete beta functions
   * Fibonacci numbers
   * Barnes G-function, super- and hyperfactorials
   * Polygamma functions
-  * Riemann zeta function, Riemann-Siegel and related functions
+  * Riemann zeta function, Hurwitz zeta function, Riemann-Siegel and related functions
   * Bernoulli numbers (fast numerical and exact computation of large Bernoulli numbers)
-  * Polylogarithms
+  * Polylogarithms, Clausen functions
   * Stieltjes constants
-  * Bessel and Hankel functions; Airy functions
+  * Bessel functions; Hankel, Struve, Kelvin, Whittaker, Airy, Coulomb functions
   * Exponential and trigonometric integrals
   * Arithmetic-geometric mean
   * Complete elliptic integrals
   * Jacobi elliptic functions and Jacobi theta functions
-  * Jacobi, Legendre and Chebyshev polynomials
+  * Jacobi, Legendre and Chebyshev and other orthogonal polynomials; associated Legendre functions
   * Generic hypergeometric functions
 
 High-level features:
   * Numerical integration (regular, double/triple integrals, oscillatory)
-  * Numerical differentiation (arbitrary orders)
+  * Numerical differentiation and differintegration (arbitrary orders)
   * Limits and summation of infinite series (with convergence acceleration)
   * Root-finding (1D and multidimensional; secant method, bisection, modified Newton's method, and other algorithms)
   * Polynomial evaluation and polynomial root-finding
