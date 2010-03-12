@@ -103,3 +103,6 @@ Some example computations with high precision:
   * [http://code.google.com/p/hcpy/ hcpy], an RPN calculator
   * [http://gitorious.org/pytaylor pytaylor], Taylor models for Python using mpmath and sympy
   * [http://tnt.math.metro-u.ac.jp/nzmath/ NZMATH] uses mpmath for auxiliary calculations in its ECPP code
+
+==Research using mpmath / citing mpmath==
+See the page [CitingMpmath citing mpmath].
