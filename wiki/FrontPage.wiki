@@ -1,7 +1,7 @@
 #summary Front page
 
 ==Status==
-* 2010-02-05: mpmath 0.14 released. See the [http://fredrik-j.blogspot.com/2010/02/mpmath-014-released.html blog post] and [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
+* 2010-06-06: mpmath 0.15 released. See the [http://fredrik-j.blogspot.com/2010/06/announcing-mpmath-015.html blog post] and [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
 
 ([History Older news])
 
@@ -20,7 +20,9 @@ The documentation provides installation instructions and extensive interactive e
 
 * [http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Main documentation, development version] (HTML)
 
-* [http://mpmath.googlecode.com/svn/tags/0.14/doc/build/index.html Main documentation, 0.14 release] (HTML)
+* [http://mpmath.googlecode.com/svn/tags/0.15/doc/build/index.html Main documentation, 0.15 release] (HTML)
+
+* Previous versions: [http://mpmath.googlecode.com/svn/tags/0.14/doc/build/index.html 0.14], [http://mpmath.googlecode.com/svn/tags/0.13/doc/build/index.html 0.13] [http://mpmath.googlecode.com/svn/tags/0.12/doc/build/index.html 0.12]
 
 ==List of features==
 
@@ -29,10 +31,10 @@ Arithmetic:
   * Unlimited exponent sizes / magnitudes
   * Support for infinities and not-a-numbers
   * Directed rounding
-  * Interval arithmetic
+  * Real and complex interval arithmetic
   * Matrices with arbitrary-precision real, complex or interval elements
 
-Functions:
+Special functions:
   * Elementary functions (sqrt, exp, log, trigonometric, hyperbolic, inverse trig and hyperbolic)
   * Standard mathematical constants: pi, e, the golden ratio, Euler's constant (gamma)
   * Less standard constants: Catalan's, Apery's, Khinchin's and Glaisher's constants
@@ -42,7 +44,7 @@ Functions:
   * Fibonacci numbers
   * Barnes G-function, super- and hyperfactorials
   * Polygamma functions
-  * Riemann zeta function, Hurwitz zeta function, Riemann-Siegel and related functions; evaluation with the Riemann-Siegel expansion
+  * Riemann zeta function, Hurwitz zeta function, Riemann-Siegel and related functions; evaluation with the Riemann-Siegel expansion; Riemann zeta zeros
   * Bernoulli numbers (fast numerical and exact computation of large Bernoulli numbers), Bernoulli polynomials, Euler numbers and polynomials
   * Polylogarithms, Clausen functions
   * Stieltjes constants
@@ -52,12 +54,14 @@ Functions:
   * Complete elliptic integrals
   * Jacobi elliptic functions and Jacobi theta functions
   * Jacobi, Legendre and Chebyshev and other orthogonal polynomials; associated Legendre functions; spherical harmonics
-  * Generalized hypergeometric functions; the Meijer G-function; Borel regularized hypergeometric series
+  * Generalized hypergeometric functions; the Meijer G-function; Borel regularized hypergeometric series; bilateral series; 2D hypergeometric series (Appell, Horn, Kampé de Fériet functions)
+  * q-factorials and q-hypergeometric series
 
-High-level features:
+Calculus and other general high-level mathematics:
   * Numerical integration (regular, double/triple integrals, oscillatory)
-  * Numerical differentiation and differintegration (arbitrary orders)
+  * Numerical differentiation and differintegration (arbitrary orders); partial derivatives
   * Limits and summation of infinite series (with convergence acceleration)
+  * Multidimensional series
   * Root-finding (1D and multidimensional; secant method, bisection, modified Newton's method, and other algorithms)
   * Polynomial evaluation and polynomial root-finding
   * Chebyshev approximation
