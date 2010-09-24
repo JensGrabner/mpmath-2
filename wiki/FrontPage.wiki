@@ -1,7 +1,7 @@
 #summary Front page
 
 ==Status==
-* 2010-06-06: mpmath 0.15 released. See the [http://fredrik-j.blogspot.com/2010/06/announcing-mpmath-015.html blog post] and [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
+* 2010-09-24: mpmath 0.16 released. See the [http://fredrik-j.blogspot.com/2010/09/announcing-mpmath-016.html blog post] and [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
 
 ([History Older news])
 
@@ -20,9 +20,9 @@ The documentation provides installation instructions and extensive interactive e
 
 * [http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Main documentation, development version] (HTML)
 
-* [http://mpmath.googlecode.com/svn/tags/0.15/doc/build/index.html Main documentation, 0.15 release] (HTML)
+* [http://mpmath.googlecode.com/svn/tags/0.16/doc/build/index.html Main documentation, 0.16 release] (HTML)
 
-* Previous versions: [http://mpmath.googlecode.com/svn/tags/0.14/doc/build/index.html 0.14], [http://mpmath.googlecode.com/svn/tags/0.13/doc/build/index.html 0.13] [http://mpmath.googlecode.com/svn/tags/0.12/doc/build/index.html 0.12]
+* Previous versions: [http://mpmath.googlecode.com/svn/tags/0.15/doc/build/index.html 0.15], [http://mpmath.googlecode.com/svn/tags/0.14/doc/build/index.html 0.14], [http://mpmath.googlecode.com/svn/tags/0.13/doc/build/index.html 0.13] [http://mpmath.googlecode.com/svn/tags/0.12/doc/build/index.html 0.12]
 
 ==List of features==
 
@@ -48,10 +48,10 @@ Special functions:
   * Bernoulli numbers (fast numerical and exact computation of large Bernoulli numbers), Bernoulli polynomials, Euler numbers and polynomials
   * Polylogarithms, Clausen functions
   * Stieltjes constants
-  * Bessel functions; Hankel, Struve, Kelvin, Whittaker, Airy, Coulomb functions
+  * Bessel functions; Hankel, Struve, Kelvin, Whittaker, Airy, Coulomb functions; Bessel function zeros; parabolic cylinder functions
   * Exponential and trigonometric integrals
   * Arithmetic-geometric mean
-  * Complete elliptic integrals
+  * Complete and incomplete elliptic integrals (Legendre and Carlsen forms)
   * Jacobi elliptic functions and Jacobi theta functions
   * Jacobi, Legendre and Chebyshev and other orthogonal polynomials; associated Legendre functions; spherical harmonics
   * Generalized hypergeometric functions; the Meijer G-function; Borel regularized hypergeometric series; bilateral series; 2D hypergeometric series (Appell, Horn, Kampé de Fériet functions)
