@@ -24,9 +24,17 @@ This might render as:
 
 Change the version number to the version you used, and the date to the date of its release. (All previous versions are available on the downloads page.)
 
-==Papers citing mpmath==
+==Papers and books citing mpmath==
 
 Note: some of these mention mpmath although they do not list it in the references.
+
+  * S. Mahajan, "Street-Fighting Mathematics: The Art of Educated Guessing and Opportunistic Problem Solving", MIT Press 2010, http://mitpress.mit.edu/catalog/item/default.asp?ttype=2&tid=12156
+
+  * W. Mueck, "Running Scaling Dimensions in Holographic Renormalization Group Flows", preprint, http://arxiv.org/abs/1006.2987
+
+  * T. Fischbacher, "Numerical tools to validate stationary points of SO(8)-gauged N=8 D=4 supergravity", preprint, http://arxiv.org/abs/1007.0600
+
+  * L. Jutier, "A new basis set for molecular bending degrees of freedom", J. Chem. Phys. 133, 034107 (19 July 2010); doi:10.1063/1.3462244 http://jcp.aip.org/resource/1/jcpsa6/v133/i3/p034107_s1
 
   * D. L. Ensign, V. S. Pande, "Bayesian Detection of Intensity Changes in Single Molecule and Molecular Dynamics Trajectories", J. Phys. Chem. B, 2010, 114 (1), pp 280–292, http://pubs.acs.org/doi/full/10.1021/jp906786b
 
