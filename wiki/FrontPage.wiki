@@ -1,7 +1,9 @@
 #summary Front page
 
 ==Status==
-* 2011-02-01: mpmath 0.17 released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details. _mpmath now supports Python 3!_*
+* mpmath is now hosted on github: https://github.com/fredrik-johansson/mpmath/
+
+* 2013-12-31: mpmath 0.18 released. See the [https://github.com/fredrik-johansson/mpmath/blob/0.18/CHANGES changelog] for details
 
 ([History Older news])
 
@@ -18,11 +20,9 @@ http://mpmath.googlecode.com/svn/doc/frontpic.png
 ==Documentation==
 The documentation provides installation instructions and extensive interactive examples.
 
-* [http://mpmath.googlecode.com/svn/trunk/doc/build/index.html Main documentation, development version] (HTML)
+* [http://sage.math.washington.edu/home/fredrik/mpmath/doc/0.18/ Main documentation, 0.18 release] (HTML)
 
-* [http://mpmath.googlecode.com/svn/tags/0.17/doc/build/index.html Main documentation, 0.17 release] (HTML)
-
-* Previous versions: [http://mpmath.googlecode.com/svn/tags/0.16/doc/build/index.html 0.16], [http://mpmath.googlecode.com/svn/tags/0.15/doc/build/index.html 0.15], [http://mpmath.googlecode.com/svn/tags/0.14/doc/build/index.html 0.14], [http://mpmath.googlecode.com/svn/tags/0.13/doc/build/index.html 0.13] [http://mpmath.googlecode.com/svn/tags/0.12/doc/build/index.html 0.12]
+* Previous versions: [http://mpmath.googlecode.com/svn/tags/0.17/doc/build/index.html Main documentation, 0.17] [http://mpmath.googlecode.com/svn/tags/0.16/doc/build/index.html 0.16], [http://mpmath.googlecode.com/svn/tags/0.15/doc/build/index.html 0.15], [http://mpmath.googlecode.com/svn/tags/0.14/doc/build/index.html 0.14], [http://mpmath.googlecode.com/svn/tags/0.13/doc/build/index.html 0.13] [http://mpmath.googlecode.com/svn/tags/0.12/doc/build/index.html 0.12]
 
 ==List of features==
 
@@ -68,7 +68,7 @@ Calculus and other general high-level mathematics:
   * ODE solvers
   * Fourier and Taylor series
   * Integer relation detection (constant recognition)
-  * Linear algebra functions (linear system solving, LU factorization, matrix inverse, matrix norms, matrix exponentials/logarithms/square roots)
+  * Linear algebra functions (linear system solving, LU factorization, matrix inverse, matrix norms, matrix exponentials/logarithms/square roots, eigenvalues, singular values, QR factorization)
 
 ==High-precision examples==
 
