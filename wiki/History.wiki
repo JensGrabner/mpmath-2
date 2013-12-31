@@ -2,6 +2,7 @@
 
 For a detailed changelog, see the [http://mpmath.googlecode.com/svn/trunk/CHANGES CHANGES] file in the SVN repository.
 
+  * 2011-02-01: mpmath 0.17 released. See the [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details. _mpmath now supports Python 3!_*
   * 2010-09-24: mpmath 0.16 released. See the [http://fredrik-j.blogspot.com/2010/09/announcing-mpmath-016.html blog post] and [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
   * 2010-06-06: mpmath 0.15 released. See the [http://fredrik-j.blogspot.com/2010/06/announcing-mpmath-015.html blog post] and [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
   * 2010-02-05: mpmath 0.14 released. See the [http://fredrik-j.blogspot.com/2010/02/mpmath-014-released.html blog post] and [http://mpmath.googlecode.com/svn/trunk/CHANGES changelog] for details.
