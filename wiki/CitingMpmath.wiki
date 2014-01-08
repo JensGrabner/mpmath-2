@@ -28,6 +28,8 @@ Change the version number to the version you used, and the date to the date of i
 
 Note: some of these mention mpmath although they do not list it in the references.
 
+  * M. Xia and S. Aissa, "Moments based framework for performance analysis of one-way/two-way CSI-assisted AF relaying", IEEE Journal on Selected Areas in Communications, vol. 30, no. 8, pp. 1464-1476, Sep. 2012.
+
   * S. Mahajan, "Street-Fighting Mathematics: The Art of Educated Guessing and Opportunistic Problem Solving", MIT Press 2010, http://mitpress.mit.edu/catalog/item/default.asp?ttype=2&tid=12156
 
   * W. Mueck, "Running Scaling Dimensions in Holographic Renormalization Group Flows", preprint, http://arxiv.org/abs/1006.2987
