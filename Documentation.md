@@ -1,0 +1,1 @@
+This wiki page is now obsolete: see the [mpmath manual](http://mpmath.googlecode.com/svn/trunk/doc/build/index.html) for up-to-date documentation.
